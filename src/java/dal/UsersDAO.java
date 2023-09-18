@@ -32,6 +32,27 @@ public class UsersDAO extends DBContext{
         }
         return list;
     }
+    public Users getUserByEmailAndPassword(String email, String password) {
+    String sql = "SELECT * FROM Users WHERE Email=? AND PassWord=?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, email);
+        st.setString(2, password);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            return new Users(
+                rs.getInt("UserID"), rs.getString("FullName"), rs.getDate("BirthDate"),
+                rs.getString("PhoneNumber"), rs.getString("Email"),
+                rs.getString("PassWord"), rs.getString("Address"),
+                rs.getDate("RegistrationDate"), rs.getString("UserRole")
+            );
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return null;
+}
+
     public static void main(String[] args) {
         UsersDAO u = new UsersDAO();
         List<Users> list = u.getAll();
