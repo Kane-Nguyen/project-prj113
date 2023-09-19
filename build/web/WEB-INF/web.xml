@@ -12,6 +12,10 @@
         <servlet-name>GetCookieServlet</servlet-name>
         <servlet-class>controller.GetCookieServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>controller.SignUpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>GetCookieServlet</servlet-name>
         <url-pattern>/GetCookieServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/SignUpServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

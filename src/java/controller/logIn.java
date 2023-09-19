@@ -61,7 +61,7 @@ public class logIn extends HttpServlet {
                     }
 
                     // Đặt lại thời gian sống của cookie là 2 giờ
-                    cookie.setMaxAge(20);
+                    cookie.setMaxAge(7200);
                     response.getWriter().println("Cookie Name: " + name + ", Value: " + value);
                 }
             }

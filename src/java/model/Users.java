@@ -48,6 +48,10 @@ public class Users {
         this.userRole = userRole;
     }
 
+    
+
+   
+
     public int getUserId() {
         return userId;
     }
