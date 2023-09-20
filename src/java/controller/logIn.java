@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,12 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import model.Login;
+import jakarta.servlet.http.HttpSession;
 /**
  *
- * @author Administrator
+ * @author Lenovo
  */
-@WebServlet(name="logIn", urlPatterns={"/log-in"})
+@WebServlet(name="login", urlPatterns={"/login"})
 public class logIn extends HttpServlet {
    
     /** 
@@ -35,10 +37,10 @@ public class logIn extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet logIn</title>");  
+            out.println("<title>Servlet login</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet logIn at " + "</h1>");
+            out.println("<h1>Servlet login at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +57,7 @@ public class logIn extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     } 
 
     /** 
@@ -68,7 +70,19 @@ public class logIn extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String em =request.getParameter("email");
+        String p = request.getParameter("password");
+        DAO d =new DAO();
+        Login a=d.check(em, p);
+         HttpSession session = request.getSession();
+         if(a == null){
+             request.setAttribute("error", "WRONG");
+             request.getRequestDispatcher("login.jsp").forward(request, response);
+         } else {
+             request.setAttribute("email", em);
+             session.setAttribute("account", a);
+             request.getRequestDispatcher("welcome.jsp").forward(request, response);
+         }
     }
 
     /** 
@@ -81,3 +95,4 @@ public class logIn extends HttpServlet {
     }// </editor-fold>
 
 }
+
