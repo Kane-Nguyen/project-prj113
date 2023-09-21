@@ -35,6 +35,21 @@ public class Users {
 
     public Users() {
     }
+    
+    public class Login {
+    private String fullname;
+    private String email;
+    private String password;
+    
+
+    public Login(String email, String password) {
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+    }
+
+    
+}
 
     public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole) {
         this.userId = userId;
@@ -48,6 +63,7 @@ public class Users {
         this.userRole = userRole;
     }
 
+    
     public int getUserId() {
         return userId;
     }
