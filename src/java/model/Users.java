@@ -47,11 +47,6 @@ public class Users {
         this.regisstrationDate = regisstrationDate;
         this.userRole = userRole;
     }
-    public void Login(String email, String password) {
-        this.email = email;
-        this.passWord = password;
-    }
-
     public int getUserId() {
         return userId;
     }

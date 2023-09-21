@@ -13,8 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Login;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Users;
 /**
  *
@@ -74,24 +74,24 @@ public class logIn extends HttpServlet {
         String em =request.getParameter("email");
         String p = request.getParameter("password");
         dal.UsersDAO d = new UsersDAO();
-        Users u = new Users();
-        Login a=d.check(em, p);
-        String f = u.getFullName();
-        HttpSession session = request.getSession();
-         if(a == null){
+         UsersDAO u = new UsersDAO();
+        List<Users> list = u.getAll();
+        for (int i = 0 ;i < list.size(); i++){
+            HttpSession session = request.getSession();
+            if(em == null || p == null ){
              request.setAttribute("error", "WRONG");
              request.getRequestDispatcher("login.jsp").forward(request, response);
+             break;
          } else {
              request.setAttribute("email", em);           
-             session.setAttribute("fullname", f);
              request.getRequestDispatcher("index.html").forward(request, response);
          }
+        }
+        
+         
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+   
     @Override
     public String getServletInfo() {
         return "Short description";
