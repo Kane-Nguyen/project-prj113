@@ -35,7 +35,7 @@
             </div>
             <button type="submit" value="LOGIN" class="btn btn-primary">Submit</button>
         </form>
-        <h3>${requestScope.error}</h3>
+        <h3 style="color:red; text-align: center;">${requestScope.error}</h3>
         <script>
             // JavaScript code to toggle password visibility
             document.getElementById("exampleCheck1").addEventListener("change", function () {
