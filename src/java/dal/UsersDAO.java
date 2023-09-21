@@ -81,7 +81,7 @@ public class UsersDAO extends DBContext {
         List<Users> list = u.getAll();
 
         // Print the full name of the first user in the list
-        System.out.println(list.get(1).getEmail());
-        System.out.println(list.get(1).getPassWord());
+        System.out.println(list.get(4).getEmail());
+        System.out.println(list.get(4).getPassWord());
     }
 }
