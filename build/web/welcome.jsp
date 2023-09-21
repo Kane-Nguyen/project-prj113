@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Login successful ${requestScope.account.email}</h1>
+        <h1>Login successful ${sessionScope.fullname}</h1>
     </body>
 </html>

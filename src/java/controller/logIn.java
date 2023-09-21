@@ -5,7 +5,7 @@
 
 package controller;
 
-import dal.DAO;
+import dal.UsersDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Login;
 import jakarta.servlet.http.HttpSession;
+import model.Users;
 /**
  *
  * @author Lenovo
@@ -72,16 +73,18 @@ public class logIn extends HttpServlet {
     throws ServletException, IOException {
         String em =request.getParameter("email");
         String p = request.getParameter("password");
-        DAO d =new DAO();
+        dal.UsersDAO d = new UsersDAO();
+        Users u = new Users();
         Login a=d.check(em, p);
-         HttpSession session = request.getSession();
+        String f = u.getFullName();
+        HttpSession session = request.getSession();
          if(a == null){
              request.setAttribute("error", "WRONG");
              request.getRequestDispatcher("login.jsp").forward(request, response);
          } else {
-             request.setAttribute("email", em);
-             session.setAttribute("account", a);
-             request.getRequestDispatcher("welcome.jsp").forward(request, response);
+             request.setAttribute("email", em);           
+             session.setAttribute("fullname", f);
+             request.getRequestDispatcher("index.html").forward(request, response);
          }
     }
 
