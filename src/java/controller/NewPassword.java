@@ -1,4 +1,4 @@
-package com.uniquedeveloper.registration;
+package controller;
 
 import dal.UsersDAO;
 import model.Users;

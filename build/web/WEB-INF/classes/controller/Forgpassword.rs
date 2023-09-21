@@ -1,4 +1,0 @@
-Forgpassword
-ForgotPassword$1
-Forgpassword$1
-ForgotPassword
