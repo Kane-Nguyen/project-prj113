@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/style.css</file>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/logIn.html</file>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/controller/logIn.java</file>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/index.html</file>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/js/index.js</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/controller/NewServlet1.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/dal/UsersDAO.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/index.html</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/logIn.html</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/model/Users.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/dal/DBContext.java</file>
         </group>
     </open-files>
 </project-private>
