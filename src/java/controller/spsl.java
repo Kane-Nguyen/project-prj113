@@ -26,7 +26,10 @@ public class spsl extends HttpServlet {
         if (email != null && !email.equals("")) {
             for (Users user : list) {
                 if (user.getEmail().equals(email)) {
-                    response.getWriter().write("Email already registered. Please try another email.");
+                    //response.getWriter().write("Email already registered. Please try another email.");
+                    String redirectURL = "SignUp.html"; // Thay thế URL mong muốn
+                    String popupScript = "<script>alert('Email already registered. Please try another email.'); window.location.href='" + redirectURL + "';</script>";
+                    response.getWriter().write(popupScript);
                     return;
                 }
             }
@@ -37,7 +40,11 @@ public class spsl extends HttpServlet {
 
         if (isSuccess) {
             // Success
-            response.getWriter().write("User registered successfully.");
+            //response.getWriter().write("User registered successfully.");
+            String redirectURL = "logIn.html"; // Thay thế URL mong muốn
+            String redirectURL1 = "http://localhost:8080/projectPRJ113/";
+            String popupScript = "<script>var result = confirm('User registered successfully. Let log in!'); if (result) { window.location.href='" + redirectURL + "'; } else { window.location.href='" + redirectURL1 + "'; }</script>";
+            response.getWriter().write(popupScript);
         } else {
             // Failure
             response.getWriter().write("Registration failed. Please try again.");
