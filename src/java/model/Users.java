@@ -47,7 +47,6 @@ public class Users {
         this.regisstrationDate = regisstrationDate;
         this.userRole = userRole;
     }
-
     public int getUserId() {
         return userId;
     }

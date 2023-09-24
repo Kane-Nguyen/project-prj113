@@ -8,7 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+<<<<<<< HEAD
         <title>LogIn Store</title>
+=======
+        <title>Log In Page</title>
+>>>>>>> 8eb77014665b78addc01b5faff1a35114cddfe89
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
