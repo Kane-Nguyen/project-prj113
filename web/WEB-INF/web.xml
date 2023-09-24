@@ -13,8 +13,8 @@
         <servlet-class>controller.su</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>spsl</servlet-name>
-        <servlet-class>controller.spsl</servlet-class>
+        <servlet-name>signup</servlet-name>
+        <servlet-class>controller.signup</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
@@ -25,8 +25,8 @@
         <url-pattern>/SighUp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>spsl</servlet-name>
-        <url-pattern>/spsl</url-pattern>
+        <servlet-name>signup</servlet-name>
+        <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
