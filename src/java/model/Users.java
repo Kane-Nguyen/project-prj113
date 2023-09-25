@@ -37,16 +37,23 @@ public class Users {
     }
     
     public class Login {
-    private String fullname;
-    private String email;
-    private String password;
-    
+        private String fullName;
+        private Date birthDate;
+        private String phoneNumber;
+        private String email;
+        private String passWord;
+        private String address;
+        private String userRole;
 
-    public Login(String email, String password) {
-        this.email = email;
-        this.password = password;
-        this.fullname = fullname;
-    }
+        public Login(String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, String userRole) {
+            this.fullName = fullName;
+            this.birthDate = birthDate;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.passWord = passWord;
+            this.address = address;
+            this.userRole = userRole;
+        }
 
     
 }

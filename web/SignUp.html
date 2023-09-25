@@ -25,19 +25,34 @@
                             <form method="POST" action="signup" class="register-form"
                                   id="register-form">
                                 <div class="form-group">
-                                    <label for="name"><i
+                                    <label for="fullName"><i
                                             class="zmdi zmdi-account material-icons-name"></i></label> <input
-                                        type="text" name="name" id="name" placeholder="Your Name" />
+                                        type="text" name="fullName" id="fullName" placeholder="Your Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthDate"><i class="zmdi zmdi-calendar"></i></label>
+                                    <input type="date" name="birthDate" id="birthDate" placeholder="Your Date of Birth" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="phoneNumber"><i class="zmdi zmdi-phone"></i></label>
+                                    <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Your Phone Number" />
                                 </div>
                                 <div class="form-group">
                                     <label for="email"><i class="zmdi zmdi-email"></i></label> <input
                                         type="email" name="email" id="email" placeholder="Your Email" />
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
-                                        type="password" name="pass" id="pass" placeholder="Password" />
+                                    <label for="passWord"><i class="zmdi zmdi-lock"></i></label> <input
+                                        type="passWord" name="passWord" id="passWord" placeholder="Password" />
                                 </div>
-                               
+                                <div class="form-group">
+                                    <label for="address"><i class="zmdi zmdi-pin"></i></label>
+                                    <input type="text" name="address" id="address" placeholder="Your Address" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="userRole"><i class="zmdi zmdi-star zmdi-hc-fw" style="color: black;"></i></label>
+                                    <input type="text" name="userRole" id="userRole" placeholder="Your Role" />
+                                </div>
                                 <div class="form-group">
                                     <input type="checkbox" name="agree-term" id="agree-term"
                                            class="agree-term" /> <label for="agree-term"
