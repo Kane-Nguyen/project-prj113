@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/dal/UsersDAO.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/controller/NewServlet1.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/dal/UsersDAO.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/index.html</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/logIn.html</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/model/Users.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/dal/DBContext.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>
