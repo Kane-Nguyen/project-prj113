@@ -34,7 +34,10 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
+            <div class="form-check">
             <button type="submit" value="LOGIN" class="btn btn-primary">Submit</button>
+            <a href="http://localhost:8080/projectPRJ113/SignUp.html">Don't have password?<a/>
+             </div>
         </form>
         <h3 style="color:red; text-align: center;">${requestScope.error}</h3>
         <script>

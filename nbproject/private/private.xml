@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/index.html</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/logIn.html</file>
+            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/admin.jsp</file>
+            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/login.jsp</file>
+            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/controller/loginServlet.java</file>
         </group>
     </open-files>
 </project-private>
