@@ -5,24 +5,12 @@
         <servlet-class>controller.tinhServer</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SighUp</servlet-name>
-        <servlet-class>controller.sighp</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>su</servlet-name>
-        <servlet-class>controller.su</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>signup</servlet-name>
         <servlet-class>controller.signup</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SighUp</servlet-name>
-        <url-pattern>/SighUp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>signup</servlet-name>

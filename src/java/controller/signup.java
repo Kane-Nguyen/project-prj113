@@ -41,20 +41,25 @@ public class signup extends HttpServlet {
         UsersDAO userDAO = new UsersDAO();
         List<Users> list = userDAO.getAll();
 
+        request.setAttribute("fullName", fullName);
+        request.setAttribute("birthDate", birthDateStr);
+        request.setAttribute("phoneNumber", phoneNumber);
+        request.setAttribute("address", address);
+        request.setAttribute("userRole", userRole);
         // Kiểm tra email đã được đăng ký trước đó
         if (email != null && !email.isEmpty()) {
             for (Users user : list) {
                 if (user.getEmail().equals(email)) {
-                    String redirectURL = "SignUp.html"; // Thay thế URL mong muốn
-                    String popupScript = "<script>alert('Email already registered. Please try another email.'); window.location.href='" + redirectURL + "';</script>";
-                    response.getWriter().write(popupScript);
+                    // Hiển thị thông báo lỗi và ngăn chặn chuyển hướng
+                    request.setAttribute("error", "Email already registered. Please try another email.");
+                    request.getRequestDispatcher("signup.jsp").forward(request, response);
                     return;
                 }
             }
         }
 
         // Thêm người dùng mới vào cơ sở dữ liệu
-        boolean isSuccess = userDAO.insertUser(fullName, birthDate, phoneNumber, email,passWord, address,userRole);
+        boolean isSuccess = userDAO.insertUser(fullName, birthDate, phoneNumber, email, passWord, address, userRole);
 
         if (isSuccess) {
             // Success
