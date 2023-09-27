@@ -5,7 +5,7 @@
         <group>
             <file>file:/D:/PRJ301/project2/web/WEB-INF/web.xml</file>
             <file>file:/D:/PRJ301/project2/web/META-INF/context.xml</file>
-            <file>file:/D:/PRJ301/project2/web/SignUp.html</file>
+            <file>file:/D:/PRJ301/project2/web/signup.jsp</file>
             <file>file:/D:/PRJ301/project2/src/java/controller/signup.java</file>
         </group>
     </open-files>
