@@ -74,7 +74,7 @@ public class UsersDAO extends DBContext{
         String sql = "INSERT INTO Users (UserID ,FullName, BirthDate, PhoneNumber, Email, Password, Address) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-             st.setInt(1, user.getFullName());
+   
             st.setString(2, user.getFullName());
             st.setDate(3, (Date) user.getBirthDate());
             st.setString(4, user.getPhoneNumber());

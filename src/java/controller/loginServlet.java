@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Users;
 
@@ -50,35 +52,65 @@ public class loginServlet extends HttpServlet {
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String rememberMe = request.getParameter("rememberMe");
 
-        // Check if the email and password are empty
+        Cookie Ce = new Cookie("Ce", email);
+        Cookie Cp = new Cookie("Cp", password);
+        Cookie Cr = new Cookie("Cr", rememberMe);
+
+        // Kiểm tra xem email và mật khẩu có trống không
         if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
-            request.setAttribute("error", "Both email and password must be entered.");
+            request.setAttribute("error", "Cả email và mật khẩu phải được nhập.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
-        
-        UsersDAO usersDAO = new UsersDAO(); // Create a DAO object to access user data from the database
-        List<Users> users = usersDAO.getAll(); // Retrieve the complete list of users
+        UsersDAO usersDAO = new UsersDAO();
+        List<Users> users = usersDAO.getAll();
         Users matchedUser = null;
 
-        for (Users user : users) { // Retrieve the complete list of users
+        for (Users user : users) {
             if (user.getEmail().equals(email) && user.getPassWord().equals(password)) {
-                matchedUser = user; // If found, store the user information and break out of the loop
+                matchedUser = user;
                 break;
             }
         }
 
-        if (matchedUser != null) { // If a matching user is found, redirect to index.html
-            response.sendRedirect("index.html");
-        } else { // If not, set an error message and forward to login.jsp
-            request.setAttribute("error", "Invalid Email or Password");
+        if (matchedUser != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", matchedUser);  // Lưu thông tin người dùng vào session
+
+            // Thiết lập thời gian tồn tại của phiên là 2 tiếng (7200 giây)
+            session.setMaxInactiveInterval(10);
+
+            if(rememberMe != null) {
+                Ce.setMaxAge(60 * 60 * 365);
+                Cp.setMaxAge(60 * 60 * 365);
+                Cr.setMaxAge(60 * 60 * 365);
+            } else {
+                Ce.setMaxAge(0);
+                Cp.setMaxAge(0);
+                Cr.setMaxAge(0);
+            }
+
+            response.addCookie(Ce);
+            response.addCookie(Cp);
+            response.addCookie(Cr);
+            response.sendRedirect("index.jsp");
+        } else {
+            request.setAttribute("error", "Email hoặc mật khẩu không hợp lệ");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }

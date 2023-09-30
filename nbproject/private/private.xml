@@ -6,11 +6,13 @@
             <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/UsersDAO.java</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/web/WEB-INF/web.xml</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/web/success.html</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/logIn.html</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/logIn.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/login.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/css/style.css</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/DBContext.java</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/web/index.html</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/loginServlet.java</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/tinhServer.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/GetCookieServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/filters/SessionTimeoutFilter.java</file>
         </group>
     </open-files>
 </project-private>
