@@ -70,7 +70,7 @@ public class signup extends HttpServlet {
         if (isSuccess) {
             // Success
             //response.getWriter().write("User registered successfully.");
-            String redirectURL = "logIn.html"; // Thay thế URL mong muốn
+            String redirectURL = "login.jsp"; // Thay thế URL mong muốn
             String redirectURL1 = "http://localhost:8080/projectPRJ113/";
             String popupScript = "<script>var result = confirm('User registered successfully'); if (result) { window.location.href='" + redirectURL + "'; } else { window.location.href='" + redirectURL1 + "'; }</script>";
             response.getWriter().write(popupScript);

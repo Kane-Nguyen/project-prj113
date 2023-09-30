@@ -70,11 +70,7 @@
                                     <input type="text" name="address" id="address" placeholder="Your Address" value='${requestScope.address}' />
                                     <span class="error-message" id="address-error"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="userRole"><i class="zmdi zmdi-star zmdi-hc-fw" style="color: black;"></i></label>
-                                    <input type="text" name="userRole" id="userRole" placeholder="Your Role" value="user" readonly />
-                                    <span class="error-message" id="userRole-error"></span>
-                                </div>
+                              
                                 <div class="form-group form-button">
                                     <input type="submit" name="signup" id="signup"
                                            class="form-submit" value="Register" />
@@ -86,7 +82,7 @@
                                 <div class="form-group error-message" id="email-error"></div>
                                 <div class="form-group error-message" id="passWord-error"></div>
                                 <div class="form-group error-message" id="address-error"></div>
-                                <div class="form-group error-message" id="userRole-error"></div>
+                               
                             </form>
                         </div>
                     </div>
@@ -94,11 +90,6 @@
             </section>
         </div>
     </div>
-    <!-- JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-
-    <script src="js/main.js"></script>
-
     <script>
         // Sử dụng JavaScript để kiểm tra biểu mẫu trước khi submit
         document.getElementById("register-form").addEventListener("submit", function (event) {
@@ -109,7 +100,7 @@
             var email = document.getElementById("email").value;
             var passWord = document.getElementById("passWord").value;
             var address = document.getElementById("address").value;
-            var userRole = document.getElementById("userRole").value;
+            var userRole = 'User';
 
             // Đặt biến để kiểm tra xem có lỗi không
             var hasError = false;
