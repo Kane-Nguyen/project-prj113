@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -75,9 +76,13 @@ public class loginServlet extends HttpServlet {
             }
         }
 
-        if (matchedUser != null) { // If a matching user is found, redirect to index.html
+         if (matchedUser != null) {
+            // Set userRole in a cookie
+            Cookie roleCookie = new Cookie("userRole", matchedUser.getUserRole());
+            response.addCookie(roleCookie);
+            // Redirect to index.html
             response.sendRedirect("index.html");
-        } else { // If not, set an error message and forward to login.jsp
+        } else {
             request.setAttribute("error", "Invalid Email or Password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
@@ -95,3 +100,4 @@ public String getServletInfo() {
     }// </editor-fold>
 
 }
+
