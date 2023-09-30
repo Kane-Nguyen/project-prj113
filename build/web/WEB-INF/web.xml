@@ -8,6 +8,18 @@
         <servlet-name>signup</servlet-name>
         <servlet-class>controller.signup</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Products</servlet-name>
+        <servlet-class>model.Products</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductsDAO</servlet-name>
+        <servlet-class>dal.ProductsDAO</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>booklist</servlet-name>
+        <servlet-class>controller.booklist</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
@@ -15,6 +27,18 @@
     <servlet-mapping>
         <servlet-name>signup</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Products</servlet-name>
+        <url-pattern>/Products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductsDAO</servlet-name>
+        <url-pattern>/ProductsDAO</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>booklist</servlet-name>
+        <url-pattern>/booklist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
