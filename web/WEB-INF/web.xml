@@ -4,9 +4,17 @@
         <servlet-name>tinhServer</servlet-name>
         <servlet-class>controller.tinhServer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowProduct</servlet-name>
+        <servlet-class>controller.ShowProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProduct</servlet-name>
+        <url-pattern>/ShowProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
