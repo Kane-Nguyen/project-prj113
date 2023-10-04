@@ -35,6 +35,28 @@ public class Users {
 
     public Users() {
     }
+    
+    public class Login {
+        private String fullName;
+        private Date birthDate;
+        private String phoneNumber;
+        private String email;
+        private String passWord;
+        private String address;
+        private String userRole;
+
+        public Login(String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, String userRole) {
+            this.fullName = fullName;
+            this.birthDate = birthDate;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.passWord = passWord;
+            this.address = address;
+            this.userRole = userRole;
+        }
+
+    
+}
 
     public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole) {
         this.userId = userId;
@@ -48,6 +70,7 @@ public class Users {
         this.userRole = userRole;
     }
 
+    
     public int getUserId() {
         return userId;
     }
