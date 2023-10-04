@@ -20,7 +20,8 @@
     </head>
     <body>
         <div class="container">
-            <h1>Product List</h1>
+            <div><h1>Product List</h1> <a href="http://localhost:8080/projectPRJ113/login" alt="btn-link-login" class="btn btn-outline-success me-2">Login</a></div>
+            
             <div class="row">
                 <% 
                     ProductDAO productDAO = new ProductDAO();

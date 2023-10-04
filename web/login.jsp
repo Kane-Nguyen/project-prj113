@@ -36,7 +36,8 @@
             </div>
             <div class="form-check">
             <button type="submit" value="LOGIN" class="btn btn-primary">Submit</button>
-            <a href="http://localhost:8080/projectPRJ113/SignUp.html">Don't have password?<a/>
+            <a href="http://localhost:8080/projectPRJ113/signup">Don't have password?<a/>
+                <a href="http://localhost:8080/projectPRJ113/signup">Forgot Password?<a/>
              </div>
         </form>
         <h3 style="color:red; text-align: center;">${requestScope.error}</h3>
