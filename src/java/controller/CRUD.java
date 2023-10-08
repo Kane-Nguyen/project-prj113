@@ -23,7 +23,7 @@ import model.Product;
  *
  * @author tranq
  */
-@WebServlet(name = "admin", urlPatterns = {"/admin"})
+
 public class CRUD extends HttpServlet {
     // Khởi tạo vị trí tìm kiếm với giá trị không hợp lệ
 
