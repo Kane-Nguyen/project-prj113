@@ -23,7 +23,7 @@ import model.Product;
  *
  * @author tranq
  */
-@WebServlet(name = "addProduct", urlPatterns = {"/admin/addProduct"})
+@WebServlet(name = "admin", urlPatterns = {"/admin"})
 public class CRUD extends HttpServlet {
     // Khởi tạo vị trí tìm kiếm với giá trị không hợp lệ
 
@@ -200,6 +200,7 @@ public class CRUD extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+      
         processRequest(request, response);
         String action = request.getParameter("action");
         String id = request.getParameter("id");
@@ -214,6 +215,7 @@ public class CRUD extends HttpServlet {
                 }
             }
         }
+          
     }
 
     /**

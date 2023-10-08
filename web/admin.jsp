@@ -37,6 +37,7 @@
     </head>
    <body>
         <h1>Admin Page</h1>
+        
         <div class="container">
             <form action="CRUD">
                 <input type="submit" value="AddBook" name="action" />
