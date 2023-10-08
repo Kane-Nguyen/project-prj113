@@ -12,6 +12,10 @@
         <servlet-name>ShowProduct</servlet-name>
         <servlet-class>controller.ShowProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CRUD</servlet-name>
+        <servlet-class>controller.CRUD</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ShowProduct</servlet-name>
         <url-pattern>/ShowProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CRUD</servlet-name>
+        <url-pattern>/CRUD</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
