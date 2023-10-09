@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.sql.Date;
 import java.util.List;
-import java.sql.Date;
 
 public class signup extends HttpServlet {
 
