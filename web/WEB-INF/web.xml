@@ -8,9 +8,17 @@
         <servlet-name>signup</servlet-name>
         <servlet-class>controller.signup</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowProduct</servlet-name>
+        <servlet-class>controller.ShowProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>signup</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProduct</servlet-name>
+        <url-pattern>/ShowProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
