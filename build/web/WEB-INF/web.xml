@@ -13,10 +13,6 @@
         <servlet-class>controller.ShowProduct</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>tinhServer</servlet-name>
-        <url-pattern>/tinh</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>signup</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>

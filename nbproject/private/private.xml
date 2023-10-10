@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/lib/util.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/controller/loginServlet.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/enterCode.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/index.html</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/controller/ChangePassword.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/changePassword.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/controller/ForgotPasswordServlet.java</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/src/java/controller/VerifyCodeServlet.java</file>
             <file>file:/D:/Workspace/PRJ113/bookStore/web/login.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/bookStore/web/forgotPassword.jsp</file>
         </group>
     </open-files>
 </project-private>
