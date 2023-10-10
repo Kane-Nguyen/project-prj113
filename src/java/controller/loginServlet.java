@@ -19,15 +19,6 @@ import model.Users;
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class loginServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -57,30 +48,28 @@ public class loginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // Check if the email and password are empty
         if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("error", "Both email and password must be entered.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
-        
-        UsersDAO usersDAO = new UsersDAO(); // Create a DAO object to access user data from the database
-        List<Users> users = usersDAO.getAll(); // Retrieve the complete list of users
+        String hashedPassword = dal.UsersDAO.hashPassword(password);
+
+        UsersDAO usersDAO = new UsersDAO();
+        List<Users> users = usersDAO.getAll();
         Users matchedUser = null;
 
-        for (Users user : users) { // Retrieve the complete list of users
-            if (user.getEmail().equals(email) && user.getPassWord().equals(password)) {
-                matchedUser = user; // If found, store the user information and break out of the loop
+        for (Users user : users) {
+            if (user.getEmail().equals(email) && user.getPassWord().equals(hashedPassword)) {
+                matchedUser = user;
                 break;
             }
         }
 
-         if (matchedUser != null) {
-            // Set userRole in a cookie
+        if (matchedUser != null) {
             Cookie roleCookie = new Cookie("userRole", matchedUser.getUserRole());
             response.addCookie(roleCookie);
-            // Redirect to index.html
             response.sendRedirect("index.html");
         } else {
             request.setAttribute("error", "Invalid Email or Password");
@@ -100,4 +89,3 @@ public String getServletInfo() {
     }// </editor-fold>
 
 }
-
