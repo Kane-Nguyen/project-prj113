@@ -23,7 +23,6 @@ import model.Product;
  *
  * @author tranq
  */
-
 public class CRUD extends HttpServlet {
     // Khởi tạo vị trí tìm kiếm với giá trị không hợp lệ
 
@@ -40,8 +39,6 @@ public class CRUD extends HttpServlet {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getProductId().equals(id)) {  // Giả sử getId() trả về Integer
                 index = i;
-                System.out.println(index);
-                System.out.println("done");
                 break;
             }
         }
@@ -58,6 +55,10 @@ public class CRUD extends HttpServlet {
                         out.println("<head>");
                         out.println("<meta charset='UTF-8'>");
                         out.println("<title>Edit Product</title>");
+                         out.println("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>");
+                        out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+                        out.println("<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'></script>");
+                        out.println("<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>");
                         out.println("<style>");
                         out.println("body { font-family: Arial, sans-serif; }");
                         out.println("table { width: 100%; margin-top: 20px; }");
@@ -69,7 +70,7 @@ public class CRUD extends HttpServlet {
                         out.println("<h1>Edit Product</h1>");
                         out.println("<div id='editProductForm'>");
                         out.println("<form action='CRUD' method='post'>");
-                        out.println("<table>");
+                        out.println("<table class='table table-bordered'>");
                         out.println("<tr>");
                         out.println("</tr>");
                         out.println("<tr>");
@@ -118,11 +119,13 @@ public class CRUD extends HttpServlet {
                         out.println("</html>");
                         break;
                     case "AddBook":
-                        out.println("<!DOCTYPE html>");
-                        out.println("<html>");
                         out.println("<head>");
                         out.println("<meta charset='UTF-8'>");
                         out.println("<title>Add Product</title>");
+                        out.println("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>");
+                        out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+                        out.println("<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js'></script>");
+                        out.println("<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>");
                         out.println("<style>");
                         out.println("body { font-family: Arial, sans-serif; }");
                         out.println("table { width: 100%; margin-top: 20px; }");
@@ -134,7 +137,7 @@ public class CRUD extends HttpServlet {
                         out.println("<h1>Add Product</h1>");
                         out.println("<div id='addProductForm'>");
                         out.println("<form action='CRUD' method='post'>");
-                        out.println("<table>");
+                        out.println("<table class='table table-bordered'>");
                         out.println("<tr>");
                         out.println("<td><label for='productName'>Product Name</label></td>");
                         out.println("<td><input type='text' id='productName' name='productName' required></td>");
@@ -178,7 +181,6 @@ public class CRUD extends HttpServlet {
                         out.println("</div>");
                         out.println("</body>");
                         out.println("</html>");
-                        out.println("You chose to Add a Product");
                         break;
 
                 }
@@ -200,7 +202,7 @@ public class CRUD extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+
         processRequest(request, response);
         String action = request.getParameter("action");
         String id = request.getParameter("id");
@@ -208,14 +210,14 @@ public class CRUD extends HttpServlet {
             {
                 try {
                     ProductDAO p = new ProductDAO();
-                    p.deleteProduct(id);
+                    p.deleteProductAndRelatedData(id);
                     response.sendRedirect("admin.jsp");  // chuyển hướng người dùng về admin.jsp
                 } catch (SQLException ex) {
                     // Xử lý ngoại lệ tại đây
                 }
             }
         }
-          
+
     }
 
     /**

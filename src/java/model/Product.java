@@ -24,7 +24,6 @@ public class Product {
      */
     
     private String ProductId;
-    private int Discount;
     private String  ProductName;
     private String Description;
     private double Price;
@@ -38,9 +37,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(String ProductId, int Discount, String ProductName, String Description, double Price, String ImageURL, int StockQuantity, String Category, String Manufacturer, Date DateAdded, double DiscountPercentage) {
-        this.ProductId = ProductId;
-        this.Discount = Discount;
+    public Product(String ProductId, String ProductName, String Description, double Price, String ImageURL, int StockQuantity, String Category, String Manufacturer, Date DateAdded, double DiscountPercentage) {
+        this.ProductId = ProductId;      
         this.ProductName = ProductName;
         this.Description = Description;
         this.Price = Price;
@@ -58,14 +56,6 @@ public class Product {
 
     public void setProductId(String ProductId) {
         this.ProductId = ProductId;
-    }
-
-    public int getDiscount() {
-        return Discount;
-    }
-
-    public void setDiscount(int Discount) {
-        this.Discount = Discount;
     }
 
     public String getProductName() {

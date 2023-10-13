@@ -3,6 +3,25 @@
 <%@page import="java.text.NumberFormat"%>
 <%@page import="model.Product"%>
 <%@page import="dal.ProductDAO"%>
+<%@ page import="java.net.URLEncoder" %>
+
+
+<%
+ if (session == null || session.getAttribute("isLoggedIn") == null || 
+ !(Boolean)session.getAttribute("isLoggedIn")||session.getAttribute("role") == null || !session.getAttribute("role").equals("Admin")) {
+        
+        String originalURL = request.getRequestURI(); // Lấy URL hiện tại
+        String queryString = request.getQueryString(); // Lấy query string từ URL (nếu có)
+        
+        if (queryString != null) {
+            originalURL += "?" + queryString;
+        }
+        
+        response.sendRedirect("login.jsp?redirect=" + URLEncoder.encode(originalURL, "UTF-8")); // Redirect to login page with the original URL
+        return;
+}
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,13 +54,13 @@
 
         </style>
     </head>
-   <body>
+    <body>
         <h1>Admin Page</h1>
-        
+        <p><a href="Logout">Logout</a></p>
         <div class="container">
             <form action="CRUD">
                 <input type="submit" value="AddBook" name="action" />
-            </form>        
+            </form>              
             <table>
                 <tr>
                     <th>Product ID</th>
@@ -105,11 +124,11 @@
         </div>
         <script type="text/javascript">
             function deleteProduct(id) {
-                if(confirm('Are you sure?')) {
+                if (confirm('Are you sure?')) {
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", "CRUD?action=delete&id=" + id, true);
-                    xhr.onreadystatechange = function() {
-                        if(xhr.readyState == 4 && xhr.status == 200) {
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
                             var row = document.getElementById("row-" + id);
                             row.parentNode.removeChild(row);
                         }
@@ -118,5 +137,30 @@
                 }
             }
         </script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () {
+                var searchInput = document.getElementById('searchInput');
+
+                searchInput.addEventListener('input', function () {
+                    var query = searchInput.value;
+                    if (query.length === 0) {
+                        document.getElementById('searchResults').innerHTML = '';
+                        return;
+                    }
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'CRUD?action=search&query=' + query, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            document.getElementById('searchResults').innerHTML = xhr.responseText;
+                        }
+                    }
+
+                    xhr.send();
+                });
+            });
+        </script>
+
+
     </body>
 </html>

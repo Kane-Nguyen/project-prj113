@@ -13,6 +13,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Users;
 
@@ -56,6 +57,13 @@ public class loginServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String redirectURL = request.getParameter("redirect"); // Lấy tham số redirect từ request
+         String rememberMe = request.getParameter("rememberMe");
+        HttpSession session = request.getSession();
+        Cookie Ce = new Cookie("Ce", email);
+        Cookie Cp = new Cookie("Cp", password);
+        Cookie Cr = new Cookie("Cr", rememberMe);
+        boolean isLogin = false;
 
         // Check if the email and password are empty
         if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
@@ -64,40 +72,54 @@ public class loginServlet extends HttpServlet {
             return;
         }
 
-        
         UsersDAO usersDAO = new UsersDAO(); // Create a DAO object to access user data from the database
         List<Users> users = usersDAO.getAll(); // Retrieve the complete list of users
-        Users matchedUser = null;
 
-        for (Users user : users) { // Retrieve the complete list of users
+        for (Users user : users) {
             if (user.getEmail().equals(email) && user.getPassWord().equals(password)) {
-                matchedUser = user; // If found, store the user information and break out of the loop
+                session.setAttribute("isLoggedIn", true);
+                session.setAttribute("role", user.getUserRole());
+                if(rememberMe != null) {
+                Ce.setMaxAge(60 * 60 * 365);
+                Cp.setMaxAge(60 * 60 * 365);
+                Cr.setMaxAge(60 * 60 * 365);
+            } else {
+                Ce.setMaxAge(0);
+                Cp.setMaxAge(0);
+                Cr.setMaxAge(0);
+            }
+
+            response.addCookie(Ce);
+            response.addCookie(Cp);
+            response.addCookie(Cr);
+                isLogin = true;
                 break;
             }
         }
 
-         if (matchedUser != null) {
-            // Set userRole in a cookie
-            Cookie roleCookie = new Cookie("userRole", matchedUser.getUserRole());
-            response.addCookie(roleCookie);
-            // Redirect to index.html
-            response.sendRedirect("index.html");
+        if (!isLogin) {
+            response.sendRedirect("login.jsp");
         } else {
-            request.setAttribute("error", "Invalid Email or Password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            // After successful authentication
+            if (!"null".equals(redirectURL)&& !redirectURL.isEmpty()&& redirectURL !=null) {
+                response.sendRedirect(redirectURL);
+     
+            } else {
+                // Redirect to default page
+                response.sendRedirect("index.jsp");
+          
+            }
         }
     }
 
-
-/**
- * Returns a short description of the servlet.
- *
- * @return a String containing servlet description
- */
-@Override
-public String getServletInfo() {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
 }
-
