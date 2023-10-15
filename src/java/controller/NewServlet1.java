@@ -15,10 +15,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author khaye
+ * @author Administrator
  */
-@WebServlet(name="ChangePassword", urlPatterns={"/ChangePassword"})
-public class ChangePassword extends HttpServlet {
+@WebServlet(name="NewServlet1", urlPatterns={"/new1"})
+public class NewServlet1 extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +35,10 @@ public class ChangePassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePassword</title>");  
+            out.println("<title>Servlet NewServlet1</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePassword at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet NewServlet1 at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,8 +68,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String newPassword = request.getParameter("newPassword");
-    // Implement logic to update the password in the database
+        processRequest(request, response);
     }
 
     /** 

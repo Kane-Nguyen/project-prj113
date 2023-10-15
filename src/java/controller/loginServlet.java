@@ -97,7 +97,6 @@ public class loginServlet extends HttpServlet {
             }
         }
 
-       
         if (!isLogin) {
             response.sendRedirect("login.jsp");
         } else {
