@@ -81,7 +81,7 @@ public class loginServlet extends HttpServlet {
             Cookie roleCookie = new Cookie("userRole", matchedUser.getUserRole());
             response.addCookie(roleCookie);
             // Redirect to index.html
-            response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
         } else {
             request.setAttribute("error", "Invalid Email or Password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
