@@ -1,9 +1,10 @@
+package controller;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Administrator
+ * @author khaye
  */
-@WebServlet(name="logIn", urlPatterns={"/log-in"})
-public class logIn extends HttpServlet {
+@WebServlet(urlPatterns={"/VerifyCodeServlet"})
+public class VerifyCodeServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +37,10 @@ public class logIn extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet logIn</title>");  
+            out.println("<title>Servlet VerifyCodeServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet logIn at " + "</h1>");
+            out.println("<h1>Servlet VerifyCodeServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,7 +70,17 @@ public class logIn extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         int enteredCode = Integer.parseInt(request.getParameter("code"));
+        HttpSession session = request.getSession();
+        int actualCode = (int) session.getAttribute("code");
+
+        if (enteredCode == actualCode) {
+            // Redirect to changePassword page
+            response.sendRedirect("changePassword.jsp");
+        } else {
+            // Redirect back to enterCode page
+            response.sendRedirect("enterCode.jsp");
+    }
     }
 
     /** 
