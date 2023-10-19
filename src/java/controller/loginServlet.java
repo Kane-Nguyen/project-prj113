@@ -117,7 +117,7 @@ public class loginServlet extends HttpServlet {
 
             } else {
                 // Redirect to default page
-                response.sendRedirect("userDetail.jsp");
+                response.sendRedirect("index.jsp");
 
             }
         }

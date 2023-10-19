@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <style>
             .custom-card {
                 margin: 5px;  /* Khoảng cách giữa các thẻ */
@@ -22,6 +23,10 @@
         <div class="container">
             <div><h1>Product List</h1> <a href="http://localhost:8080/projectPRJ113/login" alt="btn-link-login" class="btn btn-outline-success me-2">Login</a></div>
 
+        <!-- User Icon Link -->
+        <a href="userDetail.jsp" alt="btn-link-user-detail">
+            <i class="fas fa-user"></i>
+        </a>
             <div class="row">
                 <% 
                     ProductDAO productDAO = new ProductDAO();

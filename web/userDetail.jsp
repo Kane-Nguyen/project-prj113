@@ -31,6 +31,7 @@
 
     <c:if test="${empty sessionScope.isLoggedIn}">
         <p>You are not logged in.</p>
+        <a href="http://localhost:8080/projectPRJ113/login" alt="btn-link-login" class="btn btn-outline-success me-2">Login</a>
     </c:if>
 
     <script>
