@@ -56,9 +56,14 @@ public class loginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
+        String fullName = request.getParameter("fullName");
+        String birthDay = request.getParameter("birthDay");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String address = request.getParameter("address");
         String password = request.getParameter("password");
+        String SecretString = request.getParameter("SecretString");
         String redirectURL = request.getParameter("redirect"); // Lấy tham số redirect từ request
-         String rememberMe = request.getParameter("rememberMe");
+        String rememberMe = request.getParameter("rememberMe");
         HttpSession session = request.getSession();
         Cookie Ce = new Cookie("Ce", email);
         Cookie Cp = new Cookie("Cp", password);
@@ -79,36 +84,41 @@ public class loginServlet extends HttpServlet {
             if (user.getEmail().equals(email) && user.getPassWord().equals(password)) {
                 session.setAttribute("isLoggedIn", true);
                 session.setAttribute("role", user.getUserRole());
-                if(rememberMe != null) {
-                Ce.setMaxAge(60 * 60 * 365);
-                Cp.setMaxAge(60 * 60 * 365);
-                Cr.setMaxAge(60 * 60 * 365);
-            } else {
-                Ce.setMaxAge(0);
-                Cp.setMaxAge(0);
-                Cr.setMaxAge(0);
-            }
+                session.setAttribute("email", user.getEmail());
+                session.setAttribute("fullName", user.getFullName());
+                session.setAttribute("birthDay", user.getBirthDate());
+                session.setAttribute("phoneNumber", user.getPhoneNumber());
+                session.setAttribute("address", user.getAddress());
+                session.setAttribute("SecretString", user.getSecretString());                
+                if (rememberMe != null) {
+                    Ce.setMaxAge(60 * 60 * 365);
+                    Cp.setMaxAge(60 * 60 * 365);
+                    Cr.setMaxAge(60 * 60 * 365);
+                } else {
+                    Ce.setMaxAge(0);
+                    Cp.setMaxAge(0);
+                    Cr.setMaxAge(0);
+                }
 
-            response.addCookie(Ce);
-            response.addCookie(Cp);
-            response.addCookie(Cr);
+                response.addCookie(Ce);
+                response.addCookie(Cp);
+                response.addCookie(Cr);
                 isLogin = true;
                 break;
             }
         }
 
-       
         if (!isLogin) {
             response.sendRedirect("login.jsp");
         } else {
             // After successful authentication
-            if (!"null".equals(redirectURL)&& !redirectURL.isEmpty()&& redirectURL !=null) {
+            if (!"null".equals(redirectURL) && !redirectURL.isEmpty() && redirectURL != null) {
                 response.sendRedirect(redirectURL);
-     
+
             } else {
                 // Redirect to default page
-                response.sendRedirect("index.jsp");
-          
+                response.sendRedirect("userDetail.jsp");
+
             }
         }
     }

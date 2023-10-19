@@ -30,6 +30,7 @@ public class signup extends HttpServlet {
         String passWord = request.getParameter("passWord");
         String address = request.getParameter("address");
         String userRole = request.getParameter("userRole");
+        String SecretString = request.getParameter("SecretString");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilBirthDate = null;
@@ -52,6 +53,7 @@ public class signup extends HttpServlet {
         request.setAttribute("phoneNumber", phoneNumber);
         request.setAttribute("address", address);
         request.setAttribute("userRole", userRole);
+        request.setAttribute("SecretString", SecretString);
         // Kiểm tra email đã được đăng ký trước đó
         if (email != null && !email.isEmpty()) {
             for (Users user : list) {
@@ -65,7 +67,7 @@ public class signup extends HttpServlet {
         }
 
         // Thêm người dùng mới vào cơ sở dữ liệu
-        boolean isSuccess = userDAO.insertUser(fullName, birthDate, phoneNumber, email, passWord, address, userRole);
+        boolean isSuccess = userDAO.insertUser(fullName, birthDate, phoneNumber, email, passWord, address, userRole, SecretString);
 
         if (isSuccess) {
             // Success
