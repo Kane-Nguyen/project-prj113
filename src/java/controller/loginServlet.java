@@ -59,7 +59,7 @@ public class loginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String redirectURL = request.getParameter("redirect"); // Lấy tham số redirect từ request
          String rememberMe = request.getParameter("rememberMe");
-        HttpSession session = request.getSession();
+            HttpSession session = request.getSession();
         Cookie Ce = new Cookie("Ce", email);
         Cookie Cp = new Cookie("Cp", password);
         Cookie Cr = new Cookie("Cr", rememberMe);

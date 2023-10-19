@@ -20,8 +20,16 @@
     </head>
     <body>
         <div class="container">
+            <div class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <p> <a href="cart.jsp">Cart</a></p>
+
+                    </li>
+                </ul>
+            </div>
             <div><h1>Product List</h1> <a href="http://localhost:8080/projectPRJ113/login" alt="btn-link-login" class="btn btn-outline-success me-2">Login</a></div>
-            
+
             <div class="row">
                 <% 
                     ProductDAO productDAO = new ProductDAO();
@@ -72,7 +80,12 @@
                                 <span class="discount-percentage">discount: <%= product.getDiscountPercentage() %> % off</span>
                                 <% } %>
                             </div>
-                            <a href="#" class="btn btn-primary mt-auto">Buy now</a>
+
+                            <!-- Form để thêm sản phẩm vào giỏ hàng -->
+                            <form action="AddToCartServlet" method="post">
+                                <input type="hidden" name="productId" value="<%= product.getProductId()%>">
+                                <button type="submit" class="btn btn-primary mt-auto">Buy now</button>
+                            </form>
                         </div>
                     </div>
                 </div>

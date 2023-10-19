@@ -163,6 +163,25 @@ public class ProductDAO extends DBContext {
         connection.setAutoCommit(true);
     }
 }
+   public Product getProductById(String id) {
+    Product product = null;
+    String sql = "SELECT * FROM Products WHERE ProductID = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, id);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                    rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
+                    rs.getInt("StockQuantity"), rs.getString("Category"), rs.getString("Manufacturer"),
+                    rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
+        }
+    } catch (SQLException e) {
+        System.out.println("SQL Error: " + e.getMessage());
+    }
+    return product;
+}
+
 
 
 
@@ -171,7 +190,7 @@ public class ProductDAO extends DBContext {
     public static void main(String[] args) {
         ProductDAO u = new ProductDAO();
         List<Product> l = u.getAll();
-        System.out.println(l.get(0).getProductName());
+        System.out.println(l.get(0).getProductId());
     }
 
 }

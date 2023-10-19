@@ -11,17 +11,7 @@ import java.util.Date;
  * @author Administrator
  */
 public class Product {
-    /**
-    UserID INT IDENTITY(1,1) PRIMARY KEY,
-    FullName VARCHAR(255),
-    BirthDate DATE,
-    PhoneNumber VARCHAR(20),
-    Email VARCHAR(255) UNIQUE,
-    Password VARCHAR(255),
-    Address VARCHAR(255),
-    RegistrationDate DATETIME DEFAULT GETDATE(),
-    UserRole VARCHAR(50)
-     */
+   
     
     private String ProductId;
     private String  ProductName;
@@ -128,14 +118,6 @@ public class Product {
 
     public void setDiscountPercentage(double DiscountPercentage) {
         this.DiscountPercentage = DiscountPercentage;
-    }
-
-    public String getProductID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    
-    
-    
+    }    
     
 }
