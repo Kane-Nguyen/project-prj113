@@ -11,18 +11,14 @@ import java.util.Date;
  * @author Administrator
  */
 public class Users {
+
     /**
-    UserID INT IDENTITY(1,1) PRIMARY KEY,
-    FullName VARCHAR(255),
-    BirthDate DATE,
-    PhoneNumber VARCHAR(20),
-    Email VARCHAR(255) UNIQUE,
-    Password VARCHAR(255),
-    Address VARCHAR(255),
-    RegistrationDate DATETIME DEFAULT GETDATE(),
-    UserRole VARCHAR(50)
+     * UserID INT IDENTITY(1,1) PRIMARY KEY, FullName VARCHAR(255), BirthDate
+     * DATE, PhoneNumber VARCHAR(20), Email VARCHAR(255) UNIQUE, Password
+     * VARCHAR(255), Address VARCHAR(255), RegistrationDate DATETIME DEFAULT
+     * GETDATE(), UserRole VARCHAR(50)
      */
-    
+
     private int userId;
     private String fullName;
     private Date birthDate;
@@ -32,11 +28,14 @@ public class Users {
     private String address;
     private Date regisstrationDate;
     private String userRole;
+    private String CartItems;
+    private String SecretString;
 
     public Users() {
     }
-    
+
     public class Login {
+
         private String fullName;
         private Date birthDate;
         private String phoneNumber;
@@ -53,12 +52,12 @@ public class Users {
             this.passWord = passWord;
             this.address = address;
             this.userRole = userRole;
+
         }
 
-    
-}
+    }
 
-    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole) {
+    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String CartItems, String SecretString) {
         this.userId = userId;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -68,9 +67,11 @@ public class Users {
         this.address = address;
         this.regisstrationDate = regisstrationDate;
         this.userRole = userRole;
+        this.CartItems = CartItems;
+        this.SecretString = SecretString;
+
     }
 
-    
     public int getUserId() {
         return userId;
     }
@@ -142,9 +143,21 @@ public class Users {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-    
-   
-    
-    
-    
+
+    public String getCartItems() {
+        return CartItems;
+    }
+
+    public void setCartItems(String CartItems) {
+        this.CartItems = CartItems;
+    }
+
+    public String getSecretString() {
+        return SecretString;
+    }
+
+    public void setSecretString(String SecretString) {
+        this.SecretString = SecretString;
+    }
+
 }
