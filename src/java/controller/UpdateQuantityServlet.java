@@ -112,15 +112,11 @@ public class UpdateQuantityServlet extends HttpServlet {
 
         if ("increase".equals(action)) {
             newQuantity = Integer.parseInt(quantityList.get(indexToUpdate)) + 1;
-            quantityList.set(indexToUpdate, String.valueOf(newQuantity));
         } else if ("decrease".equals(action)) {
             newQuantity = Integer.parseInt(quantityList.get(indexToUpdate)) - 1;
-            // If quantity goes down to 0, remove the product from the cart
-            if (newQuantity <= 0) {
-                productList.remove(indexToUpdate);
-                quantityList.remove(indexToUpdate);
-            } else {
-                quantityList.set(indexToUpdate, String.valueOf(newQuantity));
+            // Ensure that the quantity never goes below 0
+            if (newQuantity <= 1) {
+                newQuantity = 1;
             }
         }
 
