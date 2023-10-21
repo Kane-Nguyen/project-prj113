@@ -5,7 +5,16 @@
 <%@page import="dal.ProductDAO"%>
 <%@ page import="java.net.URLEncoder" %>
 
-
+<%
+String error = request.getParameter("error");
+if (error != null && error.equals("missing_id")) {
+%>
+<div class="error-message">
+    ID is missing. Please provide a valid ID for editing.
+</div>
+<%
+}
+%>
 <%
  if (session == null || session.getAttribute("isLoggedIn") == null || 
  !(Boolean)session.getAttribute("isLoggedIn")||session.getAttribute("role") == null || !session.getAttribute("role").equals("Admin")) {
@@ -58,9 +67,11 @@
         <h1>Admin Page</h1>
         <p><a href="Logout">Logout</a></p>
         <div class="container">
-            <form action="CRUD">
-                <input type="submit" value="AddBook" name="action" />
-            </form>              
+            <form action="CRUD" method="get">
+                <input type="hidden" name="action" value="add">
+                <button type="submit">Add</button>
+            </form>
+
             <table>
                 <tr>
                     <th>Product ID</th>
@@ -101,11 +112,13 @@
                         <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
                     </td>
                     <td>
-                        <form action="CRUD">
+
+                        <form action="CRUD" method="get">
                             <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="id" value=<%= product.getProductId() != null ? product.getProductId() : "N/A" %>>
+                            <input type="hidden" name="id" value="<%= product.getProductId() %>">
                             <button type="submit">Edit</button>
                         </form>
+
                         <button onclick="deleteProduct('<%= product.getProductId() != null ? product.getProductId() : "N/A" %>')">Delete</button>
                     </td>
                 </tr>
