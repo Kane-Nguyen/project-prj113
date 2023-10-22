@@ -93,4 +93,27 @@ public class UsersDAO extends DBContext {
 
         return list;
     }
+
+  public boolean updatePassword(String email, String newPassword) {
+    String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, newPassword);
+        st.setString(2, email);
+
+        // Execute the update
+        int updatedRows = st.executeUpdate();
+        // Check if any rows were updated
+        if (updatedRows > 0) {
+            return true;
+        }
+    } catch (SQLException e) {
+        // Log the exception for debugging
+        e.printStackTrace();
+    }
+    return false;
+}
+
+
+
 }
