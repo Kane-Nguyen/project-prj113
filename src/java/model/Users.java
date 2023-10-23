@@ -12,7 +12,6 @@ import java.util.Date;
  */
 public class Users {
 
-
     /**
      * UserID INT IDENTITY(1,1) PRIMARY KEY, FullName VARCHAR(255), BirthDate
      * DATE, PhoneNumber VARCHAR(20), Email VARCHAR(255) UNIQUE, Password
@@ -29,8 +28,8 @@ public class Users {
     private String address;
     private Date regisstrationDate;
     private String userRole;
-    private String CartItems;
     private String SecretString;
+
 
     public Users() {
     }
@@ -59,7 +58,7 @@ public class Users {
 
     }
 
-    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String CartItems, String SecretString) {
+    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String SecretString) {
         this.userId = userId;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -69,6 +68,7 @@ public class Users {
         this.address = address;
         this.regisstrationDate = regisstrationDate;
         this.userRole = userRole;
+        this.SecretString = SecretString;
     }
 
     public int getUserId() {
@@ -142,20 +142,11 @@ public class Users {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-
-    public String getCartItems() {
-        return CartItems;
-    }
-
-    public void setCartItems(String CartItems) {
-        this.CartItems = CartItems;
-    }
-
     public String getSecretString() {
         return SecretString;
     }
 
-    public void setSecretString(String SecretString) {
+    public void setSecretString(String secretString) {
         this.SecretString = SecretString;
     }
 
