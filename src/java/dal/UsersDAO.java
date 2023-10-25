@@ -93,7 +93,8 @@ public class UsersDAO extends DBContext {
 
         return list;
     }
-     public boolean updatePassword(String email, String newPassword) {
+
+  public boolean updatePassword(String email, String newPassword) {
     String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
     try {
         PreparedStatement st = connection.prepareStatement(sql);
@@ -112,4 +113,7 @@ public class UsersDAO extends DBContext {
     }
     return false;
 }
+
+
+
 }

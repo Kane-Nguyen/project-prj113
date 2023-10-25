@@ -29,7 +29,7 @@
             </div>
                 <input type="hidden" name="redirect" value="<%= request.getParameter("redirect") %>" />
             <button type="submit" value="LOGIN" class="btn btn-primary">Submit</button>
-            <a href="signup">Don't have a password?<a/>
+            <a href="SignUp.html">Don't have a password?<a/>
         </form>
         <h3 style="color:red; text-align: center;">${requestScope.error}</h3>
         

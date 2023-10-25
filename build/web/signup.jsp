@@ -38,8 +38,9 @@
                             <form method="POST" action="signup" class="register-form"
                                   id="register-form">
                                 <div class="form-group">
-                                    <label for="fullName"><i class="zmdi zmdi-account material-icons-name"></i></label> 
-                                    <input type="text" name="fullName" id="fullName" placeholder="Your Name" value='${requestScope.fullName}' />
+                                    <label for="fullName"><i
+                                            class="zmdi zmdi-account material-icons-name"></i></label> <input
+                                        type="text" name="fullName" id="fullName" placeholder="Your Name" value='${requestScope.fullName}' />
                                     <span class="error-message" id="fullName-error"></span>
                                 </div>
                                 <div class="form-group">
@@ -81,11 +82,7 @@
                                 <div class="form-group error-message" id="email-error"></div>
                                 <div class="form-group error-message" id="passWord-error"></div>
                                 <div class="form-group error-message" id="address-error"></div>
-                               <div class="form-group" style="display: none;">
-                                    <label for="userRole"><i class="zmdi zmdi-star zmdi-hc-fw" style="color: black;"></i></label>
-                                    <input type="text" name="userRole" id="userRole" placeholder="Your Role" value="user" readonly />
-                                    <span class="error-message" id="userRole-error"></span>
-                                </div>
+                               
                             </form>
                         </div>
                     </div>
@@ -103,7 +100,7 @@
             var email = document.getElementById("email").value;
             var passWord = document.getElementById("passWord").value;
             var address = document.getElementById("address").value;
-            var userRole = document.getElementById("userRole").value;
+            var userRole = 'User';
 
             // Đặt biến để kiểm tra xem có lỗi không
             var hasError = false;
@@ -157,6 +154,12 @@
                 document.getElementById("address-error").innerHTML = "";
             }
 
+            if (userRole.trim() === "") {
+                document.getElementById("userRole-error").innerHTML = "Please enter your role.";
+                hasError = true;
+            } else {
+                document.getElementById("userRole-error").innerHTML = "";
+            }
 
             // Nếu có lỗi, ngăn chặn sự kiện submit
             if (hasError) {

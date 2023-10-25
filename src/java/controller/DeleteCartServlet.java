@@ -4,24 +4,22 @@
  */
 package controller;
 
-import dal.UsersDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import javafx.scene.control.Alert;
-import model.Users;
 
 /**
  *
- * @author khaye
+ * @author Asus
  */
-@WebServlet(name = "changepassword", urlPatterns = {"/changepassword"})
-public class ChangePassword extends HttpServlet {
+public class DeleteCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +38,10 @@ public class ChangePassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePassword</title>");
+            out.println("<title>Servlet DeleteCartServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteCartServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +59,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/changePassword.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -75,47 +73,51 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean isSuccessed = false;
-        try {
-            String email = request.getParameter("email");
-            String secretString = request.getParameter("secretString");
-            String newPassword = request.getParameter("newPassword");
-            String confirmNewPassword = request.getParameter("confirmNewPassword");
+        String productIdToRemove = request.getParameter("productId");
 
-            if (email != null && !email.isEmpty() && secretString != null && !secretString.isEmpty()) {
-                UsersDAO usersDAO = new UsersDAO();
-                List<Users> list = usersDAO.getAll();
+        Cookie[] cookies = request.getCookies();
+        String cartItems = "";
+        String quantityItems = "";
 
-                for (Users user : list) {
-                    if (user.getEmail().equals(email)) {
-                        if (user.getSecretString().equals(secretString)) {
-                            if (confirmNewPassword.equals(newPassword)) {
-                                usersDAO.updatePassword( email,newPassword);
-                                isSuccessed = true;
-                                System.out.println("passed");
-                                request.getRequestDispatcher("login.jsp").forward(request, response);
-                                return;
-                            } else {
-                                request.setAttribute("error", "Confirm Password doesn't match with New Password");
-                            }
-                            break; // exit loop as the user is found
-                        } else {
-                            request.setAttribute("error", "Wrong secret");
-                            break; // exit loop as the user is found
-                        }
-                    }
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("cart".equals(cookie.getName())) {
+                    cartItems = cookie.getValue();
                 }
-            } else {
-                request.setAttribute("error", "Email and Secret String cannot be empty");
+                if ("quantity".equals(cookie.getName())) {
+                    quantityItems = cookie.getValue();
+                }
             }
-        } catch (Exception e) {
-            // Log the exception and set a generic error message
-            request.setAttribute("error", "An error occurred. Please try again.");
         }
 
-        if (!isSuccessed) {
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        // Convert the cart and quantity strings to lists of product IDs and quantities
+        List<String> productList = new ArrayList<>(Arrays.asList(cartItems.split(":")));
+        List<String> quantityList = new ArrayList<>(Arrays.asList(quantityItems.split(":")));
+
+        // Find the index of the product to remove from the list
+        int indexToRemove = productList.indexOf(productIdToRemove);
+
+        // Remove both the product and its corresponding quantity from the list
+        if (indexToRemove != -1) {
+            productList.remove(indexToRemove);
+            quantityList.remove(indexToRemove);
         }
+
+        // Update the cart and quantity cookies
+        String updatedCartItems = String.join(":", productList);
+        String updatedQuantityItems = String.join(":", quantityList);
+
+        Cookie cartCookie = new Cookie("cart", updatedCartItems);
+        Cookie quantityCookie = new Cookie("quantity", updatedQuantityItems);
+
+        cartCookie.setMaxAge(24 * 60 * 60); // 1 day
+        quantityCookie.setMaxAge(24 * 60 * 60); // 1 day
+
+        response.addCookie(cartCookie);
+        response.addCookie(quantityCookie);
+
+        // Redirect or return something after the product has been removed
+        response.sendRedirect("cart.jsp");
     }
 
     /**

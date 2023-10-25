@@ -25,6 +25,22 @@
         <servlet-class>controller.Logout</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>controller.AddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <servlet-class>controller.UpdateQuantityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <servlet-class>controller.DeleteCartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tinhServer</servlet-name>
+        <url-pattern>/tinh</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>userDetailPW</servlet-name>
         <servlet-class>controller.userDetailPW</servlet-class>
     </servlet>
@@ -47,6 +63,18 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <url-pattern>/UpdateQuantityServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <url-pattern>/DeleteCartServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>userDetailPW</servlet-name>
