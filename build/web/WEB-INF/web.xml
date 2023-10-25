@@ -24,6 +24,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>controller.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReviewsAndRatingsServlet</servlet-name>
+        <servlet-class>controller.ReviewsAndRatingsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewsAndRatingsServlet</servlet-name>
+        <url-pattern>/ReviewsAndRatingsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

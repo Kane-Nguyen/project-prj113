@@ -49,8 +49,8 @@
                                 </h5>
                                 <p class="card-text flex-grow-1" style="color: black">
                                     <% 
-                                    if (product.getDescription() != null) {
-                                        out.print(product.getDescription());
+                                    if (product.getCategory() != null) {
+                                        out.print(product.getCategory());
                                     } else {
                                         out.print("N/A");
                                     }
