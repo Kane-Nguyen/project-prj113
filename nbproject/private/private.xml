@@ -3,6 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/dal/UsersDAO.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/changePassword.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/signup.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/enterCode.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/controller/Logout.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/admin.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/controller/ChangePassword.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/controller/CRUD.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/controller/signup.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/lib/util.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/controller/ShowProduct.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/controller/loginServlet.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/dal/ProductDAO.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/model/Users.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/model/Product.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/dal/DBContext.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/login.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/index.jsp</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/UpdateQuantityServlet.java</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/web/admin.jsp</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/CRUD.java</file>
