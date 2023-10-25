@@ -8,7 +8,6 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,8 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Administrator
  */
-@WebServlet(name="NewServlet1", urlPatterns={"/new1"})
-public class NewServlet1 extends HttpServlet {
+public class tinhServer extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +33,10 @@ public class NewServlet1 extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewServlet1</title>");  
+            out.println("<title>Servlet tinhServer</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewServlet1 at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet tinhServer at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +53,7 @@ public class NewServlet1 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         request.getRequestDispatcher("tinh.html").forward(request, response);
     } 
 
     /** 
@@ -68,13 +66,24 @@ public class NewServlet1 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       // processRequest(request, response);
+     String dai_raw=request.getParameter("dai");
+     String rong_raw=request.getParameter("rong");
+     double a,b;
+     PrintWriter out=response.getWriter();
+        try {
+            a=Double.parseDouble(dai_raw);
+            b=Double.parseDouble(rong_raw);
+            out.println(tinh(a,b));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    
+    private String tinh(double x, double y){
+        return("Dien tích : "+ (x*y));
+        
+    }
     @Override
     public String getServletInfo() {
         return "Short description";

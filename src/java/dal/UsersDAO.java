@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class UsersDAO extends DBContext {
 
-    public boolean insertUser(String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, String userRole) {
+    public boolean insertUser(String fullName, Date birthDate, String phoneNumber,String email, String passWord, String address, String userRole) {
         String sql = "INSERT INTO Users (FullName, BirthDate, PhoneNumber, Email, PassWord, Address, UserRole) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
@@ -44,17 +44,15 @@ public class UsersDAO extends DBContext {
 
             while (rs.next()) {
                 Users u = new Users(
-                        rs.getInt("UserID"),
-                        rs.getString("FullName"),
-                        rs.getDate("BirthDate"),
-                        rs.getString("PhoneNumber"),
-                        rs.getString("Email"),
-                        rs.getString("PassWord"),
-                        rs.getString("Address"),
-                        rs.getDate("RegistrationDate"),
-                        rs.getString("UserRole"),
-                        rs.getString("CartItems"),
-                        rs.getString("SecretString")
+                    rs.getInt("UserID"),
+                    rs.getString("FullName"),
+                    rs.getDate("BirthDate"),
+                    rs.getString("PhoneNumber"),
+                    rs.getString("Email"),
+                    rs.getString("PassWord"),
+                    rs.getString("Address"),
+                    rs.getDate("RegistrationDate"),
+                    rs.getString("UserRole")
                 );
                 list.add(u);
             }
@@ -64,27 +62,4 @@ public class UsersDAO extends DBContext {
 
         return list;
     }
-
-  public boolean updatePassword(String email, String newPassword) {
-    String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, newPassword);
-        st.setString(2, email);
-
-        // Execute the update
-        int updatedRows = st.executeUpdate();
-        // Check if any rows were updated
-        if (updatedRows > 0) {
-            return true;
-        }
-    } catch (SQLException e) {
-        // Log the exception for debugging
-        e.printStackTrace();
-    }
-    return false;
-}
-
-
-
 }
