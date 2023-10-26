@@ -2,6 +2,7 @@ package dal;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +94,21 @@ public class UsersDAO extends DBContext {
 
         return list;
     }
+    
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
   public boolean updatePassword(String email, String newPassword) {
     String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
@@ -113,7 +129,11 @@ public class UsersDAO extends DBContext {
     }
     return false;
 }
-
+    public static void main(String[] args) {
+        UsersDAO u = new UsersDAO();
+        List<Users> l = u.getAll();
+               System.out.println(l.get(0).getFullName());
+    }
 
 
 }
