@@ -25,10 +25,6 @@
         <servlet-class>controller.Logout</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>userDetailPW</servlet-name>
-        <servlet-class>controller.userDetailPW</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddToCartServlet</servlet-name>
         <servlet-class>controller.AddToCartServlet</servlet-class>
     </servlet>
@@ -44,6 +40,10 @@
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>userDetailPW</servlet-name>
+        <servlet-class>controller.userDetailPW</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>signup</servlet-name>
         <url-pattern>/signup</url-pattern>
