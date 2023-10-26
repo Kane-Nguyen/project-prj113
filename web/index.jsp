@@ -10,8 +10,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+        <link rel="stylesheet" href="./css/index.css">
+        <!-- Option 1: Include in HTML -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <style>
             .custom-card {
                 margin: 5px;  /* Khoảng cách giữa các thẻ */
@@ -21,20 +24,29 @@
     </head>
     <body>
         <div class="container">
-            <div class="navbar-nav ml-auto">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <p> <a href="cart.jsp">Cart</a></p>
+            <div class="navbar-nav ml-auto row navbar">
+                <i class="bi bi-list h4"></i>
+                <div class="wrap-search-bar">
+                    <input class="search-bar">
+                    <i class="bi bi-search search-icon"></i>
+                </div>
 
-                    </li>
-                </ul>
-            </div>
+
+
+
+                <div class="wrap-right-navbar"> 
+                    <i class="fas fa-user"></i>
+                    <button class="btn-primary rounded">
+                        <i class="fa-solid fa-cart-shopping "></i> Your Cart
+                    </button>
+                </div> 
+            </div> 
             <div><h1>Product List</h1> <a href="http://localhost:8080/projectPRJ113/login" alt="btn-link-login" class="btn btn-outline-success me-2">Login</a></div>
 
-        <!-- User Icon Link -->
-        <a href="userDetail.jsp" alt="btn-link-user-detail">
-            <i class="fas fa-user"></i>
-        </a>
+            <!-- User Icon Link -->
+            <a href="userDetail.jsp" alt="btn-link-user-detail">
+                <i class="bi bi-list"></i>
+            </a>
             <div class="row">
                 <% 
                     ProductDAO productDAO = new ProductDAO();
@@ -107,5 +119,6 @@
                 %>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
     </body>
 </html>
