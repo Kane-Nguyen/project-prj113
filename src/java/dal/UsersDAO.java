@@ -55,7 +55,6 @@ public class UsersDAO extends DBContext {
                         rs.getString("Address"),
                         rs.getDate("RegistrationDate"),
                         rs.getString("UserRole"),
-                        rs.getString("CartItems"),
                         rs.getString("SecretString")
                 );
                 list.add(u);

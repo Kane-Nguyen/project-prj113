@@ -151,9 +151,13 @@
                         <p><%= product.getDescription() %></p>
                     </div>
 
+
+                    <%
+                        Integer userID = (Integer) session.getAttribute("userID");
+                        if (userID != null) {
+                    %>
+
                     <!-- Form for user to input comment -->
-
-
                     <form action="ReviewsAndRatingsServlet" method="post" onsubmit="return validateForm()">
                         <div style="margin-top: 20px">
                             <h4>Comment:</h4>
@@ -185,21 +189,16 @@
 
                         </div>
                     </form>
-                            
-
-                    <% String message = (String) request.getAttribute("message"); %>
-                    <% if(message != null && !message.trim().isEmpty()) { %>
-                    <script>
-                        var userChoice = confirm('<%= message %>Do you want to login?');
-                        if (userChoice) {
-                            window.location.href = "login.jsp"; // Redirect người dùng đến trang đăng nhập
+                    <%
+} else {
+                    %>
+                    <!-- Thông Báo Yêu Cầu Đăng Nhập -->
+                    <div style="margin-top: 20px">
+                        <p>Bạn cần phải <a href="login.jsp">đăng nhập</a> để có thể bình luận và đánh giá sản phẩm.</p>
+                    </div>
+                    <%
                         }
-                    </script>
-                    <% } %>
-
-
-
-
+                    %>
 
                     <!-- Display All Reviews for this product -->
 
@@ -216,8 +215,8 @@
                                     totalRating += r.getRating();
                             }
                             double averageRating = (ratingsList.size() > 0) ? totalRating / ratingsList.size() : 0; %>
-                            <h2>Average Rating: <%= averageRating %></h2>
-                            
+                        <h2>Average Rating: <%= averageRating %></h2>
+
                         <%  for (ReviewsAndRatings review : reviews) {                              
                                 if (review.getProductID().equals(requestedProductId)) {                                
                         %>
@@ -241,11 +240,6 @@
                             }
                         %>
                     </div>
-
-
-
-
-
                 </div>
                 <%
                                 }
@@ -262,20 +256,4 @@
 
             </div>
     </body>
-    <script>
-        function validateForm() {
-            var comment = document.forms[0]["comment"].value;
-            var rating = document.querySelector('input[name="rating"]:checked');
-            if (comment == null || comment.trim() == "") {
-                alert("Vui lòng nhập bình luận.");
-                return false;
-            }
-            if (rating == null) {
-                alert("Vui lòng đánh giá sản phẩm.");
-                return false;
-            }
-            return true;
-        }
-    </script>
-
 </html>

@@ -28,7 +28,6 @@ public class Users {
     private String address;
     private Date regisstrationDate;
     private String userRole;
-    private String CartItems;
     private String SecretString;
 
     public Users() {
@@ -57,7 +56,7 @@ public class Users {
 
     }
 
-    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String CartItems, String SecretString) {
+    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String SecretString) {
         this.userId = userId;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -67,7 +66,6 @@ public class Users {
         this.address = address;
         this.regisstrationDate = regisstrationDate;
         this.userRole = userRole;
-        this.CartItems = CartItems;
         this.SecretString = SecretString;
 
     }
@@ -144,13 +142,7 @@ public class Users {
         this.userRole = userRole;
     }
 
-    public String getCartItems() {
-        return CartItems;
-    }
 
-    public void setCartItems(String CartItems) {
-        this.CartItems = CartItems;
-    }
 
     public String getSecretString() {
         return SecretString;

@@ -80,7 +80,6 @@ public class ReviewsAndRatingsServlet extends HttpServlet {
             rating = Integer.parseInt(rating_raw);
             userID = Integer.parseInt(userID_raw);
         } catch (NumberFormatException e) {
-            request.setAttribute("message", ".");
             request.getRequestDispatcher("detail.jsp?productId=" + productID).forward(request, response);
             return;
         }
