@@ -118,7 +118,7 @@ public class AddToCartServlet extends HttpServlet {
         response.addCookie(cartCookie);
         response.addCookie(quantityCookie);
 
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("detail.jsp?productId=" + productId);
     }
 
     /**

@@ -2,6 +2,7 @@ package dal;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,11 @@ public class UsersDAO extends DBContext {
     }
     return false;
 }
-
+    public static void main(String[] args) {
+        UsersDAO u = new UsersDAO();
+        List<Users> l = u.getAll();
+               System.out.println(l.get(0).getFullName());
+    }
 
 
 }

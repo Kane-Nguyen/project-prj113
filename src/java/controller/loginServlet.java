@@ -64,6 +64,7 @@ public class loginServlet extends HttpServlet {
         String SecretString = request.getParameter("SecretString");
         String redirectURL = request.getParameter("redirect"); // Lấy tham số redirect từ request
         String rememberMe = request.getParameter("rememberMe");
+       
         HttpSession session = request.getSession();
         Cookie Ce = new Cookie("Ce", email);
         Cookie Cp = new Cookie("Cp", password);
@@ -84,6 +85,7 @@ public class loginServlet extends HttpServlet {
             if (user.getEmail().equals(email) && user.getPassWord().equals(password)) {
                 session.setAttribute("isLoggedIn", true);
                 session.setAttribute("role", user.getUserRole());
+                session.setAttribute("userID", user.getUserId());
                 session.setAttribute("email", user.getEmail());
                 session.setAttribute("fullName", user.getFullName());
                 session.setAttribute("birthDay", user.getBirthDate());

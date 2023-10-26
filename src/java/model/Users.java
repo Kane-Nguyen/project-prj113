@@ -37,32 +37,7 @@ public class Users {
 
     public Users() {
     }
-    
-    public class Login {
-        private String fullName;
-        private Date birthDate;
-        private String phoneNumber;
-        private String email;
-        private String passWord;
-        private String address;
-        private String userRole;
-        private String SecretString;
-
-        public Login(String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, String userRole, String SecretString) {
-            this.fullName = fullName;
-            this.birthDate = birthDate;
-            this.phoneNumber = phoneNumber;
-            this.email = email;
-            this.passWord = passWord;
-            this.address = address;
-            this.userRole = userRole;
-            this.SecretString = SecretString;
-        }
-
-    
-}
-
-    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String CartItems, String SecretString) {
+    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String SecretString) {
         this.userId = userId;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -72,9 +47,7 @@ public class Users {
         this.address = address;
         this.regisstrationDate = regisstrationDate;
         this.userRole = userRole;
-        this.CartItems = CartItems;
         this.SecretString = SecretString;
-
     }
 
     
@@ -150,13 +123,6 @@ public class Users {
         this.userRole = userRole;
     }
 
-    public String getCartItems() {
-        return CartItems;
-    }
-
-    public void setCartItems(String CartItems) {
-        this.CartItems = CartItems;
-    }
 
     public String getSecretString() {
         return SecretString;
