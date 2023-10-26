@@ -68,8 +68,6 @@ public class ReviewsAndRatingsServlet extends HttpServlet {
         String rating_raw = request.getParameter("rating");
 
         if (userID_raw == null || userID_raw.trim().isEmpty()) {
-            // Hiển thị thông báo và không xử lý tiếp
-            request.setAttribute("message", "..");
             request.getRequestDispatcher("detail.jsp").forward(request, response);
             return;
         }
