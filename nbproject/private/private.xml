@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/dal/ReviewsAndRatingsDAO.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/login.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/detail.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/model/ReviewsAndRatings.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/controller/ReviewsAndRatingsServlet.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/dal/ProductDAO.java</file>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/index.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/src/java/dal/UsersDAO.java</file>
             <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/index.jsp</file>
         </group>
     </open-files>
