@@ -17,6 +17,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <style>
             .rating {
                 display: inline-block;
@@ -99,15 +101,18 @@
             <h1>Product Detail</h1> 
             <div class="row">
                 <%
+    Integer userID = (Integer) session.getAttribute("userID");
+    boolean isUserLoggedIn = userID != null;
+                %>
+
+                <%
      ProductDAO productDAO = new ProductDAO();
      List<Product> products = productDAO.getAll();
      NumberFormat numberFormat = NumberFormat.getNumberInstance();
      numberFormat.setMinimumFractionDigits(3);
      numberFormat.setMaximumFractionDigits(3);
-
      // Lấy productId từ yêu cầu HTTP
      String requestedProductId = request.getParameter("productId");
-
      if (products != null && !products.isEmpty()) {
          for (Product product : products) {
              if (product != null) {
@@ -141,8 +146,36 @@
                                 <span class="discount-percentage">discount: <%= product.getDiscountPercentage() %> % off</span>
                                 <% } %>
                             </div>
-                            <a href="#" class="btn btn-primary mt-auto">Buy now</a>
-                            <a href="#" class="btn btn-primary mt-auto">Order</a>
+                            <%
+    if (isUserLoggedIn) {
+                            %>
+                            <form>
+                                <input type="hidden" name="productId" value="<%= product.getProductId()%>">
+                                <button type="submit" class="btn btn-primary mt-auto">Buy now</button>
+                            </form>
+                            <form action="AddToCartServlet" method="post">
+                                <input type="hidden" name="productId" value="<%= product.getProductId()%>">
+                                <button type="submit" class="btn btn-primary mt-auto">Order</button>
+                            </form>
+                            <%
+} else {
+                            %>
+                            <button type="button" class="btn btn-primary mt-auto require-login-btn">Buy now</button>
+                            <button type="button" class="btn btn-primary mt-auto require-login-btn">Order</button>
+                            <div id="loginAlert" style="display:none;" class="alert alert-danger mt-2">
+                                Bạn cần đăng nhập để thực hiện chức năng này! <a href="login.jsp">Đăng nhập ngay</a>
+                            </div>
+                            <%
+                                }
+                            %>
+                            <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $(".require-login-btn").click(function () {
+                                        $("#loginAlert").show();
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
 
@@ -153,8 +186,7 @@
 
 
                     <%
-                        Integer userID = (Integer) session.getAttribute("userID");
-                        if (userID != null) {
+    if (isUserLoggedIn) {
                     %>
 
                     <!-- Form for user to input comment -->
@@ -190,7 +222,7 @@
                         </div>
                     </form>
                     <%
-} else {
+                        } else {
                     %>
                     <!-- Thông Báo Yêu Cầu Đăng Nhập -->
                     <div style="margin-top: 20px">
