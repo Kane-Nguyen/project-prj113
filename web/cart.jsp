@@ -188,6 +188,7 @@
             <input type="hidden" name="quantity" value="<%= quantity %>"> 
             <input type="hidden" name="originalPrice" value="<%= unitPrice %>">
             <input type="hidden" name="discountedPrice" value="<%= discountedPrice %>">
+             <input type="hidden" name="methodbuy" value="cart">
             <% 
                     }
                 }

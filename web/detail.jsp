@@ -150,8 +150,14 @@
                             <%
     if (isUserLoggedIn) {
                             %>
-                            <form>
+                            <form action="Buy.jsp">
                                 <input type="hidden" name="productId" value="<%= product.getProductId()%>">
+                                <input type="hidden" name="productName" value="<%= product.getProductName()%>">
+                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="originalPrice" value="<%= numberFormat.format(product.getPrice())%>">
+                                <input type="hidden" name="discountedPrice" value="<%= product.getDiscountPercentage()%>">
+                               
+
                                 <button type="submit" class="btn btn-primary mt-auto">Buy now</button>
                             </form>
                             <form action="AddToCartServlet" method="post">

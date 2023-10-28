@@ -8,10 +8,24 @@
 <%@page import="dal.OrderDAO"%>
 <%@page import="model.Order" %>
 <%@page import="java.util.List"%>
+<%@page import="dal.ProductDAO"%>
+<%@page import="model.Product" %>
+<%@page import="dal.BooksInOrderDAO"%>
+<%@page import="model.BooksInOrder" %>
 <%@ page import="java.net.URLEncoder" %>
 <%
 OrderDAO o = new OrderDAO();
 List<Order> lo = o.getAll();
+%>
+<%
+String error = request.getParameter("error");
+if (error != null && error.equals("missing_id")) {
+%>
+<div class="error-message">
+    ID is missing. Please provide a valid ID for editing.
+</div>
+<%
+}
 %>
 <%
  if (session == null || session.getAttribute("isLoggedIn") == null || 
@@ -43,7 +57,6 @@ List<Order> lo = o.getAll();
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>OrderID</th>
                     <th>UserID</th>
                     <th>Address</th>
                     <th>Phone Number</th>
@@ -53,54 +66,49 @@ List<Order> lo = o.getAll();
                     <th>Order Status</th>
                 </tr>
             </thead>
-            <tbody>
-                <% for (Order order : lo) { %>
-                <tr>
-                    <td><%= order.getOrderID() %></td>
-                    <td><%= order.getUserID() %></td>
-                    <td><%= order.getDeliveryAddress() %></td>
-                    <td><%= order.getPhoneNumber() %></td>
-                    <td><%= order.getRecipientName() %></td>
-                    <td><%= order.getPaymentMethod() %></td>
-                    <td><%= String.format("%.2f", order.getTotalPrice()) %></td>
-                    <td>
-                        <select class="order-status" data-order-id="<%= order.getOrderID() %>">
-                            <option value="đang chờ duyệt" <%= order.getOrderStatus().equals("đang chờ duyệt") ? "selected" : "" %>>đang chờ duyệt</option>
-                            <option value="đang chuẩn bị hàng" <%= order.getOrderStatus().equals("đang chuẩn bị hàng") ? "selected" : "" %>>đang chuẩn bị hàng</option>
-                            <option value="đang giao" <%= order.getOrderStatus().equals("đang giao") ? "selected" : "" %>>đang giao</option>
-                            <option value="đã giao" <%= order.getOrderStatus().equals("đã giao") ? "selected" : "" %>>đã giao</option>
-                        </select>
-                    </td>
-
-                </tr>
-                <% } %>
-            </tbody>
+            <form action="SaveOrdersServlet" method="POST">
+                <button type="submit">Save</button>
+                <tbody>
+                    <% for (Order order : lo) { %>
+                    <tr>
+                        <td style="display: none"><input type="hidden" style="border:0px;" name="orderID" value="<%= order.getOrderID() %>"></td>
+                        <td><input type="number" style="border:0px;" name="userID" value="<%= order.getUserID() %>"></td>
+                        <td><input type="text" style="border:0px;" name="deliveryAddress" value="<%= order.getDeliveryAddress() %>"></td>
+                        <td><input  type="text" style="border:0px;" name="phoneNumber" value="<%= order.getPhoneNumber() %>"></td>
+                        <td><input type="text" style="border:0px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
+                        <td><input type="text" style="border:0px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
+                        <td><input type="number" style="border:0px;" name="totalPrices" value="<%= String.format("%.2f", order.getTotalPrice()) %>"></td>
+                            <%if(order.getOrderStatus().equals("Canceled")){
+                            %>
+                        <td><P>Canceled</P></td>
+                                <%
+                            } else{ %>
+                        <td>
+                            <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
+                                <option value="pending" <%= order.getOrderStatus().equals("pending") ? "selected" : "" %>>pending</option>
+                                <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
+                                <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
+                                <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
+                            </select>
+                        </td> <%}%>
+                        <td>
+                             <%
+                    BooksInOrderDAO b = new BooksInOrderDAO();
+                    ProductDAO p = new ProductDAO();
+                   List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                    for(BooksInOrder bp: lp){
+                    
+                     %>
+                     <p><%=p.getProductNameById(bp.getProductID()) %>,</p>
+                       <% }%>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
 
         </table>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".order-status").change(function () {
-                    var orderId = $(this).data("order-id");
-                    var newStatus = $(this).val();
-
-                    $.ajax({
-                        url: "updateOrderStatus", // Server-side script to handle updating
-                        type: "POST",
-                        data: {
-                            "orderId": orderId,
-                            "newStatus": newStatus
-                        },
-                        success: function (response) {
-                            console.log("Update successful:", response);
-                        },
-                        error: function (err) {
-                            console.log("Error:", err);
-                        }
-                    });
-                });
-            });
-        </script>
-
-    </body>
+    
+    </form>
+</body>
 </html>

@@ -1,6 +1,5 @@
 package controller;
 
-import com.oracle.wls.shaded.org.apache.bcel.generic.AALOAD;
 import dal.BooksInOrderDAO;
 import dal.OrderDAO;
 import java.io.IOException;
@@ -46,6 +45,8 @@ public class ProcessOrderServlet extends HttpServlet {
         String recipientName = request.getParameter("recipientName");
         String paymentMethod = request.getParameter("paymentMethod");
         String totalPriceStr = request.getParameter("totalPrice");
+        String methodbuy = request.getParameter("methodbuy");
+        System.out.println(methodbuy);
         double totalPrice = 0.0;
 
         if (totalPriceStr != null && !totalPriceStr.isEmpty()) {
@@ -74,7 +75,7 @@ public class ProcessOrderServlet extends HttpServlet {
         // Chuyển danh sách quantitiesList thành mảng quantities
         String[] quantities = quantitiesList.toArray(new String[0]);
 
-        if (quantities == null || quantities.length == 0) {
+        if (quantities == null || quantities.length == 0 || quantities.equals("null")) {
             System.out.println("Lỗi: Không có dữ liệu quantity");
         } else {
             // In các giá trị ra console hoặc log
@@ -84,8 +85,9 @@ public class ProcessOrderServlet extends HttpServlet {
             System.out.println("Payment Method: " + paymentMethod);
             System.out.println("Total Price: " + totalPrice);
             System.out.println("userID: " + userID);
+            System.out.println("quantity " +quantities[0]);
             OrderDAO o = new OrderDAO();
-            o.addOrder(userID, deliveryAddress, phoneNumber, recipientName, paymentMethod, totalPrice, paymentMethod);
+            o.addOrder(userID, deliveryAddress, phoneNumber, recipientName, paymentMethod, totalPrice, "Pending");
             int lastestID = o.getLatestOrderID();
             BooksInOrderDAO b = new BooksInOrderDAO();
             // In thông tin sản phẩm và số lượng tương ứng
@@ -94,24 +96,28 @@ public class ProcessOrderServlet extends HttpServlet {
                 String productId = productIds[i];
                 String quantity = quantities[i];
 
-                System.out.println("Product ID: " + productId + ", Quantity: " + quantity);
+                System.out.println("Product ID: " + productIds[i] + ", Quantity: " + quantities[i]);
 
                 try {
                     int quantityInt = Integer.parseInt(quantity);
                     // Thực hiện xử lý dữ liệu ở đây (ví dụ: thêm vào cơ sở dữ liệu)
                     b.insertBooksInOrder(lastestID, productId, quantityInt);
+
+                   
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid quantity format for product ID: " + productId);
                 }
             }
-
-            Cookie cartCookie = new Cookie("cart", "");
-            cartCookie.setMaxAge(60 * 60 * 24);  // Optional: set the lifespan of the cookie
-            response.addCookie(cartCookie);
-
-            Cookie quantityCookie = new Cookie("quantity", "");
-            quantityCookie.setMaxAge(60 * 60 * 24);  // Optional: set the lifespan of the cookie
-            response.addCookie(quantityCookie);
+//            if (methodbuy.equals("cart")) {
+//                Cookie cartCookie = new Cookie("cart", "");
+//                cartCookie.setMaxAge(60 * 60 * 24);  // Optional: set the lifespan of the cookie
+//                response.addCookie(cartCookie);
+//
+//                Cookie quantityCookie = new Cookie("quantity", "");
+//                quantityCookie.setMaxAge(60 * 60 * 24);  // Optional: set the lifespan of the cookie
+//                response.addCookie(quantityCookie);
+//            }
+             response.sendRedirect("index.jsp");
         }
     }
 

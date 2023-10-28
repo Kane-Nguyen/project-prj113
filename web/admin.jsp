@@ -70,6 +70,9 @@ if (error != null && error.equals("missing_id")) {
             <form action="CRUD" method="get">
                 <input type="hidden" name="action" value="add">
                 <button type="submit">Add</button>
+            </form>  
+            <form action="payment.jsp">
+                <button type="submit">payment</button>
             </form>
 
             <table>

@@ -9,6 +9,10 @@
         <servlet-class>controller.signup</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ProcessOrderServlet</servlet-name>
+        <servlet-class>controller.ProcessOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ShowProduct</servlet-name>
         <servlet-class>controller.ShowProduct</servlet-class>
     </servlet>
@@ -33,6 +37,10 @@
         <servlet-class>controller.AddToCartServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SaveOrdersServlet</servlet-name>
+        <servlet-class>controller.SaveOrdersServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateQuantityServlet</servlet-name>
         <servlet-class>controller.UpdateQuantityServlet</servlet-class>
     </servlet>
@@ -43,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessOrderServlet</servlet-name>
+        <url-pattern>/ProcessOrderServlet</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>userDetailPW</servlet-name>
@@ -79,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>UpdateQuantityServlet</servlet-name>
         <url-pattern>/UpdateQuantityServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveOrdersServlet</servlet-name>
+        <url-pattern>/SaveOrdersServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteCartServlet</servlet-name>

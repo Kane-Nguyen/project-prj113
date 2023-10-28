@@ -73,13 +73,13 @@ public class updateOrderStatus extends HttpServlet {
         String newStatus = request.getParameter("newStatus");
 
         OrderDAO orderDAO = new OrderDAO();
-        boolean success = orderDAO.updateOrderStatus(orderId, newStatus);
+       // boolean success = orderDAO.updateOrderStatus(orderId, newStatus);
 
-        if (success) {
-            response.getWriter().write("Update successful");
-        } else {
-            response.getWriter().write("Update failed");
-        }
+//        if (success) {
+//            response.getWriter().write("Update successful");
+//        } else {
+//            response.getWriter().write("Update failed");
+//        }
     }
 
     /**

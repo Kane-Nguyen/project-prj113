@@ -7,12 +7,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="dal.OrderDAO"%>
 <%@page import="model.Order" %>
+<%@page import="dal.ProductDAO"%>
+<%@page import="model.Product" %>
+<%@page import="dal.BooksInOrderDAO"%>
+<%@page import="model.BooksInOrder" %>
 <%@page import="java.util.List"%>
 <%@ page import="java.net.URLEncoder" %>
 <%
 OrderDAO o = new OrderDAO();
 int id=-1;
-Object sessionId = session.getAttribute("id");
+Object sessionId = session.getAttribute("userID");
 if (sessionId != null) {
     try {
         id = Integer.parseInt(sessionId.toString());
@@ -66,6 +70,7 @@ List<Order> lo = o.getById(id);
                     <th>Payment Method</th>
                     <th>total price</th>
                     <th>Order Status</th>
+                    <th>Product</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,6 +86,18 @@ List<Order> lo = o.getById(id);
                     <td>
                        <%= order.getOrderStatus()%>
                     </td>
+                    <td>
+                    <%
+                    BooksInOrderDAO b = new BooksInOrderDAO();
+                    ProductDAO p = new ProductDAO();
+                   List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                    for(BooksInOrder bp: lp){
+                    
+                     %>
+                     <p><%=p.getProductNameById(bp.getProductID()) %>,</p>
+                       <% }%>
+                   
+                   </td>
 
                 </tr>
                 <% } %>
