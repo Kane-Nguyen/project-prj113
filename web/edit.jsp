@@ -89,11 +89,11 @@
                 </tr>
                 <tr>
                     <td><label for='category'>Category</label></td>
-                    <td><input type='text' id='category' name='category' value='<%= list.get(index).getCategory() %>'></td>
+                    <td><input type='text' id='CategoryId' name='CategoryId' value='<%= list.get(index).getCategoryId() %>'></td>
                 </tr>
                 <tr>
-                    <td><label for='manufacturer'>Manufacturer</label></td>
-                    <td><input type='text' id='manufacturer' name='manufacturer' value='<%= list.get(index).getManufacturer() %>'></td>
+                    <td><label for='Author'>Author</label></td>
+                    <td><input type='text' id='Author' name='Author' value='<%= list.get(index).getAuthor() %>'></td>
                 </tr>
 <!-- ... (đoạn mã dưới không thay đổi) -->
 
