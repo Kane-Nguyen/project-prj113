@@ -36,9 +36,11 @@
 
                 <div class="wrap-right-navbar"> 
                     <i class="fas fa-user"></i>
+                    <form action="cart.jsp">
+                   
                     <button class="btn-primary rounded">
                         <i class="fa-solid fa-cart-shopping "></i> Your Cart
-                    </button>
+                    </button> </form>
                 </div> 
             </div> 
             <div><h1>Product List</h1> 
