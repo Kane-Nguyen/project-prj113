@@ -64,6 +64,7 @@ if (error != null && error.equals("missing_id")) {
                     <th>Payment Method</th>
                     <th>total price</th>
                     <th>Order Status</th>
+                    <th>Products</th>
                 </tr>
             </thead>
             <form action="SaveOrdersServlet" method="POST">
@@ -99,7 +100,7 @@ if (error != null && error.equals("missing_id")) {
                     for(BooksInOrder bp: lp){
                     
                      %>
-                     <p><%=p.getProductNameById(bp.getProductID()) %>,</p>
+                     <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
                        <% }%>
                         </td>
                     </tr>

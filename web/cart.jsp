@@ -104,6 +104,18 @@
                 setCookie("cart", "", -1);  // Setting -1 days will remove the cookie
                 setCookie("quantity", "", -1);
             }
+            function updateFormValues() {
+                var quantities = getCookie("quantity").split(":");
+                var cartItems = getCookie("cart").split(":");
+
+                for (var i = 0; i < cartItems.length; i++) {
+                    var productId = cartItems[i];
+                    var quantity = quantities[i];
+
+                    // Cập nhật giá trị hidden field
+                    document.getElementsByName("quantity")[i].value = quantity;
+                }
+            }
 
         </script>
     </head>
@@ -168,7 +180,8 @@
         </ul>
         <h2 id="total-price">Total Price:<%= String.format("%.3f", totalPrice) %> </h2>
         <a href="index.jsp">Back to Product List</a>
-        <form action="Buy.jsp" method="post" onsubmit="updateQuantity()">
+        <form action="Buy.jsp" method="post" onsubmit="updateFormValues()">
+
             <% 
             if (!cartItems.isEmpty()) {
                 String[] cartItemArray = cartItems.split(":");
@@ -189,6 +202,7 @@
             <input type="hidden" name="quantity" value="<%= quantity %>"> 
             <input type="hidden" name="originalPrice" value="<%= unitPrice %>">
             <input type="hidden" name="discountedPrice" value="<%= discountedPrice %>">
+            <input type="hidden" name="reload" value="reload"> 
             <input type="hidden" name="methodbuy" value="cart">
             <% 
                     }

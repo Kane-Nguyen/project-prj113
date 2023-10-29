@@ -71,7 +71,7 @@ public class BooksInOrderDAO extends DBContext {
     public static void main(String[] args) {
         BooksInOrderDAO u = new BooksInOrderDAO();
         List<BooksInOrder> l = u.getBookById(1);
-        System.out.println(l.get(0).getProductID());
+        System.out.println(l.get(0).getQuantity());
 
     }
 

@@ -51,7 +51,7 @@ public class ProcessOrderServlet extends HttpServlet {
         boolean isStocking = true;
         double totalPrice = 0.0;
         ProductDAO p = new ProductDAO();
-
+        
         String[] quantities = request.getParameterValues("quantity");
         String productIdsRaw = request.getParameter("productIds");
         String[] productIds = productIdsRaw.split(",");

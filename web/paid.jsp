@@ -94,9 +94,9 @@ List<Order> lo = o.getById(id);
                     for(BooksInOrder bp: lp){
                     
                      %>
-                     <p><%=p.getProductNameById(bp.getProductID()) %>,</p>
+                     <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
                        <% }%>
-                   
+                       
                    </td>
 
                 </tr>

@@ -38,7 +38,24 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-
+public int getStockById(String productId) {
+        int stockQuantity = -1; // Initialize with a value that indicates "not found" or "error"
+        String sql = "SELECT StockQuantity FROM Products WHERE ProductID = ?";
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, productId);
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                stockQuantity = rs.getInt("StockQuantity");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return stockQuantity;
+    }
     public void addProduct(String ProductName, String Description, double Price, double DiscountPercentage, String ImageURL,
             int StockQuantity, int CategoryId, String Author) {
 
