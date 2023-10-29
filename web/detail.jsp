@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -8,6 +7,7 @@
 <%@page import="model.ReviewsAndRatings"%>
 <%@page import="dal.ProductDAO"%>
 <%@page import="dal.UsersDAO"%>
+<%@page import="dal.CategoryDAO"%>
 <%@page import="dal.ReviewsAndRatingsDAO"%>
 
 <!DOCTYPE html>
@@ -17,96 +17,57 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <style>
-            .rating {
-                display: inline-block;
-                font-size: 24px;
-                direction: rtl; /* Thêm dòng này để đảo ngược thứ tự */
-            }
-
-            .rating input {
-                display: none;
-            }
-
-            .rating label {
-                cursor: pointer;
-            }
-
-            .rating label:before {
-                content: "\2605"; /* Unicode character for a star */
-                color: #ddd;
-                font-size: 24px;
-            }
-
-            .rating input:checked ~ label:before,
-            .rating label:hover ~ label:before,
-            .rating label:hover:before {
-                color: #f1c40f; /* Color for selected stars */
-            }
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f4f4f4;
-            }
-
-            .container {
-                background-color: #ffffff;
-                padding: 20px;
-                border-radius: 5px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-
-            .original-price {
-                text-decoration: line-through;
-                color: #888;
-            }
-
-            .discounted-price {
-                color: #e74c3c;
-                font-weight: bold;
-            }
-
-            .discount-percentage {
-                color: #2ecc71;
-            }
-
-            .review {
-                padding: 10px 0;
-            }
-
-            .review strong {
-                font-weight: bold;
-            }
-
-            .rating label:before {
-                font-size: 18px;
-            }
-
-            .btn-primary {
-                background-color: #e74c3c;
-                border-color: #e74c3c;
-            }
-
-
-        </style>
-
-
+        <link rel="stylesheet" href="./css/index.css">
+        <!-- Option 1: Include in HTML -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     </head>
     <body>
 
 
 
         <div class="container">
-            <h1>Product Detail</h1> 
+            <div class="navbar-nav ml-auto row navbar">
+                <i class="bi bi-list h4"></i>
+                <div class="wrap-search-bar">
+                    <input class="search-bar" placeholder="Nhập để tìm kiếm">
+                    <i class="bi bi-search search-icon search-icon"></i>
+                </div>
+                <div class="list-navbar">
+                    <ul class="list-features-navbar">
+                        <a href="/"><li>Home</li></a> 
+                        <a href=""><li class="active">Detail Book</li></a> 
+                        <a><li>About US</li></a> 
+                    </ul>
+                </div>
+                <div class="wrap-right-navbar"> 
+                    <%
+                   Integer userID = (Integer) session.getAttribute("userID");
+                   boolean isUserLoggedIn = userID != null;
+                    %>
+                    <% if (!isUserLoggedIn) { %>
+                    <a href="login" class="prevent-a-tag">
+                        <i class="bi bi-person icon-person-navbar h4 "></i>
+                    </a>
+                    <% }else { %>
+                    <a href="userDetail.jsp" class="prevent-a-tag">
+                        <i class="bi bi-person icon-person-navbar h4 "></i>
+                    </a>
+                    <%} %>
+                    <button class="btn-primary rounded btn-cart">
+                        <i class="bi bi-cart h5"></i> Your Cart
+                    </button>
+                    <% if (isUserLoggedIn) { %>
+                    <a href="Logout" class="prevent-a-tag">
+                        <i class="bi bi-box-arrow-in-left h4"></i>
+                    </a><%
+                        }
+                    %>
+                </div> 
+            </div> 
             <div class="row">
                 <%
-    Integer userID = (Integer) session.getAttribute("userID");
-    boolean isUserLoggedIn = userID != null;
-                %>
-
-                <%
+     CategoryDAO cbDAO = new CategoryDAO();
      ProductDAO productDAO = new ProductDAO();
      List<Product> products = productDAO.getAll();
      NumberFormat numberFormat = NumberFormat.getNumberInstance();
@@ -123,30 +84,25 @@
                  if (requestedProductId != null && requestedProductId.equals(productId)) {
                 %>
                 <div>
-                    <div style="display: flex">
+                    <div class="book-wrap">
                         <!-- Hiển thị thông tin sản phẩm -->
-                        <img class="card h-100 custom-card" style="width: 30rem ;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" class="card-img-top" alt="Image not found">
-                        <div style="width: 100%; padding-left: 20px" >
-                            <h3 style="color: red"><%= product.getProductName() %></h3>
-                            <h5>Category: <%= product.getProductId() %></h5>
-                            <h5><%= product.getAuthor() %></h5>
+                        <img class="custom-card image-book-detail" src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" class="card-img-top" alt="Image not found">
+                        <div class="detail-book" >
+                            <h3 class="title-detail-book"><%= product.getProductName() %></h3>
+                            <h5>The kind of book: <span class="category-detail"><%= cbDAO.getCategoryByProductId(product.getCategoryId()) %></span></h5>
+                            <h5 class="author-detail-book"><%= product.getAuthor() %></h5>
                             <div>
                                 <% if (product.getDiscountPercentage() == 0) { %>
-                                <span class="original-price">Price: <%= numberFormat.format(product.getPrice()) %>đ</span>
+                                <span class="discount-price-detail"><%= numberFormat.format(product.getPrice()) %>đ</span>
                                 <% } else { %>
                                 <div>
-                                    <span class="original-price">Price: <%= numberFormat.format(product.getPrice()) %>đ</span>
+                                    <span class="original-price not-sale"> <%= numberFormat.format(product.getPrice()) %>đ</span>
                                 </div>
                                 <div>
-                                    <span class="discounted-price">==> Price: <%= numberFormat.format(product.getPrice() * (1 - product.getDiscountPercentage() / 100)) %>đ</span>
+                                    <span class="discount-price-detail"> <%= numberFormat.format(product.getPrice() * (1 - product.getDiscountPercentage() / 100)) %>đ</span>
                                 </div>
                                 <% } %>
-                            </div>
-                            <div class="discount-info" style="color: black">
-                                <% if (product.getDiscountPercentage() != 0) { %>
-                                <span class="discount-percentage">discount: <%= product.getDiscountPercentage() %> % off</span>
-                                <% } %>
-                            </div>
+                              </div>
                             <%
     if (isUserLoggedIn) {
                             %>
@@ -156,7 +112,7 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="originalPrice" value="<%= numberFormat.format(product.getPrice())%>">
                                 <input type="hidden" name="discountedPrice" value="<%= product.getDiscountPercentage()%>">
-                               
+
 
                                 <button type="submit" class="btn btn-primary mt-auto">Buy now</button>
                             </form>
@@ -167,8 +123,11 @@
                             <%
 } else {
                             %>
-                            <button type="button" class="btn btn-primary mt-auto require-login-btn">Buy now</button>
-                            <button type="button" class="btn btn-primary mt-auto require-login-btn">Order</button>
+                            <div class="button-wrap-detail">
+                                <button type="button" class="btn btn-primary mt-auto require-login-btn">Buy now</button>
+                                <button type="button" class="btn btn-primary mt-auto require-login-btn">Order</button>
+                            </div>
+
                             <div id="loginAlert" style="display:none;" class="alert alert-danger mt-2">
                                 Bạn cần đăng nhập để thực hiện chức năng này! <a href="login.jsp">Đăng nhập ngay</a>
                             </div>

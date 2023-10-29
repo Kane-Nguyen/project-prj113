@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>LogIn Store</title>
+        <title>Home Book Store</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,15 +80,15 @@
             }
 
             $(document).ready(function () {
-                $(".form-login").submit(function (e) {
-                    e.preventDefault();
-                });
+              
                 // Handle form submission
                 $('form').submit(function (e) {
                     let email = $("#exampleInputEmail1").val();
                     let password = $("input[name='password']").val();
 
                     if (!email) {
+                        
+                });
                         hasErrors = true;
                         $('#error-email').text('Please enter your Email.');
                     } else {
@@ -105,6 +105,8 @@
                 // Display server-side error message (if any)
                 let serverError = "${requestScope.error}";
                 if (serverError) {
+                     
+                    e.preventDefault();
                     $("#error-message").text(serverError);
                 }
             });
