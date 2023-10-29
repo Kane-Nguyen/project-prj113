@@ -89,16 +89,16 @@ public class CRUD extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         String imageURL = request.getParameter("imageURL");
         int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
-        String category = request.getParameter("category");
-        String manufacturer = request.getParameter("manufacturer");
+       int category = Integer.parseInt(request.getParameter("CategoryId"));
+        String Author = request.getParameter("Author");
         String method = request.getParameter("method");
 
         try {
             if ("add".equals(method)) {
-                productDAO.addProduct(productName, description, price, discountpercentage, imageURL, stockQuantity, category, manufacturer);           
+                productDAO.addProduct(productName, description, price, discountpercentage, imageURL, stockQuantity, category, Author);           
                 response.sendRedirect("admin.jsp");
             } else if ("edit".equals(method)) {
-                productDAO.editProduct(productName, description, price, imageURL, stockQuantity, category, manufacturer, discountpercentage, id);
+                productDAO.editProduct(productName, description, price, imageURL, stockQuantity, category, Author, discountpercentage, id);
                 response.sendRedirect("admin.jsp");
             }
         } catch (Exception e) {

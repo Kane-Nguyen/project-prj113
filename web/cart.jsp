@@ -42,7 +42,7 @@
                     }
                 }
 
-                document.getElementById("total-price").innerText = "Total Price: VNĐ" + totalPrice.toFixed(2);
+                document.getElementById("total-price").innerText = "Total Price: " + totalPrice.toFixed(3) + "VNĐ";
             }
 
             function removeProduct(productId) {
@@ -98,6 +98,11 @@
                 d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
                 var expires = "expires=" + d.toUTCString();
                 document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function clearCartCookies() {
+                setCookie("cart", "", -1);  // Setting -1 days will remove the cookie
+                setCookie("quantity", "", -1);
             }
 
         </script>
@@ -160,8 +165,36 @@
                     }
                 %>
         </ul>
-        <h2 id="total-price">Total Price: <%= totalPrice %></h2>
+        <h2 id="total-price">Total Price: <%= totalPrice %> </h2>
         <a href="index.jsp">Back to Product List</a>
-        
+        <form action="Buy.jsp" method="post" onsubmit="clearCartCookies()">
+            <% 
+            if (!cartItems.isEmpty()) {
+                String[] cartItemArray = cartItems.split(":");
+                String[] quantityArray = quantities.split(":");
+
+                for (int i = 0; i < cartItemArray.length; i++) {
+                    String itemId = cartItemArray[i];
+                    Product product = productDAO.getProductById(itemId);
+                    String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
+
+                    if (product != null) {
+                        double unitPrice = product.getPrice();
+                        double discount = product.getDiscountPercentage();
+                        double discountedPrice = unitPrice * (1 - discount / 100);
+            %>
+            <input type="hidden" name="productId" value="<%= product.getProductId() %>">
+            <input type="hidden" name="productName" value="<%= product.getProductName() %>">
+            <input type="hidden" name="quantity" value="<%= quantity %>"> 
+            <input type="hidden" name="originalPrice" value="<%= unitPrice %>">
+            <input type="hidden" name="discountedPrice" value="<%= discountedPrice %>">
+             <input type="hidden" name="methodbuy" value="cart">
+            <% 
+                    }
+                }
+            } 
+            %>
+            <input type="submit" value="BuyNow">
+        </form>
     </body>
 </html>

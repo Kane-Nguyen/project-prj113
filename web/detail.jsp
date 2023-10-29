@@ -128,8 +128,8 @@
                         <img class="card h-100 custom-card" style="width: 30rem ;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);" src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" class="card-img-top" alt="Image not found">
                         <div style="width: 100%; padding-left: 20px" >
                             <h3 style="color: red"><%= product.getProductName() %></h3>
-                            <h5>Category: <%= product.getCategory() %></h5>
-                            <h5><%= product.getManufacturer() %></h5>
+                            <h5>Category: <%= product.getProductId() %></h5>
+                            <h5><%= product.getAuthor() %></h5>
                             <div>
                                 <% if (product.getDiscountPercentage() == 0) { %>
                                 <span class="original-price">Price: <%= numberFormat.format(product.getPrice()) %>đ</span>
@@ -150,8 +150,14 @@
                             <%
     if (isUserLoggedIn) {
                             %>
-                            <form>
+                            <form action="Buy.jsp">
                                 <input type="hidden" name="productId" value="<%= product.getProductId()%>">
+                                <input type="hidden" name="productName" value="<%= product.getProductName()%>">
+                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="originalPrice" value="<%= numberFormat.format(product.getPrice())%>">
+                                <input type="hidden" name="discountedPrice" value="<%= product.getDiscountPercentage()%>">
+                               
+
                                 <button type="submit" class="btn btn-primary mt-auto">Buy now</button>
                             </form>
                             <form action="AddToCartServlet" method="post">
@@ -256,7 +262,15 @@
                         <h3>Comment:</h3>
 
                         <div class="review">
+                            <%
+                            try {
+                            %>
                             <strong><%= u.get(review.getUserID()).getFullName() %></strong>
+                            <%
+                            } catch (Exception e) {
+                                e.printStackTrace(); // This will print the error details to your server's console
+                            }
+                            %>
                             <p><%= review.getComment() %> ------- <%= review.getDatePosted() %> </p>
                             Rating: 
                             <% for (int i = 0; i < review.getRating(); i++) { %>

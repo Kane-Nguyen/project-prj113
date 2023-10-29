@@ -68,11 +68,11 @@
                 </tr>
                 <tr>
                     <td><label for="category">Category</label></td>
-                    <td><input type="text" id="category" name="category" required></td>
+                    <td><input type="text" id="CategoryId" name="CategoryId" required></td>
                 </tr>
                 <tr>
-                    <td><label for="manufacturer">Manufacturer</label></td>
-                    <td><input type="text" id="manufacturer" name="manufacturer" required></td>
+                    <td><label for="manufacturer">Author</label></td>
+                    <td><input type="text" id="Author" name="Author" required></td>
                 </tr>
                 <input type="text" id="method" name="method" value="add" style="display:none">
             </table>

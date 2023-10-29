@@ -29,7 +29,7 @@ public class ProductDAO extends DBContext {
             while (rs.next()) {
                 Product p = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
                         rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
-                        rs.getInt("StockQuantity"), rs.getString("Category"), rs.getString("Manufacturer"),
+                        rs.getInt("StockQuantity"), rs.getInt("CategoryID"), rs.getString("Author"),
                         rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
                 list.add(p);
             }
@@ -40,9 +40,9 @@ public class ProductDAO extends DBContext {
     }
 
     public void addProduct(String ProductName, String Description, double Price, double DiscountPercentage, String ImageURL,
-            int StockQuantity, String Category, String Manufacturer) {
+            int StockQuantity, int CategoryId, String Author) {
 
-        String sql = "INSERT INTO Products (ProductID, ProductName, Description, Price, DiscountPercentage, ImageURL, StockQuantity, Category, Manufacturer) VALUES (NEWID(), ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Products (ProductID, ProductName, Description, Price, DiscountPercentage, ImageURL, StockQuantity, CategoryID, Author) VALUES (NEWID(), ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, ProductName);
@@ -51,8 +51,8 @@ public class ProductDAO extends DBContext {
             st.setDouble(4, DiscountPercentage);
             st.setString(5, ImageURL);
             st.setInt(6, StockQuantity);
-            st.setString(7, Category);
-            st.setString(8, Manufacturer);
+            st.setInt(7, CategoryId);
+            st.setString(8, Author);
 
             st.executeUpdate();
         } catch (SQLException e) {
@@ -62,10 +62,10 @@ public class ProductDAO extends DBContext {
     }
 
     public void editProduct(String ProductName, String Description, double Price, String ImageURL,
-            int StockQuantity, String Category, String Manufacturer, double DiscountPercentage, String id) {
+            int StockQuantity, int CategoryId, String Author, double DiscountPercentage, String id) {
 
         String sql = "UPDATE Products SET ProductName=?, Description=?, Price=?, ImageURL=?,"
-                + " StockQuantity=?, Category=?, Manufacturer=?, DiscountPercentage=? WHERE ProductID=?";
+                + " StockQuantity=?, CategoryID=?, Author=?, DiscountPercentage=? WHERE ProductID=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
@@ -74,8 +74,8 @@ public class ProductDAO extends DBContext {
             st.setDouble(3, Price);
             st.setString(4, ImageURL);
             st.setInt(5, StockQuantity);
-            st.setString(6, Category);
-            st.setString(7, Manufacturer);
+            st.setInt(6, CategoryId);
+            st.setString(7, Author);
             st.setDouble(8, DiscountPercentage);
             st.setString(9, id);
 
@@ -87,21 +87,19 @@ public class ProductDAO extends DBContext {
         }
     }
 
-   public void deleteProductAndRelatedData(String productID) throws SQLException {
+  public void deleteProductAndRelatedData(String productID) throws SQLException {
     PreparedStatement stReviewsAndRatings = null;
     PreparedStatement stHistoryBuyBook = null;
     PreparedStatement stBooksInOrder = null;
-    PreparedStatement stTransactionHistory = null; // Thêm dòng này
+    PreparedStatement stTransactionHistory = null;
     PreparedStatement stOrders = null;
-    PreparedStatement stShoppingCart = null;
     PreparedStatement stProducts = null;
 
     String deleteReviewsAndRatingsSQL = "DELETE FROM ReviewsAndRatings WHERE ProductID=?";
     String deleteHistoryBuyBookSQL = "DELETE FROM HistoryBuyBook WHERE ProductID=?";
     String deleteBooksInOrderSQL = "DELETE FROM BooksInOrder WHERE ProductID=?";
-    String deleteTransactionHistorySQL = "DELETE FROM TransactionHistory WHERE OrderID IN (SELECT OrderID FROM Orders WHERE CartID IN (SELECT CartID FROM ShoppingCart WHERE ProductID=?))"; // Thêm dòng này
-    String deleteOrdersSQL = "DELETE FROM Orders WHERE CartID IN (SELECT CartID FROM ShoppingCart WHERE ProductID=?)";
-    String deleteShoppingCartSQL = "DELETE FROM ShoppingCart WHERE ProductID=?";
+    String deleteTransactionHistorySQL = "DELETE FROM TransactionHistory WHERE OrderID IN (SELECT OrderID FROM Orders WHERE UserID IN (SELECT UserID FROM Users WHERE UserID IN (SELECT UserID FROM Orders WHERE OrderID IN (SELECT OrderID FROM BooksInOrder WHERE ProductID=?))))";
+    String deleteOrdersSQL = "DELETE FROM Orders WHERE OrderID IN (SELECT OrderID FROM BooksInOrder WHERE ProductID=?)";
     String deleteProductsSQL = "DELETE FROM Products WHERE ProductID=?";
 
     try {
@@ -132,12 +130,7 @@ public class ProductDAO extends DBContext {
         stOrders.setString(1, productID);
         stOrders.executeUpdate();
 
-        // 6. Delete from ShoppingCart
-        stShoppingCart = connection.prepareStatement(deleteShoppingCartSQL);
-        stShoppingCart.setString(1, productID);
-        stShoppingCart.executeUpdate();
-
-        // 7. Delete from Products
+        // 6. Delete from Products
         stProducts = connection.prepareStatement(deleteProductsSQL);
         stProducts.setString(1, productID);
         stProducts.executeUpdate();
@@ -158,11 +151,12 @@ public class ProductDAO extends DBContext {
         if (stBooksInOrder != null) stBooksInOrder.close();
         if (stTransactionHistory != null) stTransactionHistory.close();
         if (stOrders != null) stOrders.close();
-        if (stShoppingCart != null) stShoppingCart.close();
         if (stProducts != null) stProducts.close();
         connection.setAutoCommit(true);
     }
 }
+
+
    public Product getProductById(String id) {
     Product product = null;
     String sql = "SELECT * FROM Products WHERE ProductID = ?";
@@ -173,7 +167,7 @@ public class ProductDAO extends DBContext {
         if (rs.next()) {
             product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
                     rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
-                    rs.getInt("StockQuantity"), rs.getString("Category"), rs.getString("Manufacturer"),
+                    rs.getInt("StockQuantity"), rs.getInt("CategoryID"), rs.getString("Author"),
                     rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
         }
     } catch (SQLException e) {
@@ -182,15 +176,27 @@ public class ProductDAO extends DBContext {
     return product;
 }
 
-
-
-
+public String getProductNameById(String id) {
+    String productName = null;
+    String sql = "SELECT ProductName FROM Products WHERE ProductID = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, id);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            productName = rs.getString("ProductName");
+        }
+    } catch (SQLException e) {
+        System.out.println("SQL Error: " + e.getMessage());
+    }
+    return productName;
+}
 
 
     public static void main(String[] args) {
         ProductDAO u = new ProductDAO();
         List<Product> l = u.getAll();
-        System.out.println(l.get(0).getProductId());
+        System.out.println(l.get(0).getProductName());
     }
 
 }
