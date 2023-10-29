@@ -29,7 +29,7 @@ public class ProductDAO extends DBContext {
             while (rs.next()) {
                 Product p = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
                         rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
-                        rs.getInt("StockQuantity"), rs.getString("Category"), rs.getString("Manufacturer"),
+                        rs.getInt("StockQuantity"), rs.getInt("CategoryID"), rs.getString("Author"),
                         rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
                 list.add(p);
             }
@@ -40,9 +40,9 @@ public class ProductDAO extends DBContext {
     }
 
     public void addProduct(String ProductName, String Description, double Price, double DiscountPercentage, String ImageURL,
-            int StockQuantity, String Category, String Manufacturer) {
+            int StockQuantity, int CategoryId, String Author) {
 
-        String sql = "INSERT INTO Products (ProductID, ProductName, Description, Price, DiscountPercentage, ImageURL, StockQuantity, Category, Manufacturer) VALUES (NEWID(), ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Products (ProductID, ProductName, Description, Price, DiscountPercentage, ImageURL, StockQuantity, CategoryID, Author) VALUES (NEWID(), ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, ProductName);
@@ -51,8 +51,8 @@ public class ProductDAO extends DBContext {
             st.setDouble(4, DiscountPercentage);
             st.setString(5, ImageURL);
             st.setInt(6, StockQuantity);
-            st.setString(7, Category);
-            st.setString(8, Manufacturer);
+            st.setInt(7, CategoryId);
+            st.setString(8, Author);
 
             st.executeUpdate();
         } catch (SQLException e) {
@@ -62,10 +62,10 @@ public class ProductDAO extends DBContext {
     }
 
     public void editProduct(String ProductName, String Description, double Price, String ImageURL,
-            int StockQuantity, String Category, String Manufacturer, double DiscountPercentage, String id) {
+            int StockQuantity, int CategoryId, String Author, double DiscountPercentage, String id) {
 
         String sql = "UPDATE Products SET ProductName=?, Description=?, Price=?, ImageURL=?,"
-                + " StockQuantity=?, Category=?, Manufacturer=?, DiscountPercentage=? WHERE ProductID=?";
+                + " StockQuantity=?, CategoryID=?, Author=?, DiscountPercentage=? WHERE ProductID=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
 
@@ -74,8 +74,8 @@ public class ProductDAO extends DBContext {
             st.setDouble(3, Price);
             st.setString(4, ImageURL);
             st.setInt(5, StockQuantity);
-            st.setString(6, Category);
-            st.setString(7, Manufacturer);
+            st.setInt(6, CategoryId);
+            st.setString(7, Author);
             st.setDouble(8, DiscountPercentage);
             st.setString(9, id);
 
@@ -173,7 +173,7 @@ public class ProductDAO extends DBContext {
         if (rs.next()) {
             product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
                     rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
-                    rs.getInt("StockQuantity"), rs.getString("Category"), rs.getString("Manufacturer"),
+                    rs.getInt("StockQuantity"), rs.getInt("CategoryID"), rs.getString("Author"),
                     rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
         }
     } catch (SQLException e) {
@@ -184,13 +184,10 @@ public class ProductDAO extends DBContext {
 
 
 
-
-
-
     public static void main(String[] args) {
         ProductDAO u = new ProductDAO();
         List<Product> l = u.getAll();
-        System.out.println(l.get(0).getProductId());
+        System.out.println(l.get(0).getProductName());
     }
 
 }

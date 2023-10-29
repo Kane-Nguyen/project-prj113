@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                     <td><label for="category">Category</label></td>
-                    <td><input type="text" id="category" name="category" required></td>
+                    <td><input type="text" id="category" name="CategoryID" required></td>
                 </tr>
                 <tr>
                     <td><label for="manufacturer">Manufacturer</label></td>

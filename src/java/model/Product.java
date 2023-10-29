@@ -19,23 +19,23 @@ public class Product {
     private double Price;
     private String ImageURL;
     private int StockQuantity;
-    private String Category;
-    private String Manufacturer;
+    private int CategoryId;
+    private String Author;
     private Date DateAdded;
     private double DiscountPercentage;
 
     public Product() {
     }
 
-    public Product(String ProductId, String ProductName, String Description, double Price, String ImageURL, int StockQuantity, String Category, String Manufacturer, Date DateAdded, double DiscountPercentage) {
-        this.ProductId = ProductId;      
+    public Product(String ProductId, String ProductName, String Description, double Price, String ImageURL, int StockQuantity, int CategoryId, String Author, Date DateAdded, double DiscountPercentage) {
+        this.ProductId = ProductId;
         this.ProductName = ProductName;
         this.Description = Description;
         this.Price = Price;
         this.ImageURL = ImageURL;
         this.StockQuantity = StockQuantity;
-        this.Category = Category;
-        this.Manufacturer = Manufacturer;
+        this.CategoryId = CategoryId;
+        this.Author = Author;
         this.DateAdded = DateAdded;
         this.DiscountPercentage = DiscountPercentage;
     }
@@ -88,20 +88,20 @@ public class Product {
         this.StockQuantity = StockQuantity;
     }
 
-    public String getCategory() {
-        return Category;
+    public int getCategoryId() {
+        return CategoryId;
     }
 
-    public void setCategory(String Category) {
-        this.Category = Category;
+    public void setCategoryId(int CategoryId) {
+        this.CategoryId = CategoryId;
     }
 
-    public String getManufacturer() {
-        return Manufacturer;
+    public String getAuthor() {
+        return Author;
     }
 
-    public void setManufacturer(String Manufacturer) {
-        this.Manufacturer = Manufacturer;
+    public void setAuthor(String Author) {
+        this.Author = Author;
     }
 
     public Date getDateAdded() {
@@ -118,6 +118,8 @@ public class Product {
 
     public void setDiscountPercentage(double DiscountPercentage) {
         this.DiscountPercentage = DiscountPercentage;
-    }    
+    }
+
+    
     
 }

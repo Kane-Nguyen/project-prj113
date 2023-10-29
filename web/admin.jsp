@@ -102,11 +102,11 @@ if (error != null && error.equals("missing_id")) {
                     <td>
                         <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" alt="Product Image">
                     </td>
-                    <td><%= product.getCategory() != null ? product.getCategory() : "N/A" %></td>
+                    <td><%= product.getCategoryId() != -1 ? product.getCategoryId() : "N/A" %></td>
                     <td><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
                     <td><%= numberFormat.format(product.getPrice()) %>đ</td>
                     <td><%= product.getDiscountPercentage() %> %</td>
-                    <td><%= product.getManufacturer() != null ? product.getManufacturer() : "N/A" %></td>
+                    <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
                     <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
                     <td>
                         <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>

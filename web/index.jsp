@@ -75,16 +75,14 @@
             </div>
             <div class="book-store">
                 <div class="row wrap-book-store">
-                    <% 
-                        ProductDAO productDAO = new ProductDAO();
-                        List<Product> products = productDAO.getAll();
-                        NumberFormat numberFormat = NumberFormat.getNumberInstance();
-                        numberFormat.setMinimumFractionDigits(3);
-                        numberFormat.setMaximumFractionDigits(3);
-                        if (products != null && !products.isEmpty()) {
-                            for (Product product : products) {
-                                if (product != null) {
-                    %>
+                    <% try {
+     ProductDAO productDAO = new ProductDAO();
+     List<Product> products = productDAO.getAll();
+     NumberFormat numberFormat = NumberFormat.getNumberInstance();
+     numberFormat.setMinimumFractionDigits(3);
+     numberFormat.setMaximumFractionDigits(3);
+
+     for (Product product : products) { %>
                     <a href="detail.jsp?productId=<%= product.getProductId() %>" class="card-link">
                         <div class="d-flex" >
                             <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" class="book-image" alt="Image not found">
@@ -92,21 +90,13 @@
                                 <h5 class="book-title">
                                     <% 
                                     if (product.getProductName() != null) {
-                                      out.print(product.getProductName());
+                                        out.print(product.getProductName());
                                     } else {
-                                      out.print("N/A");
+                                        out.print("N/A");
                                     }
                                     %>
                                 </h5>
-                                <p class="book-des">
-                                    <% 
-                                    if (product.getDescription() != null) {
-                                      out.print(product.getDescription());
-                                    } else {
-                                      out.print("N/A");
-                                    }
-                                    %>
-                                </p>
+                                
                                 <div class="book-price">
                                     <% if (product.getDiscountPercentage() == 0) { %>
                                     <span class="original-price"><%= numberFormat.format(product.getPrice()) %> đ</span>
@@ -127,17 +117,11 @@
                                 </form>
                             </div>
                         </div>
-                        <% 
-                                    }
-                                }
-                            } else {
-                        %>
-                        <div class="col-md-12">
-                            <p>No products found.</p>
-                        </div>
-                        <% 
-                            }
-                        %>
+                        <% } // End of for loop
+                    } catch (Exception e) {
+                        out.println("An error occurred: " + e.getMessage());
+                        e.printStackTrace();
+                    } %>
                 </div>
             </div>
         </div>
