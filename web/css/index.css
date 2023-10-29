@@ -1,4 +1,27 @@
 /*General class*/
+/* For Webkit browsers */
+::-webkit-scrollbar {
+    width: 5px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #000; /* color of the scroll thumb */
+    border-radius: 4px; /* roundness of the scroll thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* color of the scroll thumb when hovering */
+}
+
+/* For Firefox */
+body {
+    scrollbar-width: 4px;
+    scrollbar-color: #ccc #222;
+}
 .prevent-a-tag {
     color: #000;
 }
@@ -108,11 +131,27 @@
     height: 297px;
 }
 .book-store{
-    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .wrap-book-store{
+    margin-top: 70px;
     display: flex;
     flex-wrap: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    gap:10px;
+}
+#scroll-book::-webkit-scrollbar {
+    height: 0px;
+    cursor: pointer;
+}
+#scroll-book::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+#scroll-book::-webkit-scrollbar-thumb {
+    background: #888;
 }
 .card-link{
     width: 474px;
@@ -172,6 +211,48 @@
     padding-right: 20px;
     padding-left: 20px;
 
+}
+#arrow-right{
+    color: #000;
+    margin-left: 50px;
+    cursor: pointer;
+}
+#arrow-right:hover{
+    opacity: 0.5;
+}
+#arrow-left{
+    color: #000;
+    margin-right: 50px;
+    cursor: pointer;
+}
+#arrow-left:hover{
+    opacity: 0.5;
+}
+.footer{
+    margin-top: 70px;
+    display: flex;
+}
+.footer-left{
+    width: 50%
+
+}
+.logo{
+
+}
+.logo-img{
+    height: 50px;
+}
+.list-features{
+    list-style: none;
+    display: flex;
+    gap:10px;
+}
+.footer-right{
+    text-align: right;
+    width: 50%
+}
+.social-media > a{
+   margin-left: 10px;    
 }
 
 
