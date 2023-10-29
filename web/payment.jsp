@@ -77,7 +77,7 @@ if (error != null && error.equals("missing_id")) {
                         <td><input  type="text" style="border:0px;" name="phoneNumber" value="<%= order.getPhoneNumber() %>"></td>
                         <td><input type="text" style="border:0px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
                         <td><input type="text" style="border:0px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
-                        <td><input type="number" style="border:0px;" name="totalPrices" value="<%= String.format("%.2f", order.getTotalPrice()) %>"></td>
+                        <td><input type="number" style="border:0px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
                             <%if(order.getOrderStatus().equals("Canceled")){
                             %>
                         <td><P>Canceled</P></td>

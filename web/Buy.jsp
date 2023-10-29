@@ -10,8 +10,12 @@
         <title>Buy Page</title>
     </head>
     <body>
-        <h1>Order Summary</h1>
+
+
         <form action="ProcessOrderServlet" method="post">
+            <h1>Order Summary</h1>
+
+
             <ul>
                 <%
                     ProductDAO productDAO = new ProductDAO();
@@ -25,38 +29,42 @@
 
                     for (int i = 0; i < productIds.length; i++) {
                         String itemId = productIds[i];
-                        Product product = productDAO.getProductById(itemId);
-                        String quantityStr = i < quantities.length ? quantities[i] : "N/A";
-                        int quantity = 1; // Giá trị mặc định nếu không có dữ liệu quantity
+                        
+            
+                            Product product = productDAO.getProductById(itemId);
+                            String quantityStr = i < quantities.length ? quantities[i] : "N/A";
+                            int quantity = 1; // Giá trị mặc định nếu không có dữ liệu quantity
 
-                        if (quantityStr != null && !quantityStr.isEmpty()) {
-                            quantity = Integer.parseInt(quantityStr);
-                        }
+                            if (quantityStr != null && !quantityStr.isEmpty()) {
+                                quantity = Integer.parseInt(quantityStr);
+                            }
 
-                        if (product != null) {
-                            double unitPrice = product.getPrice();
-                            double discount = product.getDiscountPercentage();
-                            double discountedPrice = unitPrice * (1 - discount / 100);
-                            double itemTotal = discountedPrice * quantity;
-                            totalPrice += itemTotal;
-                            System.out.println(quantity);
-                            System.out.println("quantity "+quantity+" "+ itemId);
+                            if (product != null) {
+                                double unitPrice = product.getPrice();
+                                double discount = product.getDiscountPercentage();
+                                double discountedPrice = unitPrice * (1 - discount / 100);
+                                double itemTotal = discountedPrice * quantity;
+                                totalPrice += itemTotal;
+                                System.out.println(quantity);
+                                System.out.println("quantity "+quantity+" "+ itemId);
+                          
                             
 
                 %>
                 <li>
                     <img src="<%= product.getImageURL() %>" width="50" height="50">
                     <p><%= product.getProductName() %></p>
-                    Original Price: <%= unitPrice %>VNĐ
+                    Original Price: <%= String.format("%.3f", unitPrice) %>VNĐ
                     <br>
-                    Discounted Price: <%= discountedPrice %>VNĐ
+                    Discounted Price: <%= String.format("%.3f", discountedPrice) %>VNĐ
                     <br>
                     Quantity: 
-                    <input type="number" name="quantity<%= itemId %>" value="<%= quantity %>" min="1">
+                    <input type="number" name="quantity" value="<%= quantity %>" min="1">
                     <br>
-                    Item Total: <%= itemTotal %>VNĐ
+                    Item Total: <%= String.format("%.3f", itemTotal) %>VNĐ
                 </li>
                 <%
+                      System.out.println("Important "+  "quantity"+itemId );
                         } else {
                 %>
                 <li>Product ID <%= itemId %> not found</li>
@@ -65,7 +73,7 @@
                         }
                     %>
             </ul>
-            <h2>Total Price: <%= totalPrice %>VNĐ</h2>
+            <h2>Total Price: <%= String.format("%.3f",totalPrice) %>VNĐ</h2>
 
             <a href="cart.jsp">Cart</a>
             <%
@@ -83,7 +91,7 @@
     }
             %>
 
-         
+
 
             <h2>Enter Order Information</h2>
             <label for="deliveryAddress">Delivery Address:</label>
@@ -99,7 +107,7 @@
             <input type="text" id="paymentMethod" name="paymentMethod" value="COD" disabled><br>
             <input type="hidden" id="paymentMethod" name="paymentMethod" value="COD"><br>
             <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
-         
+
             <input type="hidden" name="productIds" value="<%= String.join(",", productIds) %>">   
             <input type="hidden" name="userID" value="<%= id %>">
             <input type="submit" value="Place Order">

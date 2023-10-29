@@ -175,6 +175,34 @@ public class ProductDAO extends DBContext {
     }
     return product;
 }
+public int getStockQuantity(String productID) {
+    int stockQuantity = -1; // Gán giá trị mặc định là -1, có nghĩa là không tìm thấy sản phẩm
+    String sql = "SELECT StockQuantity FROM Products WHERE ProductID = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, productID);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            stockQuantity = rs.getInt("StockQuantity");
+        }
+    } catch (SQLException e) {
+        System.out.println("SQL Error: " + e.getMessage());
+    }
+    return stockQuantity;
+}
+public void updateStockQuantity(String productID, int newQuantity) {
+    String sql = "UPDATE Products SET StockQuantity=? WHERE ProductID=?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+
+        st.setInt(1, newQuantity);
+        st.setString(2, productID);
+
+        st.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println("SQL Error: " + e.getMessage());
+    }
+}
 
 public String getProductNameById(String id) {
     String productName = null;
