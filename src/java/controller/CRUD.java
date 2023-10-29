@@ -89,8 +89,8 @@ public class CRUD extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         String imageURL = request.getParameter("imageURL");
         int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
-        int category = Integer.parseInt(request.getParameter("CategoryID"));
-        String manufacturer = request.getParameter("manufacturer");
+       int category = Integer.parseInt(request.getParameter("CategoryId"));
+        String Author = request.getParameter("Author");
         String method = request.getParameter("method");
 
         try {
