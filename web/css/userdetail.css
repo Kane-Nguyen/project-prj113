@@ -1,0 +1,61 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 25, 2023, 4:32:02 PM
+    Author     : TU ANH
+*/
+
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0;
+}
+.container{
+    display: flex;
+}
+
+div.userDetail-left {
+    flex: 0.15;
+    background-color: rgb(104, 179, 249);
+    text-align: center;
+    margin-bottom: -40px;
+}
+.ic-home{
+    padding-top: 100px;
+}
+.userDetail-right{
+    flex: 2;
+    margin-left: 260px;
+}
+#name, #birthday, #email, #address, #phone {
+    background-color: #fff;  /* Nền trắng */
+    border: 1.7px solid #888;   /* Viền đen */
+    color: #888;             /* Màu chữ xám */
+    font-weight: bold;
+    padding:13px;            /* Khoảng cách lề bên trong */
+    width: 60%;             /* Chiều rộng 100% */
+    border-radius: 4px; /* Bo tròn viền */
+}
+
+.form-group , .userDetail-tittle{
+    margin-top: 13px;
+    margin-bottom: 15px;
+}
+.userDetail-tittle{
+    margin-top: 28px;
+    margin-bottom: 28px;
+}
+div.user-id{
+        font-weight: bold;
+margin-bottom: 5px;
+}
+button{
+    background-color: rgb(104, 179, 249);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
