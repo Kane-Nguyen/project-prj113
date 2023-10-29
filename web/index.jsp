@@ -86,21 +86,13 @@
                                 <h5 class="book-title">
                                     <% 
                                     if (product.getProductName() != null) {
-                                      out.print(product.getProductName());
+                                        out.print(product.getProductName());
                                     } else {
-                                      out.print("N/A");
+                                        out.print("N/A");
                                     }
                                     %>
                                 </h5>
-                                <p class="book-des">
-                                    <% 
-                                    if (product.getDescription() != null) {
-                                      out.print(product.getDescription());
-                                    } else {
-                                      out.print("N/A");
-                                    }
-                                    %>
-                                </p>
+                                
                                 <div class="book-price">
                                     <% if (product.getDiscountPercentage() == 0) { %>
                                     <span class="original-price"><%= numberFormat.format(product.getPrice()) %> đ</span>
