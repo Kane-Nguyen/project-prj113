@@ -60,7 +60,7 @@ body {
     border: none;
 }
 .list-navbar{
-
+    
 }
 .active{
     font-weight: 500;
@@ -264,7 +264,7 @@ body {
     width: 50%
 }
 .social-media > a{
-    margin-left: 10px;
+   margin-left: 10px;    
 }
 .book-wrap{
     margin-top: 50px;
@@ -280,7 +280,7 @@ body {
 .title-detail-book{
     font-size: 40px;
     font-weight: 700;
-
+    
 }
 .category-detail{
     font-weight: 400;
@@ -302,7 +302,7 @@ body {
     font-size: 16px;
 }
 .not-sale{
-    font-weight: 400 !important;
+     font-weight: 400 !important;
     text-decoration: line-through;
     color:#ccc;
 }
@@ -310,7 +310,7 @@ body {
     font-weight: 600;
     color:red;
     font-size: 36px;
-
+    
 }
 .button-wrap-detail{
     display: flex;
@@ -323,7 +323,7 @@ body {
 }
 .book-description{
     margin-top: 20px;
-
+    
 }
 .book-description-header{
     font-size: 26px;
@@ -334,13 +334,12 @@ body {
     width: 70%;
 }
 .comment-wrap{
-    margin-top : 20px;
+     margin-top : 20px;
 }
 .comment-input-wrap{
-    width: 70%;
+   width: 70%;
 }
 .wrap-name-rating{
-    margin-top: 70px;
     display: flex;
     flex-direction: column;
 }
@@ -358,7 +357,7 @@ body {
     color:#007bff;
 }
 .average-rating{
-    position: relative;
+     position: relative;
 }
 .background-line-detail{
     width:  80%;
@@ -368,94 +367,43 @@ body {
 }
 .rating-star-wrap{
     position: relative;
-
+    
 }
 .rating-line-detail-0{
     position: absolute;
     left: 0px;
-    width: 0%;
-    height: 5px;
+     width: 0%;
+      height: 5px;
 }
 .rating-line-detail-1{
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 16%;
-    border-radius: 6px;
-    height: 5px;
-    background-color: #0B63F8;
+     width: 16%;
+     border-radius: 6px;
+      height: 5px;
+      background-color: #0B63F8;
 }
 .rating-line-detail-2{
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 32%;
-    border-radius: 6px;
-    height: 5px;
-    background-color: #0B63F8;
+     width: 32%;
+     border-radius: 6px;
+      height: 5px;
+      background-color: #0B63F8;
 }
 .rating-line-detail-3{
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 48%;
-    border-radius: 6px;
-    height: 5px;
-    background-color: #0B63F8;
-}
-.rating-line-detail-4{
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 64%;
-    border-radius: 6px;
-    height: 5px;
-    background-color: #0B63F8;
-}
-.rating-line-detail-5{
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 80%;
-    border-radius: 6px;
-    height: 5px;
-    background-color: #0B63F8;
+     width: 48%;
+     border-radius: 6px;
+      height: 5px;
+      background-color: #0B63F8;
 }
 .rating-number{
     position: absolute;
     right: 15%;
     top: 0px;
-    font-weight: 500;
-}
-.notice-login{
-    font-weight: 500;
-
-}
-.rating {
-    display: inline-block;
-    font-size: 24px;
-    direction: rtl; /* Thêm dòng này để đảo ngược thứ tự */
-}
-
-.rating input {
-    display: none;
-}
-
-.rating label {
-    cursor: pointer;
-}
-
-.rating label:before {
-    content: "\2605"; /* Unicode character for a star */
-    color: #ddd;
-    font-size: 24px;
-}
-
-.rating input:checked ~ label:before,
-.rating label:hover ~ label:before,
-.rating label:hover:before {
-    color: #0B63F8; /* Color for selected stars */
-}
-.rating label:before {
-    font-size: 24px;
 }
