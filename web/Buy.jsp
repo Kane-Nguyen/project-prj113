@@ -42,12 +42,15 @@
                 <div class="alert alert-danger">
                     <%= errorMessage %>
                 </div>
-                <%
+                    <%
                     }
 
 
                 
                 else{
+                %>
+                   <a href="index.jsp" class="btn-primary">Home</a>
+                <%
                                     for (int i = 0; i < productIds.length; i++) {
                                         String itemId = productIds[i];
                         
@@ -72,7 +75,7 @@
                               
 
                 %>
-                <a href="index.jsp" class="btn-primary">Home</a>
+             
                 <li>
                     <img src="<%= product.getImageURL() %>" width="50" height="50">
                     <p><%= product.getProductName() %></p>
