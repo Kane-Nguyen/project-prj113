@@ -312,5 +312,98 @@ body {
     font-size: 36px;
     
 }
-
-
+.button-wrap-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.btn-custom-add-cart{
+    background-color: #fff;
+    color: #0B63F8;
+}
+.book-description{
+    margin-top: 20px;
+    
+}
+.book-description-header{
+    font-size: 26px;
+    font-weight: 500;
+}
+.book-descriptionp-content{
+    margin-left: 20px;
+    width: 70%;
+}
+.comment-wrap{
+     margin-top : 20px;
+}
+.comment-input-wrap{
+   width: 70%;
+}
+.wrap-name-rating{
+    display: flex;
+    flex-direction: column;
+}
+.comment-input{
+    outline: none;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+.date-rating{
+    font-weight: 300;
+    font-size: 16px;
+    color:#ccc;
+}
+.rating-solid-star{
+    color:#007bff;
+}
+.average-rating{
+     position: relative;
+}
+.background-line-detail{
+    width:  80%;
+    height: 5px;
+    background-color: #ccc;
+    border-radius: 6px;
+}
+.rating-star-wrap{
+    position: relative;
+    
+}
+.rating-line-detail-0{
+    position: absolute;
+    left: 0px;
+     width: 0%;
+      height: 5px;
+}
+.rating-line-detail-1{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+     width: 16%;
+     border-radius: 6px;
+      height: 5px;
+      background-color: #0B63F8;
+}
+.rating-line-detail-2{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+     width: 32%;
+     border-radius: 6px;
+      height: 5px;
+      background-color: #0B63F8;
+}
+.rating-line-detail-3{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+     width: 48%;
+     border-radius: 6px;
+      height: 5px;
+      background-color: #0B63F8;
+}
+.rating-number{
+    position: absolute;
+    right: 15%;
+    top: 0px;
+}

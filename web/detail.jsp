@@ -102,7 +102,7 @@
                                     <span class="discount-price-detail"> <%= numberFormat.format(product.getPrice() * (1 - product.getDiscountPercentage() / 100)) %>đ</span>
                                 </div>
                                 <% } %>
-                              </div>
+                            </div>
                             <%
     if (isUserLoggedIn) {
                             %>
@@ -112,20 +112,18 @@
                                 <input type="hidden" name="quantity" value="1">
                                 <input type="hidden" name="originalPrice" value="<%= numberFormat.format(product.getPrice())%>">
                                 <input type="hidden" name="discountedPrice" value="<%= product.getDiscountPercentage()%>">
-
-
-                                <button type="submit" class="btn btn-primary mt-auto">Buy now</button>
+                                <button type="submit" class="btn btn-primary mt-auto w-100">Buy now</button>
                             </form>
                             <form action="AddToCartServlet" method="post">
-                                <input type="hidden" name="productId" value="<%= product.getProductId()%>">
-                                <button type="submit" class="btn btn-primary mt-auto">Order</button>
+                                <input type="hidden"name="productId" value="<%= product.getProductId()%>">
+                                <button type="submit" class="btn btn-primary btn-custom-add-cart mt-auto w-100">Add to cart</button>
                             </form>
                             <%
 } else {
                             %>
                             <div class="button-wrap-detail">
-                                <button type="button" class="btn btn-primary mt-auto require-login-btn">Buy now</button>
-                                <button type="button" class="btn btn-primary mt-auto require-login-btn">Order</button>
+                                <button type="button" class="btn btn-primary mt-auto require-login-btn w-100">Buy now</button>
+                                <button type="button" class="btn btn-primary mt-auto require-login-btn w-100 btn-custom-add-cart">Add to cart</button>
                             </div>
 
                             <div id="loginAlert" style="display:none;" class="alert alert-danger mt-2">
@@ -145,9 +143,9 @@
                         </div>
                     </div>
 
-                    <div style="margin-top: 20px">
-                        <h3>Book Overview</h3>
-                        <p><%= product.getDescription() %></p>
+                    <div class="book-description">
+                        <h4 class="book-description-header">Book Overview</h3>
+                            <p class="book-descriptionp-content"><%= product.getDescription() %></p>
                     </div>
 
 
@@ -157,13 +155,13 @@
 
                     <!-- Form for user to input comment -->
                     <form action="ReviewsAndRatingsServlet" method="post" onsubmit="return validateForm()">
-                        <div style="margin-top: 20px">
+                        <div class="comment-wrap">
                             <h4>Comment:</h4>
 
                             <input type="hidden" name="productID" value="<%= requestedProductId %>">
                             <input type="hidden" name="userID" value="<%= session.getAttribute("userID")%>"> <!-- Replace with actual user ID -->
-                            <div class="form-group">
-                                <textarea name="comment" placeholder="Your comment..." class="form-control" rows="4"></textarea>
+                            <div class="form-group comment-input-wrap">
+                                <textarea name="comment" placeholder="Your comment..." class="form-control comment-input" rows="4"></textarea>
                             </div>
                             <h4>Rating:</h4><div class="rating">
                                 <input type="radio" name="rating" value="5" id="rating5" />
@@ -212,31 +210,65 @@
                             for (ReviewsAndRatings r : ratingsList) {
                                     totalRating += r.getRating();
                             }
-                            double averageRating = (ratingsList.size() > 0) ? totalRating / ratingsList.size() : 0; %>
+                            double averageRating = Math.ceil((ratingsList.size() > 0) ? totalRating / ratingsList.size() : 0)   ;
+                            if(averageRating == 1){
+                        %>
+                        <div class="average-rating">
+                            <div class="rating-star-wrap">
+                                <div class="background-line-detail"></div>
+                                <div class="rating-line-detail-1"></div>
+
+                            </div>
+                            <span class="rating-number">1.0</span>
+                        </div>
+                        <%  }else if(averageRating == 2) {  %>
+                        <div class="average-rating">
+                            <div class="rating-star-wrap">
+                                <div class="background-line-detail"></div>
+                                <div class="rating-line-detail-2"></div>
+
+                            </div>
+                            <span class="rating-number">2.0</span>
+                        </div>
+
+
+                        <%  }else if(averageRating == 3) {%> 
+                        <div class="average-rating">
+                            <div class="rating-star-wrap">
+                                <div class="background-line-detail"></div>
+                                <div class="rating-line-detail-3"></div>
+
+                            </div>
+                            <span class="rating-number">3.0</span>
+                        </div>
+
+                        <% }%>
                         <h2>Average Rating: <%= averageRating %></h2>
 
                         <%  for (ReviewsAndRatings review : reviews) {                              
                                 if (review.getProductID().equals(requestedProductId)) {                                
                         %>
-                        <h3>Comment:</h3>
 
                         <div class="review">
-                            <%
-                            try {
-                            %>
-                            <strong><%= u.get(review.getUserID()).getFullName() %></strong>
-                            <%
-                            } catch (Exception e) {
-                                e.printStackTrace(); // This will print the error details to your server's console
-                            }
-                            %>
-                            <p><%= review.getComment() %> ------- <%= review.getDatePosted() %> </p>
+                            <div class="wrap-name-rating">
+                                <%
+                                try {
+                                %>
+                                <strong><%= u.get(review.getUserID()).getFullName() %></strong>
+                                <%
+                                } catch (Exception e) {
+                                    e.printStackTrace(); // This will print the error details to your server's console
+                                }
+                                %>
+                                <span class="date-rating"><%= review.getDatePosted() %></span>
+                            </div>
+                            <p><%= review.getComment() %> </p>
                             Rating: 
                             <% for (int i = 0; i < review.getRating(); i++) { %>
-                            <span>&#9733;</span> <!-- Unicode character for a filled star -->
+                            <span><i class="bi bi-star-fill rating-solid-star"></i></span> <!-- Unicode character for a filled star -->
                             <% } %>
                             <% for (int i = 0; i < 5 - review.getRating(); i++) { %>
-                            <span>&#9734;</span> <!-- Unicode character for an empty star -->
+                            <span><i class="bi bi-star"></i></span> <!-- Unicode character for an empty star -->
                             <% } %>
                         </div>
 
