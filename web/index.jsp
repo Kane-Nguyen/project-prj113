@@ -37,9 +37,12 @@
                         <i class="bi bi-person icon-person-navbar h4 "></i>
                     </a>
                     <%} %>
-                    <button class="btn-primary rounded btn-cart">
-                        <i class="bi bi-cart h5"></i> Your Cart
-                    </button>
+                    <a href="cart.jsp">
+                        <button class="btn-primary rounded btn-cart">
+                            <i class="bi bi-cart h5"></i> Your Cart
+                        </button>
+                    </a>
+
                     <% if (isUserLoggedIn) { %>
                     <a href="Logout" class="prevent-a-tag">
                         <i class="bi bi-box-arrow-in-left h4"></i>
@@ -97,7 +100,7 @@
                                     }
                                     %>
                                 </h5>
-                                
+
                                 <div class="book-price">
                                     <% if (product.getDiscountPercentage() == 0) { %>
                                     <span class="original-price"><%= numberFormat.format(product.getPrice()) %> đ</span>
@@ -112,7 +115,7 @@
                                 </div>
 
                                 <!-- Form để thêm sản phẩm vào giỏ hàng -->
-                                <form action="AddToCartServlet" method="post">
+                                <form action="AddToCartServlet" method="post" class="add-to-cart-home">
                                     <input type="hidden" name="productId" value="<%= product.getProductId()%>">
                                     <button type="submit" class="btn-primary mt-auto btn-add-to-cart "> <i class="bi bi-cart h5"></i>Add to cart</button>
                                 </form>
@@ -155,10 +158,10 @@
                 <div class="footer-right">
                     <h3>Social Media</h3>
                     <div class="social-media">
-                         <a><i class="bi bi-facebook h5"></i></a>
-                    <a><i class="bi bi-instagram h5"></i></a>
+                        <a><i class="bi bi-facebook h5"></i></a>
+                        <a><i class="bi bi-instagram h5"></i></a>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
