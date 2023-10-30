@@ -2,6 +2,7 @@ package controller;
 
 import dal.BooksInOrderDAO;
 import dal.OrderDAO;
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -47,8 +48,26 @@ public class ProcessOrderServlet extends HttpServlet {
         String totalPriceStr = request.getParameter("totalPrice");
         String methodbuy = request.getParameter("methodbuy");
         System.out.println(methodbuy);
+        boolean isStocking = true;
         double totalPrice = 0.0;
+        ProductDAO p = new ProductDAO();
+        
+        String[] quantities = request.getParameterValues("quantity");
+        String productIdsRaw = request.getParameter("productIds");
+        String[] productIds = productIdsRaw.split(",");
+        for (int i = 0; i < productIds.length; i++) {
+            System.out.println(quantities[i]);
+            System.out.println(productIds[i]);
+            int quantity = Integer.parseInt(quantities[i]);
+            int sq = p.getStockQuantity(productIds[i]);
+            if (sq < quantity) {
+                isStocking = false;
+                response.sendRedirect("Buy.jsp?errorMessage=Out+of+Stock+of+Product+id+" + productIds[i]);
+                return;
 
+            }
+
+        }
         if (totalPriceStr != null && !totalPriceStr.isEmpty()) {
             try {
                 totalPrice = Double.parseDouble(totalPriceStr);
@@ -63,20 +82,10 @@ public class ProcessOrderServlet extends HttpServlet {
         int userID = Integer.parseInt(request.getParameter("userID"));
 
         // Lấy mảng các sản phẩm và số lượng
-        String[] productIds = request.getParameterValues("productIds");
-        List<String> quantitiesList = new ArrayList<>(); // Tạo một danh sách để lưu trữ các giá trị quantity
-
-        for (String productId : productIds) {
-            // Đối với mỗi productId, lấy giá trị quantity từ input ẩn
-            String quantity = request.getParameter("quantity" + productId);
-            quantitiesList.add(quantity);
-        }
-
-        // Chuyển danh sách quantitiesList thành mảng quantities
-        String[] quantities = quantitiesList.toArray(new String[0]);
-
         if (quantities == null || quantities.length == 0 || quantities.equals("null")) {
             System.out.println("Lỗi: Không có dữ liệu quantity");
+        } else if (isStocking == false) {
+            System.out.println("Out of Stock");
         } else {
             // In các giá trị ra console hoặc log
             System.out.println("Delivery Address: " + deliveryAddress);
@@ -85,7 +94,6 @@ public class ProcessOrderServlet extends HttpServlet {
             System.out.println("Payment Method: " + paymentMethod);
             System.out.println("Total Price: " + totalPrice);
             System.out.println("userID: " + userID);
-            System.out.println("quantity " +quantities[0]);
             OrderDAO o = new OrderDAO();
             o.addOrder(userID, deliveryAddress, phoneNumber, recipientName, paymentMethod, totalPrice, "Pending");
             int lastestID = o.getLatestOrderID();
@@ -102,22 +110,23 @@ public class ProcessOrderServlet extends HttpServlet {
                     int quantityInt = Integer.parseInt(quantity);
                     // Thực hiện xử lý dữ liệu ở đây (ví dụ: thêm vào cơ sở dữ liệu)
                     b.insertBooksInOrder(lastestID, productId, quantityInt);
+                    int S = p.getStockQuantity(productId) - quantityInt;
+                    p.updateStockQuantity(productId, S);
 
-                   
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid quantity format for product ID: " + productId);
                 }
             }
-//            if (methodbuy.equals("cart")) {
-//                Cookie cartCookie = new Cookie("cart", "");
-//                cartCookie.setMaxAge(60 * 60 * 24);  // Optional: set the lifespan of the cookie
-//                response.addCookie(cartCookie);
-//
-//                Cookie quantityCookie = new Cookie("quantity", "");
-//                quantityCookie.setMaxAge(60 * 60 * 24);  // Optional: set the lifespan of the cookie
-//                response.addCookie(quantityCookie);
-//            }
-             response.sendRedirect("index.jsp");
+            if (methodbuy.equals("cart")) {
+                Cookie cartCookie = new Cookie("cart", "");
+                cartCookie.setMaxAge(60 * 60 * 24);  
+                response.addCookie(cartCookie);
+
+                Cookie quantityCookie = new Cookie("quantity", "");
+                quantityCookie.setMaxAge(60 * 60 * 24);  
+                response.addCookie(quantityCookie);
+            }
+            response.sendRedirect("paid.jsp");
         }
     }
 

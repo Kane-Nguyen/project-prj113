@@ -104,6 +104,18 @@
                 setCookie("cart", "", -1);  // Setting -1 days will remove the cookie
                 setCookie("quantity", "", -1);
             }
+            function updateFormValues() {
+                var quantities = getCookie("quantity").split(":");
+                var cartItems = getCookie("cart").split(":");
+
+                for (var i = 0; i < cartItems.length; i++) {
+                    var productId = cartItems[i];
+                    var quantity = quantities[i];
+
+                    // Cập nhật giá trị hidden field
+                    document.getElementsByName("quantity")[i].value = quantity;
+                }
+            }
 
         </script>
     </head>
@@ -149,7 +161,8 @@
             <li>
                 <img src="<%= product.getImageURL() %>" width="50" height="50">
                 Original Price: <span id="original-price-<%= itemId %>"><%= unitPrice %>VNĐ</span>
-                <span id="unit-price-<%= itemId %>"><%= discountedPrice %>VNĐ</span>
+                <span id="unit-price-<%= itemId %>"><%= String.format("%.3f", discountedPrice) %>VNĐ</span>
+
                 - Quantity: <span id="quantity-<%= itemId %>"><%= quantity %></span>
                 <button type="button" onclick="updateQuantity('<%= itemId %>', 'increase')">+</button>
                 <button type="button" onclick="updateQuantity('<%= itemId %>', 'decrease')">-</button>
@@ -165,9 +178,10 @@
                     }
                 %>
         </ul>
-        <h2 id="total-price">Total Price: <%= totalPrice %> </h2>
+        <h2 id="total-price">Total Price:<%= String.format("%.3f", totalPrice) %> </h2>
         <a href="index.jsp">Back to Product List</a>
-        <form action="Buy.jsp" method="post" onsubmit="clearCartCookies()">
+        <form action="Buy.jsp" method="post" onsubmit="updateFormValues()">
+
             <% 
             if (!cartItems.isEmpty()) {
                 String[] cartItemArray = cartItems.split(":");
@@ -188,7 +202,8 @@
             <input type="hidden" name="quantity" value="<%= quantity %>"> 
             <input type="hidden" name="originalPrice" value="<%= unitPrice %>">
             <input type="hidden" name="discountedPrice" value="<%= discountedPrice %>">
-             <input type="hidden" name="methodbuy" value="cart">
+            <input type="hidden" name="reload" value="reload"> 
+            <input type="hidden" name="methodbuy" value="cart">
             <% 
                     }
                 }

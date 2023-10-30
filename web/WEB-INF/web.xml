@@ -9,6 +9,10 @@
         <servlet-class>controller.signup</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>updateOrderStatus</servlet-name>
+        <servlet-class>controller.updateOrderStatus</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ProcessOrderServlet</servlet-name>
         <servlet-class>controller.ProcessOrderServlet</servlet-class>
     </servlet>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ProcessOrderServlet</servlet-name>
         <url-pattern>/ProcessOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateOrderStatus</servlet-name>
+        <url-pattern>/updateOrderStatus</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>userDetailPW</servlet-name>

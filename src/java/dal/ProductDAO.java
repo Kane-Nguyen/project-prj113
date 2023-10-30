@@ -38,7 +38,24 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-
+public int getStockById(String productId) {
+        int stockQuantity = -1; // Initialize with a value that indicates "not found" or "error"
+        String sql = "SELECT StockQuantity FROM Products WHERE ProductID = ?";
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, productId);
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next()) {
+                stockQuantity = rs.getInt("StockQuantity");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return stockQuantity;
+    }
     public void addProduct(String ProductName, String Description, double Price, double DiscountPercentage, String ImageURL,
             int StockQuantity, int CategoryId, String Author) {
 
@@ -174,6 +191,34 @@ public class ProductDAO extends DBContext {
         System.out.println("SQL Error: " + e.getMessage());
     }
     return product;
+}
+public int getStockQuantity(String productID) {
+    int stockQuantity = -1; // Gán giá trị mặc định là -1, có nghĩa là không tìm thấy sản phẩm
+    String sql = "SELECT StockQuantity FROM Products WHERE ProductID = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setString(1, productID);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            stockQuantity = rs.getInt("StockQuantity");
+        }
+    } catch (SQLException e) {
+        System.out.println("SQL Error: " + e.getMessage());
+    }
+    return stockQuantity;
+}
+public void updateStockQuantity(String productID, int newQuantity) {
+    String sql = "UPDATE Products SET StockQuantity=? WHERE ProductID=?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+
+        st.setInt(1, newQuantity);
+        st.setString(2, productID);
+
+        st.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println("SQL Error: " + e.getMessage());
+    }
 }
 
 public String getProductNameById(String id) {
