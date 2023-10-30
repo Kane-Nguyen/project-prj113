@@ -112,7 +112,7 @@ public class loginServlet extends HttpServlet {
 
        
         if (!isLogin) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login.jsp?error=invalid");
         } else {
             // After successful authentication
             if (!"null".equals(redirectURL) && !redirectURL.isEmpty() && redirectURL != null) {

@@ -16,8 +16,21 @@
                 xhr.onload = function () {
                     if (xhr.status == 200) {
                         var newQuantity = xhr.responseText;
-                        document.getElementById("quantity-" + productId).innerText = newQuantity;
-                        updateTotalPrice();
+                        var stock = parseInt(document.getElementById('Stock-' + productId).value);
+
+                        console.log(newQuantity);
+                        console.log(stock);
+
+                        if (newQuantity > stock && action === "increase")
+                        {
+                            alert("khong du sach");
+
+                            return;
+                        } else
+                        {
+                            document.getElementById("quantity-" + productId).innerText = newQuantity;
+                            updateTotalPrice();
+                        }
                     }
                 };
             }
@@ -104,18 +117,6 @@
                 setCookie("cart", "", -1);  // Setting -1 days will remove the cookie
                 setCookie("quantity", "", -1);
             }
-            function updateFormValues() {
-                var quantities = getCookie("quantity").split(":");
-                var cartItems = getCookie("cart").split(":");
-
-                for (var i = 0; i < cartItems.length; i++) {
-                    var productId = cartItems[i];
-                    var quantity = quantities[i];
-
-                    // Cập nhật giá trị hidden field
-                    document.getElementsByName("quantity")[i].value = quantity;
-                }
-            }
 
         </script>
     </head>
@@ -161,9 +162,9 @@
             <li>
                 <img src="<%= product.getImageURL() %>" width="50" height="50">
                 Original Price: <span id="original-price-<%= itemId %>"><%= unitPrice %>VNĐ</span>
-                <span id="unit-price-<%= itemId %>"><%= String.format("%.3f", discountedPrice) %>VNĐ</span>
-
+                <span id="unit-price-<%= itemId %>"><%= discountedPrice %>VNĐ</span>
                 - Quantity: <span id="quantity-<%= itemId %>"><%= quantity %></span>
+                <input type="hidden" id="Stock-<%= itemId %>" value="<%= productDAO.getStockQuantity(itemId)%>">
                 <button type="button" onclick="updateQuantity('<%= itemId %>', 'increase')">+</button>
                 <button type="button" onclick="updateQuantity('<%= itemId %>', 'decrease')">-</button>
                 <button type="button" onclick="removeProduct('<%= itemId %>')">X</button>
@@ -178,10 +179,9 @@
                     }
                 %>
         </ul>
-        <h2 id="total-price">Total Price:<%= String.format("%.3f", totalPrice) %> </h2>
+        <h2 id="total-price">Total Price: <%= totalPrice %> </h2>
         <a href="index.jsp">Back to Product List</a>
-        <form action="Buy.jsp" method="post" onsubmit="updateFormValues()">
-
+        <form action="Buy.jsp" method="post" onsubmit="clearCartCookies()">
             <% 
             if (!cartItems.isEmpty()) {
                 String[] cartItemArray = cartItems.split(":");
@@ -202,7 +202,6 @@
             <input type="hidden" name="quantity" value="<%= quantity %>"> 
             <input type="hidden" name="originalPrice" value="<%= unitPrice %>">
             <input type="hidden" name="discountedPrice" value="<%= discountedPrice %>">
-            <input type="hidden" name="reload" value="reload"> 
             <input type="hidden" name="methodbuy" value="cart">
             <% 
                     }

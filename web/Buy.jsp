@@ -8,7 +8,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Buy Page</title>
-         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     </head>
     <body>
@@ -27,29 +27,30 @@
                     String[] originalPrices = request.getParameterValues("originalPrice");
                     String[] discountedPrices = request.getParameterValues("discountedPrice");
                     String methodbuy = request.getParameter("methodbuy");
-                     String errorMessage = request.getParameter("errorMessage");
+                    String errorMessage = request.getParameter("errorMessage");
+                    String iderorr= request.getParameter("productId");
                     double totalPrice = 0;
                     int a=0;
-                    if( productIds == null || productIds.length == 0 ){
-                %>
-                <h3>You don't have any Product in cart</h3>
-                
-                <a href="index.jsp" class="btn"></a>
-          
-                <%
-                    }else if(errorMessage != null && !errorMessage.isEmpty()){
+                    if(errorMessage != null && !errorMessage.isEmpty()){
                 %>
                 <div class="alert alert-danger">
-                    <%= errorMessage %>
-                </div>
-                    <%
-                    }
+                    <p>Insufficient quantity of <%=productDAO.getProductNameById(iderorr)%></p>
+                </div> <%
+                    }else if( productIds == null || productIds.length == 0 ){
+                %>
+                <h3>You don't have any Product in cart</h3>
+
+                <a href="index.jsp" class="btn"></a>
+
+               
+                <%
+                }
 
 
                 
-                else{
+            else{
                 %>
-                   <a href="index.jsp" class="btn-primary">Home</a>
+                <a href="index.jsp" class="btn-primary">Home</a>
                 <%
                                     for (int i = 0; i < productIds.length; i++) {
                                         String itemId = productIds[i];
@@ -75,7 +76,7 @@
                               
 
                 %>
-             
+
                 <li>
                     <img src="<%= product.getImageURL() %>" width="50" height="50">
                     <p><%= product.getProductName() %></p>
@@ -84,7 +85,7 @@
                     Discounted Price: <%= String.format("%.3f", discountedPrice) %>VNĐ
                     <br>
                     Quantity: 
-                    <input type="number" name="quantity" id="quantity_<%=a%>" value="<%= quantity %>" min="1" onchange="updateQuantityAndTotal('<%=a%>', <%= discountedPrice %>)">
+                    <input type="number" name="quantity" id="quantity_<%=a%>" value="<%= quantity %>" onchange="updateQuantityAndTotal('<%=a%>', <%= discountedPrice %>);largeThan0('<%=a%>',<%= discountedPrice %>)">
                     <span id="stock_error_<%=a%>" style="color: red"></span>
                     <input type="hidden" id="stock_<%=a%>" value="<%= product.getStockQuantity() %>">
                     <p>Item Total: <span id="itemTotal_<%=a%>">  <%= String.format("%.3f", itemTotal) %>VNĐ</span></p> 
@@ -147,10 +148,9 @@
             <input type="submit" value="Place Order" onchange="return  validateForm()">
             <input type="hidden" name="methodbuy" value="<%=methodbuy%>">
         </form>
-        <!-- Other HTML and JSP code -->
 
         <script>
-            function updateQuantityAndTotal(a, unitPrice) {
+        function updateQuantityAndTotal(a, unitPrice) {
                 // Get the quantity for the current product
                 var stock = parseInt(document.getElementById('stock_' + a).value);
                 var quantity = parseInt(document.getElementById('quantity_' + a).value);
@@ -160,10 +160,12 @@
                 // Check if the requested quantity is more than available stock
                 if (quantity > stock) {
                     document.getElementById('quantity_' + a).value = stock;
+
                     document.getElementById('stock_error_' + a).innerText = "Cannot purchase more than the available stock!";
+                    updateQuantityAndTotal(a, unitPrice);
                     return;
                 } else {
-                    document.getElementById('stock_error_' + a).innerText = "";  // Clear previous error message if any
+                    document.getElementById('stock_error_' + a).innerText = "";
                 }
 
                 // Update item total for the current product
@@ -178,8 +180,8 @@
                     var itemTotal = parseFloat(itemTotalText.replace('VNĐ', ''));
                     totalPrice += itemTotal;
                 }
-                document.getElementById('totalPrice').innerText = totalPrice.toFixed(3) ;
-                document.getElementById('total2').value = totalPrice.toFixed(3) ;
+                document.getElementById('totalPrice').innerText = totalPrice.toFixed(3);
+                document.getElementById('total2').value = totalPrice.toFixed(3);
             }
             function validateForm() {
                 var productIds = '<%= String.join(",", productIds) %>'.split(',');
@@ -194,7 +196,14 @@
                 }
                 return true;
             }
-
+            function largeThan0(a, unitPrice) {
+                var quantity = parseInt(document.getElementById('quantity_' + a).value);
+                if (quantity <= 0) {
+                    alert("Please enter Quantity more than 0 ");
+                    document.getElementById('quantity_' + a).value = 1;
+                    document.getElementById('itemTotal_' + a).innerText = unitPrice.toFixed(3) + "VNĐ";
+                }
+            }
 
         </script>
         <%}%>   
