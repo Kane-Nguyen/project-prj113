@@ -75,9 +75,14 @@
                         NumberFormat numberFormat = NumberFormat.getNumberInstance();
                         numberFormat.setMinimumFractionDigits(3);
                         numberFormat.setMaximumFractionDigits(3);
+                        int count = 0;
                         if (products != null && !products.isEmpty()) {
                             for (Product product : products) {
                                 if (product != null) {
+                                count++;
+                                if(count == 10){
+                                break;
+                        }
                     %>
                     <a href="detail.jsp?productId=<%= product.getProductId() %>" >
                         <div class="d-flex" >
