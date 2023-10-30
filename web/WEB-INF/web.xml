@@ -4,9 +4,105 @@
         <servlet-name>tinhServer</servlet-name>
         <servlet-class>controller.tinhServer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>signup</servlet-name>
+        <servlet-class>controller.signup</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessOrderServlet</servlet-name>
+        <servlet-class>controller.ProcessOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowProduct</servlet-name>
+        <servlet-class>controller.ShowProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CRUD</servlet-name>
+        <servlet-class>controller.CRUD</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>controller.admin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>controller.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReviewsAndRatingsServlet</servlet-name>
+        <servlet-class>controller.ReviewsAndRatingsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>controller.AddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveOrdersServlet</servlet-name>
+        <servlet-class>controller.SaveOrdersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <servlet-class>controller.UpdateQuantityServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <servlet-class>controller.DeleteCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessOrderServlet</servlet-name>
+        <url-pattern>/ProcessOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>userDetailPW</servlet-name>
+        <servlet-class>controller.userDetailPW</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>signup</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProduct</servlet-name>
+        <url-pattern>/ShowProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CRUD</servlet-name>
+        <url-pattern>/CRUD</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewsAndRatingsServlet</servlet-name>
+        <url-pattern>/ReviewsAndRatingsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateQuantityServlet</servlet-name>
+        <url-pattern>/UpdateQuantityServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveOrdersServlet</servlet-name>
+        <url-pattern>/SaveOrdersServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <url-pattern>/DeleteCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userDetailPW</servlet-name>
+        <url-pattern>/userDetailPW</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
