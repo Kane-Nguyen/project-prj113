@@ -200,17 +200,19 @@
 
                     <div style="margin-top: 20px">
                         <%
+                            <%
                             ReviewsAndRatingsDAO reviewDao = new ReviewsAndRatingsDAO();
                             List<ReviewsAndRatings> reviews = reviewDao.getAllReviewsAndRatings();
                             UsersDAO us = new UsersDAO();
                             List<Users> u = us.getAll();
-                            
+                          
                             List<ReviewsAndRatings> ratingsList = reviewDao.getLatestRatingsByUserForProduct(requestedProductId);
+                            List<ReviewsAndRatings> l = reviewDao.getReviewsByProductID(requestedProductId);
                             double totalRating = 0;
-                            for (ReviewsAndRatings r : ratingsList) {
+                            for (ReviewsAndRatings r : l) {
                                     totalRating += r.getRating();
                             }
-                            double averageRating = Math.ceil((ratingsList.size() > 0) ? totalRating / ratingsList.size() : 0)   ;
+                            double averageRating = Math.ceil((l.size() > 0) ? totalRating / l.size() : 0); 
                             if(averageRating == 1){
                         %>
                         <div class="average-rating">
