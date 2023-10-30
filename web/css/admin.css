@@ -1,0 +1,15 @@
+.wrap-admin-page{
+    display: flex;
+    background-color: #F8F8F8;
+}
+.list-toolbar{
+    list-style: none;
+}
+.toolbar{
+    background-color: #fff;
+    height: 100vh;
+    min-width: 230px;
+}
+.logo-img{
+    height: 50px;
+}
