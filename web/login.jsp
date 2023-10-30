@@ -33,11 +33,12 @@
                     </div>
                     <span id="error-password" style="color:red; font-weight: 600;"></span>
                 </div>
+                 
                 <%
-String error = request.getParameter("error");
-if ("invalid".equals(error)) {
+                    String error = request.getParameter("error");
+                    if ("invalid".equals(error)) {
                 %>
-                <p>Nhập sai, vui lòng thử lại.</p>
+                <p class="check-error pl-5" style="color: red; font-weight: 600;">Please,try again enter your email or password.</p>
                 <%
                     }
                 %>
@@ -112,7 +113,6 @@ if ("invalid".equals(error)) {
                         e.preventDefault();
                     }
                 });
-
                 // Display server-side error message (if any)
                 let serverError = "${requestScope.error}";
                 if (serverError) {

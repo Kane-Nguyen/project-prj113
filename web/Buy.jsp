@@ -10,6 +10,8 @@
         <title>Buy Page</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     </head>
     <body>
 
@@ -42,7 +44,7 @@
 
                 <a href="index.jsp" class="btn"></a>
 
-               
+
                 <%
                 }
 
@@ -92,9 +94,7 @@
 
                 </li>
                 <%
-                    System.out.println("a "+a);
                     a++;
-                      System.out.println("Important "+  "quantity"+itemId );
                         } else {
                 %>
                 <li>Product ID <%= itemId %> not found</li>
@@ -150,44 +150,40 @@
         </form>
 
         <script>
-        function updateQuantityAndTotal(a, unitPrice) {
-                // Get the quantity for the current product
-                var stock = parseInt(document.getElementById('stock_' + a).value);
-                var quantity = parseInt(document.getElementById('quantity_' + a).value);
+            function updateQuantityAndTotal(a, unitPrice) {
+                var stock = parseInt($('#stock_' + a).val());
+                var quantity = parseInt($('#quantity_' + a).val());
 
-                console.log("quantity " + quantity);
-                console.log("stock: " + stock);
-                // Check if the requested quantity is more than available stock
                 if (quantity > stock) {
-                    document.getElementById('quantity_' + a).value = stock;
-
-                    document.getElementById('stock_error_' + a).innerText = "Cannot purchase more than the available stock!";
-                    updateQuantityAndTotal(a, unitPrice);
+                    $('#quantity_' + a).val(stock);
+                    $('#stock_error_' + a).text("Cannot purchase more than the available stock!");
                     return;
                 } else {
-                    document.getElementById('stock_error_' + a).innerText = "";
+                    $('#stock_error_' + a).text("");
                 }
 
-                // Update item total for the current product
                 var itemTotal = unitPrice * quantity;
-                document.getElementById('itemTotal_' + a).innerText = itemTotal.toFixed(3) + "VNĐ";
+                $('#itemTotal_' + a).text(itemTotal.toFixed(3) + "VNĐ");
 
-                // Calculate and update the overall total price
                 var productIds = '<%= String.join(",", productIds) %>'.split(',');
                 var totalPrice = 0;
+
                 for (var i = 0; i < productIds.length; i++) {
-                    var itemTotalText = document.getElementById('itemTotal_' + i).innerText;
+                    var itemTotalText = $('#itemTotal_' + i).text();
                     var itemTotal = parseFloat(itemTotalText.replace('VNĐ', ''));
                     totalPrice += itemTotal;
                 }
-                document.getElementById('totalPrice').innerText = totalPrice.toFixed(3);
-                document.getElementById('total2').value = totalPrice.toFixed(3);
+
+                $('#totalPrice').text(totalPrice.toFixed(3));
+                $('#total2').val(totalPrice.toFixed(3));
             }
+
             function validateForm() {
                 var productIds = '<%= String.join(",", productIds) %>'.split(',');
+
                 for (var i = 0; i < productIds.length; i++) {
-                    var stock = parseInt(document.getElementById('stock_' + i).value);
-                    var quantity = parseInt(document.getElementById('quantity_' + i).value);
+                    var stock = parseInt($('#stock_' + i).val());
+                    var quantity = parseInt($('#quantity_' + i).val());
 
                     if (quantity > stock) {
                         alert("Cannot place order! Product " + (i + 1) + " has insufficient stock.");
@@ -196,12 +192,14 @@
                 }
                 return true;
             }
+
             function largeThan0(a, unitPrice) {
-                var quantity = parseInt(document.getElementById('quantity_' + a).value);
+                var quantity = parseInt($('#quantity_' + a).val());
+
                 if (quantity <= 0) {
-                    alert("Please enter Quantity more than 0 ");
-                    document.getElementById('quantity_' + a).value = 1;
-                    document.getElementById('itemTotal_' + a).innerText = unitPrice.toFixed(3) + "VNĐ";
+                    alert("Please enter Quantity more than 0");
+                    $('#quantity_' + a).val(1);
+                    $('#itemTotal_' + a).text(unitPrice.toFixed(3) + "VNĐ");
                 }
             }
 

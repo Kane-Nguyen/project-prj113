@@ -54,9 +54,11 @@
                         <i class="bi bi-person icon-person-navbar h4 "></i>
                     </a>
                     <%} %>
-                    <button class="btn-primary rounded btn-cart">
-                        <i class="bi bi-cart h5"></i> Your Cart
-                    </button>
+                    <a href="cart.jsp">
+                        <button class="btn-primary rounded btn-cart">
+                            <i class="bi bi-cart h5"></i> Your Cart
+                        </button>
+                    </a>
                     <% if (isUserLoggedIn) { %>
                     <a href="Logout" class="prevent-a-tag">
                         <i class="bi bi-box-arrow-in-left h4"></i>
