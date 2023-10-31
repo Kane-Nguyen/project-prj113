@@ -14,14 +14,40 @@
         <link rel="stylesheet" href="./css/index.css">
         <!-- Option 1: Include in HTML -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script>
+            $(document).ready(function () {
+                $('#searchForm').on('submit', function (event) {
+                    var searchValue = $('#searchInput').val().trim();
+                    if (searchValue === "") {
+                        event.preventDefault(); // Ngăn không cho form submit nếu ô tìm kiếm trống
+                    } else {
+                        console.log("Data to be sent: " + searchValue); // Log dữ liệu sẽ gửi
+                    }
+                    // Nếu có dữ liệu, form sẽ tự động submit bằng HTTP POST đến "searchServlet"
+                });
+                $('#searchInput').keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $('#searchForm').submit(); // Kích hoạt sự kiện submit của form
+                    }
+                });
+
+                $('#submitSearch').click(function () {
+                    $('#searchForm').submit(); // Kích hoạt sự kiện submit khi click vào icon
+                });
+            });
+
+        </script>
     </head> 
     <body>
         <div class="container">
             <div class="navbar-nav ml-auto row navbar">
                 <i class="bi bi-list h4"></i>
                 <div class="wrap-search-bar">
-                    <input class="search-bar" placeholder="Nhập để tìm kiếm">
-                    <i class="bi bi-search search-icon search-icon"></i>
+                    <form id="searchForm" action="search.jsp" method="post" accept-charset="UTF-8">           
+                        <input class="search-bar" id="searchInput" name="search" placeholder="Nhập để tìm kiếm" value="">
+                        <i id="submitSearch"  class="bi bi-search search-icon search-icon"></i>
+                    </form>
+
                 </div>
                 <div class="wrap-right-navbar"> 
                     <%

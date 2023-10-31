@@ -38,25 +38,27 @@ public class ProductDAO extends DBContext {
         }
         return list;
     }
-public int getStockById(String productId) {
+
+    public int getStockById(String productId) {
         int stockQuantity = -1; // Initialize with a value that indicates "not found" or "error"
         String sql = "SELECT StockQuantity FROM Products WHERE ProductID = ?";
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, productId);
             ResultSet rs = st.executeQuery();
-            
+
             if (rs.next()) {
                 stockQuantity = rs.getInt("StockQuantity");
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return stockQuantity;
     }
-    public void addProduct(String ProductName, String Description, double Price, double DiscountPercentage, String ImageURL,
+
+    public boolean addProduct(String ProductName, String Description, double Price, double DiscountPercentage, String ImageURL,
             int StockQuantity, int CategoryId, String Author) {
 
         String sql = "INSERT INTO Products (ProductID, ProductName, Description, Price, DiscountPercentage, ImageURL, StockQuantity, CategoryID, Author) VALUES (NEWID(), ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -74,11 +76,12 @@ public int getStockById(String productId) {
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
+            return false;
         }
-
+        return true;
     }
 
-    public void editProduct(String ProductName, String Description, double Price, String ImageURL,
+    public boolean editProduct(String ProductName, String Description, double Price, String ImageURL,
             int StockQuantity, int CategoryId, String Author, double DiscountPercentage, String id) {
 
         String sql = "UPDATE Products SET ProductName=?, Description=?, Price=?, ImageURL=?,"
@@ -101,148 +104,182 @@ public int getStockById(String productId) {
         } catch (SQLException e) {
             // Log the exception
             System.out.println("SQL Error: " + e.getMessage());
+            return false;
         }
+        return true;
     }
 
-  public void deleteProductAndRelatedData(String productID) throws SQLException {
-    PreparedStatement stReviewsAndRatings = null;
-    PreparedStatement stHistoryBuyBook = null;
-    PreparedStatement stBooksInOrder = null;
-    PreparedStatement stTransactionHistory = null;
-    PreparedStatement stOrders = null;
-    PreparedStatement stProducts = null;
+    public void deleteProductAndRelatedData(String productID) throws SQLException {
+        PreparedStatement stReviewsAndRatings = null;
+        PreparedStatement stHistoryBuyBook = null;
+        PreparedStatement stBooksInOrder = null;
+        PreparedStatement stTransactionHistory = null;
+        PreparedStatement stOrders = null;
+        PreparedStatement stProducts = null;
 
-    String deleteReviewsAndRatingsSQL = "DELETE FROM ReviewsAndRatings WHERE ProductID=?";
-    String deleteHistoryBuyBookSQL = "DELETE FROM HistoryBuyBook WHERE ProductID=?";
-    String deleteBooksInOrderSQL = "DELETE FROM BooksInOrder WHERE ProductID=?";
-    String deleteTransactionHistorySQL = "DELETE FROM TransactionHistory WHERE OrderID IN (SELECT OrderID FROM Orders WHERE UserID IN (SELECT UserID FROM Users WHERE UserID IN (SELECT UserID FROM Orders WHERE OrderID IN (SELECT OrderID FROM BooksInOrder WHERE ProductID=?))))";
-    String deleteOrdersSQL = "DELETE FROM Orders WHERE OrderID IN (SELECT OrderID FROM BooksInOrder WHERE ProductID=?)";
-    String deleteProductsSQL = "DELETE FROM Products WHERE ProductID=?";
+        String deleteReviewsAndRatingsSQL = "DELETE FROM ReviewsAndRatings WHERE ProductID=?";
+        String deleteHistoryBuyBookSQL = "DELETE FROM HistoryBuyBook WHERE ProductID=?";
+        String deleteBooksInOrderSQL = "DELETE FROM BooksInOrder WHERE ProductID=?";
+        String deleteTransactionHistorySQL = "DELETE FROM TransactionHistory WHERE OrderID IN (SELECT OrderID FROM Orders WHERE UserID IN (SELECT UserID FROM Users WHERE UserID IN (SELECT UserID FROM Orders WHERE OrderID IN (SELECT OrderID FROM BooksInOrder WHERE ProductID=?))))";
+        String deleteOrdersSQL = "DELETE FROM Orders WHERE OrderID IN (SELECT OrderID FROM BooksInOrder WHERE ProductID=?)";
+        String deleteProductsSQL = "DELETE FROM Products WHERE ProductID=?";
 
-    try {
-        connection.setAutoCommit(false);
+        try {
+            connection.setAutoCommit(false);
 
-        // 1. Delete from ReviewsAndRatings
-        stReviewsAndRatings = connection.prepareStatement(deleteReviewsAndRatingsSQL);
-        stReviewsAndRatings.setString(1, productID);
-        stReviewsAndRatings.executeUpdate();
+            // 1. Delete from ReviewsAndRatings
+            stReviewsAndRatings = connection.prepareStatement(deleteReviewsAndRatingsSQL);
+            stReviewsAndRatings.setString(1, productID);
+            stReviewsAndRatings.executeUpdate();
 
-        // 2. Delete from HistoryBuyBook
-        stHistoryBuyBook = connection.prepareStatement(deleteHistoryBuyBookSQL);
-        stHistoryBuyBook.setString(1, productID);
-        stHistoryBuyBook.executeUpdate();
+            // 2. Delete from HistoryBuyBook
+            stHistoryBuyBook = connection.prepareStatement(deleteHistoryBuyBookSQL);
+            stHistoryBuyBook.setString(1, productID);
+            stHistoryBuyBook.executeUpdate();
 
-        // 3. Delete from BooksInOrder
-        stBooksInOrder = connection.prepareStatement(deleteBooksInOrderSQL);
-        stBooksInOrder.setString(1, productID);
-        stBooksInOrder.executeUpdate();
+            // 3. Delete from BooksInOrder
+            stBooksInOrder = connection.prepareStatement(deleteBooksInOrderSQL);
+            stBooksInOrder.setString(1, productID);
+            stBooksInOrder.executeUpdate();
 
-        // 4. Delete from TransactionHistory
-        stTransactionHistory = connection.prepareStatement(deleteTransactionHistorySQL);
-        stTransactionHistory.setString(1, productID);
-        stTransactionHistory.executeUpdate();
+            // 4. Delete from TransactionHistory
+            stTransactionHistory = connection.prepareStatement(deleteTransactionHistorySQL);
+            stTransactionHistory.setString(1, productID);
+            stTransactionHistory.executeUpdate();
 
-        // 5. Delete from Orders
-        stOrders = connection.prepareStatement(deleteOrdersSQL);
-        stOrders.setString(1, productID);
-        stOrders.executeUpdate();
+            // 5. Delete from Orders
+            stOrders = connection.prepareStatement(deleteOrdersSQL);
+            stOrders.setString(1, productID);
+            stOrders.executeUpdate();
 
-        // 6. Delete from Products
-        stProducts = connection.prepareStatement(deleteProductsSQL);
-        stProducts.setString(1, productID);
-        stProducts.executeUpdate();
+            // 6. Delete from Products
+            stProducts = connection.prepareStatement(deleteProductsSQL);
+            stProducts.setString(1, productID);
+            stProducts.executeUpdate();
 
-        connection.commit();
-    } catch (SQLException e) {
-        if (connection != null) {
-            try {
-                connection.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            connection.commit();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
+            e.printStackTrace();
+        } finally {
+            if (stReviewsAndRatings != null) {
+                stReviewsAndRatings.close();
+            }
+            if (stHistoryBuyBook != null) {
+                stHistoryBuyBook.close();
+            }
+            if (stBooksInOrder != null) {
+                stBooksInOrder.close();
+            }
+            if (stTransactionHistory != null) {
+                stTransactionHistory.close();
+            }
+            if (stOrders != null) {
+                stOrders.close();
+            }
+            if (stProducts != null) {
+                stProducts.close();
+            }
+            connection.setAutoCommit(true);
         }
-        e.printStackTrace();
-    } finally {
-        if (stReviewsAndRatings != null) stReviewsAndRatings.close();
-        if (stHistoryBuyBook != null) stHistoryBuyBook.close();
-        if (stBooksInOrder != null) stBooksInOrder.close();
-        if (stTransactionHistory != null) stTransactionHistory.close();
-        if (stOrders != null) stOrders.close();
-        if (stProducts != null) stProducts.close();
-        connection.setAutoCommit(true);
     }
-}
 
-
-   public Product getProductById(String id) {
-    Product product = null;
-    String sql = "SELECT * FROM Products WHERE ProductID = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, id);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
-                    rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
-                    rs.getInt("StockQuantity"), rs.getInt("CategoryID"), rs.getString("Author"),
-                    rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
+    public Product getProductById(String id) {
+        Product product = null;
+        String sql = "SELECT * FROM Products WHERE ProductID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                product = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                        rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
+                        rs.getInt("StockQuantity"), rs.getInt("CategoryID"), rs.getString("Author"),
+                        rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("SQL Error: " + e.getMessage());
+        return product;
     }
-    return product;
-}
-public int getStockQuantity(String productID) {
-    int stockQuantity = -1; // Gán giá trị mặc định là -1, có nghĩa là không tìm thấy sản phẩm
-    String sql = "SELECT StockQuantity FROM Products WHERE ProductID = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, productID);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            stockQuantity = rs.getInt("StockQuantity");
+
+    public int getStockQuantity(String productID) {
+        int stockQuantity = -1; // Gán giá trị mặc định là -1, có nghĩa là không tìm thấy sản phẩm
+        String sql = "SELECT StockQuantity FROM Products WHERE ProductID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, productID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                stockQuantity = rs.getInt("StockQuantity");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("SQL Error: " + e.getMessage());
+        return stockQuantity;
     }
-    return stockQuantity;
-}
-public void updateStockQuantity(String productID, int newQuantity) {
-    String sql = "UPDATE Products SET StockQuantity=? WHERE ProductID=?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
 
-        st.setInt(1, newQuantity);
-        st.setString(2, productID);
+    public void updateStockQuantity(String productID, int newQuantity) {
+        String sql = "UPDATE Products SET StockQuantity=? WHERE ProductID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
 
-        st.executeUpdate();
-    } catch (SQLException e) {
-        System.out.println("SQL Error: " + e.getMessage());
-    }
-}
+            st.setInt(1, newQuantity);
+            st.setString(2, productID);
 
-public String getProductNameById(String id) {
-    String productName = null;
-    String sql = "SELECT ProductName FROM Products WHERE ProductID = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, id);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            productName = rs.getNString("ProductName");
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("SQL Error: " + e.getMessage());
     }
-    return productName;
-}
 
+    public String getProductNameById(String id) {
+        String productName = null;
+        String sql = "SELECT ProductName FROM Products WHERE ProductID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                productName = rs.getNString("ProductName");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+        }
+        return productName;
+    }
+
+    public List<Product> searchProductsByName(String keyword) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM Products WHERE ProductName LIKE ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, "%" + keyword + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString("ProductID"), rs.getString("ProductName"),
+                        rs.getString("Description"), rs.getDouble("Price"), rs.getString("ImageURL"),
+                        rs.getInt("StockQuantity"), rs.getInt("CategoryID"), rs.getString("Author"),
+                        rs.getDate("DateAdded"), rs.getDouble("DiscountPercentage"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         ProductDAO u = new ProductDAO();
         List<Product> l = u.getAll();
         u.getProductNameById("FEFE2407-DAA1-4FE9-9321-2965403039FE");
-        System.out.println(l.get(0).getProductName());
+        System.out.println(l.get(0).getAuthor());
     }
 
 }

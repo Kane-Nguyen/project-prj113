@@ -52,6 +52,10 @@
         <servlet-name>DeleteCartServlet</servlet-name>
         <servlet-class>controller.DeleteCartServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>searchServlet</servlet-name>
+        <servlet-class>controller.searchServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>userDetailPW</servlet-name>
         <url-pattern>/userDetailPW</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchServlet</servlet-name>
+        <url-pattern>/searchServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

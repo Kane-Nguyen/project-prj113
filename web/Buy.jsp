@@ -150,17 +150,16 @@
         </form>
 
         <script>
+
             function updateQuantityAndTotal(a, unitPrice) {
                 var stock = parseInt($('#stock_' + a).val());
                 var quantity = parseInt($('#quantity_' + a).val());
 
                 if (quantity > stock) {
-                    $('#quantity_' + a).val(stock);
+                  
                     $('#stock_error_' + a).text("Cannot purchase more than the available stock!");
                     return;
-                } else {
-                    $('#stock_error_' + a).text("");
-                }
+                } 
 
                 var itemTotal = unitPrice * quantity;
                 $('#itemTotal_' + a).text(itemTotal.toFixed(3) + "VNĐ");
@@ -176,6 +175,8 @@
 
                 $('#totalPrice').text(totalPrice.toFixed(3));
                 $('#total2').val(totalPrice.toFixed(3));
+                if(quantity <= stock){
+                 $('#stock_error_' + a).text("");}
             }
 
             function validateForm() {
