@@ -56,37 +56,9 @@ public class ReviewsAndRatingsDAO extends DBContext {
         return false;
     }
 
-    public List<ReviewsAndRatings> getLatestRatingsByUserForProduct(String productID) {
-        List<ReviewsAndRatings> latestRatingsList = new ArrayList<>();
-
-        String sql
-                = "WITH LatestRatings AS ("
-                + "SELECT "
-                + "ReviewID,"
-                + "UserID,"
-                + "ProductID,"
-                + "Rating,"
-                + "Comment,"
-                + "DatePosted,"
-                + "ROW_NUMBER() OVER(PARTITION BY UserID, ProductID ORDER BY DatePosted DESC) as rownum "
-                + "FROM "
-                + "ReviewsAndRatings "
-                + "WHERE "
-                + "ProductID = ?"
-                + ") "
-                + "SELECT "
-                + "ReviewID,"
-                + "UserID,"
-                + "ProductID,"
-                + "Rating,"
-                + "Comment,"
-                + "DatePosted "
-                + "FROM "
-                + "LatestRatings "
-                + "WHERE "
-                + "rownum = 1 "
-                + "ORDER BY "
-                + "UserID";
+    public List<ReviewsAndRatings> getReviewsByProductID(String productID) {
+        List<ReviewsAndRatings> reviews = new ArrayList<>();
+        String sql = "SELECT * FROM ReviewsAndRatings WHERE ProductID = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -94,7 +66,7 @@ public class ReviewsAndRatingsDAO extends DBContext {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                ReviewsAndRatings r = new ReviewsAndRatings(
+                ReviewsAndRatings review = new ReviewsAndRatings(
                         rs.getInt("ReviewID"),
                         rs.getInt("UserID"),
                         rs.getString("ProductID"),
@@ -102,22 +74,24 @@ public class ReviewsAndRatingsDAO extends DBContext {
                         rs.getInt("Rating"),
                         rs.getString("DatePosted")
                 );
-                latestRatingsList.add(r);
+                reviews.add(review);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
 
-        return latestRatingsList;
+        return reviews;
     }
 
     public static void main(String[] args) {
         ReviewsAndRatingsDAO r = new ReviewsAndRatingsDAO();
         List<ReviewsAndRatings> u = r.getAllReviewsAndRatings();
+        String n = "D4987D84-7C40-4773-B6E0-0E4E95049FF4";
+        List<ReviewsAndRatings> l = r.getReviewsByProductID(n);
+
         System.out.println(u.get(0).getDatePosted());
 //        System.out.println(r.getLatestRatingsByUserForProduct("83AD62A2-E58B-4648-A2C9-3A08E6FDA180").get(0).getRating());
-        for(int i = 0; i < r.getLatestRatingsByUserForProduct("83AD62A2-E58B-4648-A2C9-3A08E6FDA180").size(); i++){
-            System.out.println(r.getLatestRatingsByUserForProduct("83AD62A2-E58B-4648-A2C9-3A08E6FDA180").get(i).getRating());
-        }
+
+        System.out.println(l.size());
     }
 }

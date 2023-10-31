@@ -252,7 +252,63 @@ body {
     width: 50%
 }
 .social-media > a{
-   margin-left: 10px;    
+    margin-left: 10px;
+}
+.rating {
+    display: inline-block;
+    font-size: 24px;
+    direction: rtl; /* Thêm dòng này để đảo ngược thứ tự */
 }
 
+.rating input {
+    display: none;
+}
 
+.rating label {
+    cursor: pointer;
+}
+
+.rating label:before {
+    content: "\2605"; /* Unicode character for a star */
+    color: #ddd;
+    font-size: 24px;
+}
+.rating input:checked ~ label:before,
+.rating label:hover ~ label:before,
+.rating label:hover:before {
+    color: #f1c40f; /* Color for selected stars */
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+}
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.original-price {
+    text-decoration: line-through;
+    color: #888;
+}
+.discounted-price {
+    color: #e74c3c;
+    font-weight: bold;
+}
+.discount-percentage {
+    color: #2ecc71;
+}
+.review {
+    padding: 10px 0;
+}
+.review strong {
+    font-weight: bold;
+}
+.rating label:before {
+    font-size: 18px;
+}
+.btn-primary {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}

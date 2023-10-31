@@ -30,7 +30,7 @@
                     <div class="password-container">
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1" value="${cookie.Cp.value}" placeholder="Password">
                         <ion-icon name="eye-off-outline" class="eye-icon" onclick="togglePasswordVisibility(this)"></ion-icon>
-                    </div>
+                    </div> 
                     <span id="error-password" style="color:red; font-weight: 600;"></span>
                 </div>
                 <div class="form-check pl-5 pt-1">
@@ -87,6 +87,7 @@
                     if (!email) {
                         hasErrors = true;
                         $('#error-email').text('Please enter your Email.');
+                        
                     } else {
                         $('#error-email').text('');
                     }

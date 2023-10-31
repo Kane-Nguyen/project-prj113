@@ -27,6 +27,17 @@
                     <%
                    Integer userID = (Integer) session.getAttribute("userID");
                    boolean isUserLoggedIn = userID != null;
+                   if(isUserLoggedIn)
+                    %>
+                    <%
+           String userRole = (String) session.getAttribute("userRole");
+           if ("Admin".equals(userRole)) {
+                    %>
+                    <form action="Analysis.jsp" method="get" style="display: inline-block;">
+                        <button type="submit" class="btn btn-secondary">Analysis</button>
+                    </form>
+                    <%
+                        }
                     %>
                     <% if (!isUserLoggedIn) { %>
                     <a href="login" class="prevent-a-tag">
@@ -92,7 +103,7 @@
                                     }
                                     %>
                                 </h5>
-                                
+
                                 <div class="book-price">
                                     <% if (product.getDiscountPercentage() == 0) { %>
                                     <span class="original-price"><%= numberFormat.format(product.getPrice()) %> đ</span>
@@ -150,10 +161,10 @@
                 <div class="footer-right">
                     <h3>Social Media</h3>
                     <div class="social-media">
-                         <a><i class="bi bi-facebook h5"></i></a>
-                    <a><i class="bi bi-instagram h5"></i></a>
+                        <a><i class="bi bi-facebook h5"></i></a>
+                        <a><i class="bi bi-instagram h5"></i></a>
                     </div>
-                   
+
                 </div>
             </div>
         </div>

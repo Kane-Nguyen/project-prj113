@@ -164,11 +164,14 @@
                                 <input type="hidden" name="productId" value="<%= product.getProductId()%>">
                                 <button type="submit" class="btn btn-primary mt-auto">Order</button>
                             </form>
+                                
                             <%
 } else {
                             %>
                             <button type="button" class="btn btn-primary mt-auto require-login-btn">Buy now</button>
                             <button type="button" class="btn btn-primary mt-auto require-login-btn">Order</button>
+                            
+                            
                             <div id="loginAlert" style="display:none;" class="alert alert-danger mt-2">
                                 Bạn cần đăng nhập để thực hiện chức năng này! <a href="login.jsp">Đăng nhập ngay</a>
                             </div>
@@ -247,14 +250,16 @@
                             List<ReviewsAndRatings> reviews = reviewDao.getAllReviewsAndRatings();
                             UsersDAO us = new UsersDAO();
                             List<Users> u = us.getAll();
-                            
-                            List<ReviewsAndRatings> ratingsList = reviewDao.getLatestRatingsByUserForProduct(requestedProductId);
+                          
+                            List<ReviewsAndRatings> l = reviewDao.getReviewsByProductID(requestedProductId);
                             double totalRating = 0;
-                            for (ReviewsAndRatings r : ratingsList) {
+                            for (ReviewsAndRatings r : l) {
                                     totalRating += r.getRating();
                             }
-                            double averageRating = (ratingsList.size() > 0) ? totalRating / ratingsList.size() : 0; %>
+                            double averageRating = (l.size() > 0) ? totalRating / l.size() : 0; %>
                         <h2>Average Rating: <%= averageRating %></h2>
+                        <%= l.size() %>
+                        <%= totalRating %>
 
                         <%  for (ReviewsAndRatings review : reviews) {                              
                                 if (review.getProductID().equals(requestedProductId)) {                                

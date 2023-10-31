@@ -31,7 +31,11 @@ public class signup extends HttpServlet {
         String address = request.getParameter("address");
         String userRole = request.getParameter("userRole");
         String SecretString = request.getParameter("SecretString");
-
+        
+        if(userRole == null || userRole.isEmpty()){
+            userRole = "User";
+        }
+        
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilBirthDate = null;
 

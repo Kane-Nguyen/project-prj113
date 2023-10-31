@@ -130,5 +130,4 @@ public class AddToCartServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
