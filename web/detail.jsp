@@ -231,8 +231,6 @@
                             </div>
                             <span class="rating-number">2.0</span>
                         </div>
-
-
                         <%  }else if(averageRating == 3) {%> 
                         <div class="average-rating">
                             <div class="rating-star-wrap">
@@ -241,6 +239,26 @@
 
                             </div>
                             <span class="rating-number">3.0</span>
+                        </div>
+
+                        <%  }else if(averageRating == 4) {%> 
+                        <div class="average-rating">
+                            <div class="rating-star-wrap">
+                                <div class="background-line-detail"></div>
+                                <div class="rating-line-detail-4"></div>
+
+                            </div>
+                            <span class="rating-number">4.0</span>
+                        </div>
+
+                        <%  }else if(averageRating == 5) {%> 
+                        <div class="average-rating">
+                            <div class="rating-star-wrap">
+                                <div class="background-line-detail"></div>
+                                <div class="rating-line-detail-5"></div>
+
+                            </div>
+                            <span class="rating-number">5.0</span>
                         </div>
 
                         <% }%>
@@ -253,7 +271,7 @@
                                 <%
                                 try {
                                 %>
-                                <strong><%= u.get(review.getUserID()).getFullName() %></strong>
+                                <span class="user-rating-comment-name"><%= u.get(review.getUserID()).getFullName() %></span>
                                 <%
                                 } catch (Exception e) {
                                     e.printStackTrace(); // This will print the error details to your server's console
@@ -262,13 +280,12 @@
                                 <span class="date-rating"><%= review.getDatePosted() %></span>
                             </div>
                             <p><%= review.getComment() %> </p>
-                            Rating: 
                             <% for (int i = 0; i < review.getRating(); i++) { %>
                             <span><i class="bi bi-star-fill rating-solid-star"></i></span> <!-- Unicode character for a filled star -->
-                            <% } %>
-                            <% for (int i = 0; i < 5 - review.getRating(); i++) { %>
+                                <% } %>
+                                <% for (int i = 0; i < 5 - review.getRating(); i++) { %>
                             <span><i class="bi bi-star"></i></span> <!-- Unicode character for an empty star -->
-                            <% } %>
+                                <% } %>
                         </div>
 
                         <hr/>
