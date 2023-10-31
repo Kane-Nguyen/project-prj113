@@ -62,7 +62,7 @@ public class ProcessOrderServlet extends HttpServlet {
             int sq = p.getStockQuantity(productIds[i]);
             if (sq < quantity) {
                 isStocking = false;
-                response.sendRedirect("Buy.jsp?errorMessage=Out+of+Stock+of+Product+id+" + productIds[i]);
+               response.sendRedirect("Buy.jsp?errorMessage=Out+of+Stock&productId=" + productIds[i]);
                 return;
 
             }

@@ -229,7 +229,7 @@ public String getProductNameById(String id) {
         st.setString(1, id);
         ResultSet rs = st.executeQuery();
         if (rs.next()) {
-            productName = rs.getString("ProductName");
+            productName = rs.getNString("ProductName");
         }
     } catch (SQLException e) {
         System.out.println("SQL Error: " + e.getMessage());
@@ -241,6 +241,7 @@ public String getProductNameById(String id) {
     public static void main(String[] args) {
         ProductDAO u = new ProductDAO();
         List<Product> l = u.getAll();
+        u.getProductNameById("FEFE2407-DAA1-4FE9-9321-2965403039FE");
         System.out.println(l.get(0).getProductName());
     }
 

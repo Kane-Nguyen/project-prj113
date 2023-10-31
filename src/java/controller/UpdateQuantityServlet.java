@@ -78,70 +78,78 @@ public class UpdateQuantityServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Get the required parameters
         String productId = request.getParameter("productId");
         String action = request.getParameter("action");
+        String stockStr = request.getParameter("stock");  // Get the stock value from the client
+
+        if (productId == null || action == null || stockStr == null) {
+            // Handle error: missing parameters
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        int stock;
+        try {
+            stock = Integer.parseInt(stockStr);
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
         Cookie[] cookies = request.getCookies();
-        String cookieCartItems = "";  // Renamed to avoid shadowing
-        String cookieQuantityItems = "";
+        String cartItems = "";
+        String quantities = "";
 
-        // Logging to check the values
-        System.out.println("Received productId: " + productId);
-        System.out.println("Received action: " + action);
-
-        // Existing code for reading cookies...
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("cart".equals(cookie.getName())) {
-                    cookieCartItems = cookie.getValue();
+                    cartItems = cookie.getValue();
                 } else if ("quantity".equals(cookie.getName())) {
-                    cookieQuantityItems = cookie.getValue();
+                    quantities = cookie.getValue();
                 }
             }
         }
 
-        List<String> productList = new ArrayList<>(Arrays.asList(cookieCartItems.split(":")));
-        List<String> quantityList = new ArrayList<>(Arrays.asList(cookieQuantityItems.split(":")));
+        List<String> cartItemList = new ArrayList<>(Arrays.asList(cartItems.split(":")));
+        List<String> quantityList = new ArrayList<>(Arrays.asList(quantities.split(":")));
 
-        int indexToUpdate = productList.indexOf(productId);
+        int indexToUpdate = cartItemList.indexOf(productId);
         if (indexToUpdate == -1) {
-            System.out.println("Product not found in the cart");
+            // Handle error: product not in the cart
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
-        int newQuantity = 1; // Default quantity
-
+        int newQuantity = Integer.parseInt(quantityList.get(indexToUpdate));
         if ("increase".equals(action)) {
-            newQuantity = Integer.parseInt(quantityList.get(indexToUpdate)) + 1;
+            if (newQuantity + 1 > stock) {
+                // Handle error: quantity exceeds stock
+                response.setStatus(HttpServletResponse.SC_CONFLICT);  // 409 Conflict might be a good status to indicate this issue
+                return;
+            }
+            newQuantity += 1;
         } else if ("decrease".equals(action)) {
-            newQuantity = Integer.parseInt(quantityList.get(indexToUpdate)) - 1;
-            // Ensure that the quantity never goes below 0
-            if (newQuantity <= 1) {
+            newQuantity -= 1;
+            // Ensure that the quantity never goes below 1
+            if (newQuantity < 1) {
                 newQuantity = 1;
             }
+        } else {
+            // Handle error: invalid action
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
 
-        // Update the quantity in the list
+        // Update the quantity in the cookie
         quantityList.set(indexToUpdate, String.valueOf(newQuantity));
-
-        // Update the cookies
-        String updatedCartItems = String.join(":", productList);
-        String updatedQuantityItems = String.join(":", quantityList);
-
-        Cookie cartCookie = new Cookie("cart", updatedCartItems);
-        Cookie quantityCookie = new Cookie("quantity", updatedQuantityItems);
-
-        cartCookie.setMaxAge(24 * 60 * 60); // 1 day
-        quantityCookie.setMaxAge(24 * 60 * 60); // 1 day
-
-        response.addCookie(cartCookie);
+        String updatedQuantities = String.join(":", quantityList);
+        Cookie quantityCookie = new Cookie("quantity", updatedQuantities);
+        quantityCookie.setMaxAge(60 * 60 * 24 * 7);  // 1 week expiry
         response.addCookie(quantityCookie);
 
-        // Send newQuantity as plain text
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
+        // Send the new quantity back as the response
         response.getWriter().write(String.valueOf(newQuantity));
-       
-
     }
 
     /**

@@ -137,7 +137,7 @@
                 <i class="bi bi-arrow-right-circle h3" id="arrow-right"></i>
             </div>
             <div class="d-flex justify-content-center">
-                <a href="" >See more books</a>
+                <a href="showAll.jsp" >See more books</a>
 
             </div>
 

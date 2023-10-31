@@ -8,8 +8,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Buy Page</title>
-         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     </head>
     <body>
 
@@ -27,29 +29,30 @@
                     String[] originalPrices = request.getParameterValues("originalPrice");
                     String[] discountedPrices = request.getParameterValues("discountedPrice");
                     String methodbuy = request.getParameter("methodbuy");
-                     String errorMessage = request.getParameter("errorMessage");
+                    String errorMessage = request.getParameter("errorMessage");
+                    String iderorr= request.getParameter("productId");
                     double totalPrice = 0;
                     int a=0;
-                    if( productIds == null || productIds.length == 0 ){
-                %>
-                <h3>You don't have any Product in cart</h3>
-                
-                <a href="index.jsp" class="btn"></a>
-          
-                <%
-                    }else if(errorMessage != null && !errorMessage.isEmpty()){
+                    if(errorMessage != null && !errorMessage.isEmpty()){
                 %>
                 <div class="alert alert-danger">
-                    <%= errorMessage %>
-                </div>
-                    <%
-                    }
+                    <p>Insufficient quantity of <%=productDAO.getProductNameById(iderorr)%></p>
+                </div> <%
+                    }else if( productIds == null || productIds.length == 0 ){
+                %>
+                <h3>You don't have any Product in cart</h3>
+
+                <a href="index.jsp" class="btn"></a>
+
+
+                <%
+                }
 
 
                 
-                else{
+            else{
                 %>
-                   <a href="index.jsp" class="btn-primary">Home</a>
+                <a href="index.jsp" class="btn-primary">Home</a>
                 <%
                                     for (int i = 0; i < productIds.length; i++) {
                                         String itemId = productIds[i];
@@ -75,7 +78,7 @@
                               
 
                 %>
-             
+
                 <li>
                     <img src="<%= product.getImageURL() %>" width="50" height="50">
                     <p><%= product.getProductName() %></p>
@@ -84,16 +87,14 @@
                     Discounted Price: <%= String.format("%.3f", discountedPrice) %>VNĐ
                     <br>
                     Quantity: 
-                    <input type="number" name="quantity" id="quantity_<%=a%>" value="<%= quantity %>" min="1" onchange="updateQuantityAndTotal('<%=a%>', <%= discountedPrice %>)">
+                    <input type="number" name="quantity" id="quantity_<%=a%>" value="<%= quantity %>" onchange="updateQuantityAndTotal('<%=a%>', <%= discountedPrice %>);largeThan0('<%=a%>',<%= discountedPrice %>)">
                     <span id="stock_error_<%=a%>" style="color: red"></span>
                     <input type="hidden" id="stock_<%=a%>" value="<%= product.getStockQuantity() %>">
                     <p>Item Total: <span id="itemTotal_<%=a%>">  <%= String.format("%.3f", itemTotal) %>VNĐ</span></p> 
 
                 </li>
                 <%
-                    System.out.println("a "+a);
                     a++;
-                      System.out.println("Important "+  "quantity"+itemId );
                         } else {
                 %>
                 <li>Product ID <%= itemId %> not found</li>
@@ -147,45 +148,42 @@
             <input type="submit" value="Place Order" onchange="return  validateForm()">
             <input type="hidden" name="methodbuy" value="<%=methodbuy%>">
         </form>
-        <!-- Other HTML and JSP code -->
 
         <script>
             function updateQuantityAndTotal(a, unitPrice) {
-                // Get the quantity for the current product
-                var stock = parseInt(document.getElementById('stock_' + a).value);
-                var quantity = parseInt(document.getElementById('quantity_' + a).value);
+                var stock = parseInt($('#stock_' + a).val());
+                var quantity = parseInt($('#quantity_' + a).val());
 
-                console.log("quantity " + quantity);
-                console.log("stock: " + stock);
-                // Check if the requested quantity is more than available stock
                 if (quantity > stock) {
-                    document.getElementById('quantity_' + a).value = stock;
-                    document.getElementById('stock_error_' + a).innerText = "Cannot purchase more than the available stock!";
+                    $('#quantity_' + a).val(stock);
+                    $('#stock_error_' + a).text("Cannot purchase more than the available stock!");
                     return;
                 } else {
-                    document.getElementById('stock_error_' + a).innerText = "";  // Clear previous error message if any
+                    $('#stock_error_' + a).text("");
                 }
 
-                // Update item total for the current product
                 var itemTotal = unitPrice * quantity;
-                document.getElementById('itemTotal_' + a).innerText = itemTotal.toFixed(3) + "VNĐ";
+                $('#itemTotal_' + a).text(itemTotal.toFixed(3) + "VNĐ");
 
-                // Calculate and update the overall total price
                 var productIds = '<%= String.join(",", productIds) %>'.split(',');
                 var totalPrice = 0;
+
                 for (var i = 0; i < productIds.length; i++) {
-                    var itemTotalText = document.getElementById('itemTotal_' + i).innerText;
+                    var itemTotalText = $('#itemTotal_' + i).text();
                     var itemTotal = parseFloat(itemTotalText.replace('VNĐ', ''));
                     totalPrice += itemTotal;
                 }
-                document.getElementById('totalPrice').innerText = totalPrice.toFixed(3) ;
-                document.getElementById('total2').value = totalPrice.toFixed(3) ;
+
+                $('#totalPrice').text(totalPrice.toFixed(3));
+                $('#total2').val(totalPrice.toFixed(3));
             }
+
             function validateForm() {
                 var productIds = '<%= String.join(",", productIds) %>'.split(',');
+
                 for (var i = 0; i < productIds.length; i++) {
-                    var stock = parseInt(document.getElementById('stock_' + i).value);
-                    var quantity = parseInt(document.getElementById('quantity_' + i).value);
+                    var stock = parseInt($('#stock_' + i).val());
+                    var quantity = parseInt($('#quantity_' + i).val());
 
                     if (quantity > stock) {
                         alert("Cannot place order! Product " + (i + 1) + " has insufficient stock.");
@@ -195,6 +193,15 @@
                 return true;
             }
 
+            function largeThan0(a, unitPrice) {
+                var quantity = parseInt($('#quantity_' + a).val());
+
+                if (quantity <= 0) {
+                    alert("Please enter Quantity more than 0");
+                    $('#quantity_' + a).val(1);
+                    $('#itemTotal_' + a).text(unitPrice.toFixed(3) + "VNĐ");
+                }
+            }
 
         </script>
         <%}%>   

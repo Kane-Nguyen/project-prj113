@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home Book Store</title>
+        <title>LogIn Store</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
         <div class="container pl-5">
             <h1 class="pl-5 pb-4">Welcome Back</h1>
             <c:set var="cookie" value="${pageContext.request.cookies}"/>
-            <form action="login" method="post" class="container mt-10 form-login">
+            <form action="login" method="post" class="container mt-10">
                 <div class="form-group pl-5 pt-2">
                     <label class="name" for="exampleInputEmail1">Email address</label>
                     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="${cookie.Ce.value}" placeholder="Enter email">
@@ -33,6 +33,16 @@
                     </div>
                     <span id="error-password" style="color:red; font-weight: 600;"></span>
                 </div>
+                 
+                <%
+                    String error = request.getParameter("error");
+                    if ("invalid".equals(error)) {
+                %>
+                <p class="check-error pl-5" style="color: red; font-weight: 600;">Please,try again enter your email or password.</p>
+                <%
+                    }
+                %>
+
                 <div class="form-check pl-5 pt-1">
                     <input type="checkbox" ${cookie.Cr!=null?'checked':''} name="rememberMe" id="rememberMe" value="on">
                     <label class="form-check-label" for="rememberMe">Remember me</label>
@@ -43,13 +53,12 @@
                     <button type="submit" value="LOGIN" class="btn btn-primary" style="background: #3F46FF;">Sign In</button>
                 </div>
                 <div style="padding-left: 170px" class="name-create pt-4">
-                    <a href="signup.jsp">Create an account</a>
+                    <a href="signup.jsp" >Create an account</a>
                 </div>
             </form>
         </div>
 
         <script>
-
             // JavaScript code to toggle password visibility
             document.getElementById("rememberMe").addEventListener("change", function () {
                 var passwordInput = document.getElementById("exampleInputPassword1");
@@ -80,15 +89,13 @@
             }
 
             $(document).ready(function () {
-              
                 // Handle form submission
                 $('form').submit(function (e) {
+                    let hasErrors = false; // Initialize hasErrors to false
                     let email = $("#exampleInputEmail1").val();
                     let password = $("input[name='password']").val();
 
                     if (!email) {
-                        
-                });
                         hasErrors = true;
                         $('#error-email').text('Please enter your Email.');
                     } else {
@@ -96,18 +103,20 @@
                     }
                     if (!password) {
                         hasErrors = true;
-                        $('#error-password').text('Please enter your Email.');
+                        $('#error-password').text('Please enter your Password.');
                     } else {
                         $('#error-password').text('');
                     }
-                });
 
+                    // If there are errors, prevent the form from submitting
+                    if (hasErrors) {
+                        e.preventDefault();
+                    }
+                });
                 // Display server-side error message (if any)
                 let serverError = "${requestScope.error}";
                 if (serverError) {
-                     
-                    e.preventDefault();
-                    $("#error-message").text(serverError);
+                    $("#error-password").text(serverError);
                 }
             });
         </script>

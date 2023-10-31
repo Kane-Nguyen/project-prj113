@@ -64,7 +64,7 @@ public class loginServlet extends HttpServlet {
         String SecretString = request.getParameter("SecretString");
         String redirectURL = request.getParameter("redirect"); // Lấy tham số redirect từ request
         String rememberMe = request.getParameter("rememberMe");
-       
+
         HttpSession session = request.getSession();
         Cookie Ce = new Cookie("Ce", email);
         Cookie Cp = new Cookie("Cp", password);
@@ -91,7 +91,7 @@ public class loginServlet extends HttpServlet {
                 session.setAttribute("birthDay", user.getBirthDate());
                 session.setAttribute("phoneNumber", user.getPhoneNumber());
                 session.setAttribute("address", user.getAddress());
-                session.setAttribute("SecretString", user.getSecretString());                
+                session.setAttribute("SecretString", user.getSecretString());
                 if (rememberMe != null) {
                     Ce.setMaxAge(60 * 60 * 365);
                     Cp.setMaxAge(60 * 60 * 365);
@@ -110,9 +110,8 @@ public class loginServlet extends HttpServlet {
             }
         }
 
-       
         if (!isLogin) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login.jsp?error=invalid");
         } else {
             // After successful authentication
             if (!"null".equals(redirectURL) && !redirectURL.isEmpty() && redirectURL != null) {
