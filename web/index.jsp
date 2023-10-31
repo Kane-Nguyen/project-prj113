@@ -37,7 +37,7 @@
                         <i class="bi bi-person icon-person-navbar h4 "></i>
                     </a>
                     <%} %>
-                    <a href="cart.jsp">
+                    <a href="cart.jsp" class="prevent-a-tag">
                         <button class="btn-primary rounded btn-cart">
                             <i class="bi bi-cart h5"></i> Your Cart
                         </button>
@@ -87,7 +87,7 @@
                                 break;
                         }
                     %>
-                    <a href="detail.jsp?productId=<%= product.getProductId() %>" >
+                    <a href="detail.jsp?productId=<%= product.getProductId() %>" class="prevent-a-tag">
                         <div class="d-flex" >
                             <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" class="book-image" alt="Image not found">
                             <div class="d-flex flex-column justify-content-center">

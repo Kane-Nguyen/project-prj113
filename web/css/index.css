@@ -24,6 +24,10 @@ body {
 }
 .prevent-a-tag {
     color: #000;
+    text-decoration: none;
+}
+.prevent-a-tag:hover{
+     text-decoration: none;
 }
 .prevent-buttom-tag{
     cursor: pointer;

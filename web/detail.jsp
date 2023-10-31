@@ -35,9 +35,8 @@
                 </div>
                 <div class="list-navbar">
                     <ul class="list-features-navbar">
-                        <a href="/"><li>Home</li></a> 
+                        <a href="index.jsp"><li>Home</li></a> 
                         <a href=""><li class="active">Detail Book</li></a> 
-                        <a><li>About US</li></a> 
                     </ul>
                 </div>
                 <div class="wrap-right-navbar"> 

@@ -3,6 +3,7 @@
 <%@page import="java.text.NumberFormat"%>
 <%@page import="model.Product"%>
 <%@page import="dal.ProductDAO"%>
+<%@page import="dal.CategoryDAO"%>
 <%@ page import="java.net.URLEncoder" %>
 
 <%
@@ -37,29 +38,13 @@ if (error != null && error.equals("missing_id")) {
         <title>Product List</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/admin.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
 
-            table {
-                border-collapse: collapse;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-            }
-            th, td {
-                border: 1px solid #ccc;
-                padding: 10px;
-                text-align: left;
-            }
-            th {
-                background-color: #f2f2f2;
-            }
-            img {
-                max-width: 100px;
-                max-height: 100px;
-            }
-            h1{
-                text-align: center;
-            }
+
 
         </style>
     </head>
@@ -70,125 +55,120 @@ if (error != null && error.equals("missing_id")) {
                     <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                 </div>
                 <ul class="list-toolbar">
-                    <a href="" class="item-admin"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
-                    <a href="" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
+                    <a href="/" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
+                    <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
                     <a href="" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
+                    <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
                 </ul>
             </div>
             <div class="container-wrap">
-                <h1>Admin Page</h1>
-                <p><a href="Logout">Logout</a></p>
+                <h3 class="tile-book-management">Book Management</h3>
                 <div class="">
                     <form action="CRUD" method="get">
                         <input type="hidden" name="action" value="add">
-                        <button type="submit">Add</button>
+                        <button class="btn-add-product" type="submit"><i class="bi bi-folder-plus"></i></button>
                     </form>  
-                    <form action="payment.jsp">
-                        <button type="submit">payment</button>
-                    </form>
+                    <table>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Product Image</th>
+                            <th>Product Category</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Discount Percentage</th>
+                            <th>Manufacturer</th>
+                            <th>Stock Quantity</th>
+                            <th>Date Added</th>
+                            <th>Actions</th>
+                        </tr>
+                        <% 
+                            ProductDAO productDAO = new ProductDAO();
+                            CategoryDAO ctDAO = new CategoryDAO();
+                            List<Product> products = productDAO.getAll();
+                            NumberFormat numberFormat = NumberFormat.getNumberInstance();
+                            numberFormat.setMinimumFractionDigits(3);
+                            numberFormat.setMaximumFractionDigits(3);
+                            if (products != null && !products.isEmpty()) {
+                                for (Product product : products) {
+                                    if (product != null) {
+                        %>
+                        <tr id="row-<%= product.getProductId() != null ? product.getProductId() : "N/A" %>">
+                            <td><%= product.getProductName() != null ? product.getProductName() : "N/A" %></td>
+                            <td>
+                                <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" alt="Product Image">
+                            </td>
+                            <td><%= product.getCategoryId() != -1 ? ctDAO.getCategoryByProductId(product.getCategoryId()) : "N/A" %></td>
+                            <td class="admin-product-description"><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
+                            <td><%= numberFormat.format(product.getPrice()) %>đ</td>
+                            <td><%= product.getDiscountPercentage() %> %</td>
+                            <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
+                            <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
+                            <td>
+                                <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
+                            </td>
+                            <td class="action-edit-delete">
 
-            <table>
-                <tr>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Product Image</th>
-                    <th>Product Category</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Discount Percentage</th>
-                    <th>Manufacturer</th>
-                    <th>Stock Quantity</th>
-                    <th>Date Added</th>
-                    <th>Actions</th>
-                </tr>
-                <% 
-                    ProductDAO productDAO = new ProductDAO();
-                    List<Product> products = productDAO.getAll();
-                    NumberFormat numberFormat = NumberFormat.getNumberInstance();
-                    numberFormat.setMinimumFractionDigits(3);
-                    numberFormat.setMaximumFractionDigits(3);
-                    if (products != null && !products.isEmpty()) {
-                        for (Product product : products) {
-                            if (product != null) {
-                %>
-                <tr id="row-<%= product.getProductId() != null ? product.getProductId() : "N/A" %>">
-                    <td><%= product.getProductId() != null ? product.getProductId() : "N/A" %></td>
-                    <td><%= product.getProductName() != null ? product.getProductName() : "N/A" %></td>
-                    <td>
-                        <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" alt="Product Image">
-                    </td>
-                    <td><%= product.getCategoryId() != -1 ? product.getCategoryId() : "N/A" %></td>
-                    <td><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
-                    <td><%= numberFormat.format(product.getPrice()) %>đ</td>
-                    <td><%= product.getDiscountPercentage() %> %</td>
-                    <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
-                    <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
-                    <td>
-                        <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
-                    </td>
-                    <td>
+                                <form action="CRUD" method="get">
+                                    <input type="hidden" name="action" value="edit">
+                                    <input type="hidden" name="id" value="<%= product.getProductId() %>">
+                                    <button class="btn btn-warning" type="submit">Edit</button>
+                                </form>
 
-                        <form action="CRUD" method="get">
-                            <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="id" value="<%= product.getProductId() %>">
-                            <button type="submit">Edit</button>
-                        </form>
-
-                        <button onclick="deleteProduct('<%= product.getProductId() != null ? product.getProductId() : "N/A" %>')">Delete</button>
-                    </td>
-                </tr>
-                <% 
+                                <button class="btn btn-danger btn-delete" onclick="deleteProduct('<%= product.getProductId() != null ? product.getProductId() : "N/A" %>')">Delete</button>
+                            </td>
+                        </tr>
+                        <% 
+                                    }
+                                }
+                            } else {
+                        %>
+                        <tr>
+                            <td colspan="11">No products found.</td>
+                        </tr>
+                        <% 
                             }
-                        }
-                    } else {
-                %>
-                <tr>
-                    <td colspan="11">No products found.</td>
-                </tr>
-                <% 
-                    }
-                %>
-            </table>
-        </div>
-        <script type="text/javascript">
-            function deleteProduct(id) {
-                if (confirm('Are you sure?')) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", "CRUD?action=delete&id=" + id, true);
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            var row = document.getElementById("row-" + id);
-                            row.parentNode.removeChild(row);
+                        %>
+                    </table>
+                </div>
+                <script type="text/javascript">
+                    function deleteProduct(id) {
+                        if (confirm('Are you sure?')) {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("GET", "CRUD?action=delete&id=" + id, true);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                    var row = document.getElementById("row-" + id);
+                                    row.parentNode.removeChild(row);
+                                }
+                            }
+                            xhr.send();
                         }
                     }
-                    xhr.send();
-                }
-            }
-        </script>
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function () {
-                var searchInput = document.getElementById('searchInput');
+                </script>
+                <script type="text/javascript">
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var searchInput = document.getElementById('searchInput');
 
-                searchInput.addEventListener('input', function () {
-                    var query = searchInput.value;
-                    if (query.length === 0) {
-                        document.getElementById('searchResults').innerHTML = '';
-                        return;
-                    }
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', 'CRUD?action=search&query=' + query, true);
+                        searchInput.addEventListener('input', function () {
+                            var query = searchInput.value;
+                            if (query.length === 0) {
+                                document.getElementById('searchResults').innerHTML = '';
+                                return;
+                            }
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', 'CRUD?action=search&query=' + query, true);
 
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            document.getElementById('searchResults').innerHTML = xhr.responseText;
-                        }
-                    }
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                    document.getElementById('searchResults').innerHTML = xhr.responseText;
+                                }
+                            }
 
-                    xhr.send();
-                });
-            });
-        </script>
+                            xhr.send();
+                        });
+                    });
+                </script>
 
 
-    </body>
-</html>67
+                </body>
+                </html>67
