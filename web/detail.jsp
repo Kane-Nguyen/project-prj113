@@ -81,8 +81,6 @@
          for (Product product : products) {
              if (product != null) {
                  String productId = product.getProductId(); // Lấy productId của sản phẩm
-
- 
                  if (requestedProductId != null && requestedProductId.equals(productId)) {
                 %>
                 <div>
@@ -206,13 +204,14 @@
                             List<ReviewsAndRatings> reviews = reviewDao.getAllReviewsAndRatings();
                             UsersDAO us = new UsersDAO();
                             List<Users> u = us.getAll();
-                            
+                          
                             List<ReviewsAndRatings> ratingsList = reviewDao.getLatestRatingsByUserForProduct(requestedProductId);
+                            List<ReviewsAndRatings> l = reviewDao.getReviewsByProductID(requestedProductId);
                             double totalRating = 0;
-                            for (ReviewsAndRatings r : ratingsList) {
+                            for (ReviewsAndRatings r : l) {
                                     totalRating += r.getRating();
                             }
-                            double averageRating = Math.ceil((ratingsList.size() > 0) ? totalRating / ratingsList.size() : 0)   ;
+                            double averageRating = Math.ceil((l.size() > 0) ? totalRating / l.size() : 0); 
                             if(averageRating == 1){
                         %>
                         <div class="average-rating">
@@ -245,8 +244,6 @@
                         </div>
 
                         <% }%>
-                        <h2>Average Rating: <%= averageRating %></h2>
-
                         <%  for (ReviewsAndRatings review : reviews) {                              
                                 if (review.getProductID().equals(requestedProductId)) {                                
                         %>
