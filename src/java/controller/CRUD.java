@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.CategoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -89,21 +90,31 @@ public class CRUD extends HttpServlet {
         double price = Double.parseDouble(request.getParameter("price"));
         String imageURL = request.getParameter("imageURL");
         int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
-       int category = Integer.parseInt(request.getParameter("CategoryId"));
+        String category = request.getParameter("category");
+        CategoryDAO c = new CategoryDAO();
+        int newCategory = Integer.parseInt(category);
+  
         String Author = request.getParameter("Author");
         String method = request.getParameter("method");
-
+        boolean done = true;
         try {
             if ("add".equals(method)) {
-                productDAO.addProduct(productName, description, price, discountpercentage, imageURL, stockQuantity, category, Author);           
+                done = productDAO.addProduct(productName, description, price, discountpercentage, imageURL, stockQuantity, newCategory, Author);
+                if (!done) {
+                    throw new Exception("Không thể thêm sản phẩm.");
+                }
                 response.sendRedirect("admin.jsp");
+
             } else if ("edit".equals(method)) {
-                productDAO.editProduct(productName, description, price, imageURL, stockQuantity, category, Author, discountpercentage, id);
+                done = productDAO.editProduct(productName, description, price, imageURL, stockQuantity, newCategory, Author, discountpercentage, id);
+                if (!done) {
+                    throw new Exception("Không thể thêm sản phẩm.");
+                }
                 response.sendRedirect("admin.jsp");
             }
         } catch (Exception e) {
-            e.printStackTrace();        
-            String errorMessage = "Có lỗi xảy ra. Vui lòng thử lại sau.";
+            e.printStackTrace();
+            String errorMessage = e.getMessage() != null ? e.getMessage() : "Có lỗi xảy ra. Vui lòng thử lại sau.";
             request.setAttribute("errorMessage", errorMessage);
             if ("add".equals(method)) {
                 request.getRequestDispatcher("add.jsp").forward(request, response);

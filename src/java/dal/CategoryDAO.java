@@ -32,7 +32,23 @@ public class CategoryDAO extends DBContext {
         }
         return list;
     }
+ public int getCategoryByName(String Name) {
+        String sql = "select CategoryID from Categories where CategoryName = ?";
+        int CategoryID =-1;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setNString(1, Name);
+            ResultSet rs = st.executeQuery();
 
+            if (rs.next()) {
+                CategoryID = rs.getInt("CategoryName");
+                return CategoryID;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return -1;
+    }
     public String getCategoryByProductId(int CategoryID) {
         String sql = "select CategoryName from Categories where CategoryID = ?";
         String categoryName = "";

@@ -84,7 +84,7 @@ if (error != null && error.equals("missing_id")) {
                     <th>Description</th>
                     <th>Price</th>
                     <th>Discount Percentage</th>
-                    <th>Manufacturer</th>
+                    <th>Author</th>
                     <th>Stock Quantity</th>
                     <th>Date Added</th>
                     <th>Actions</th>
@@ -101,16 +101,22 @@ if (error != null && error.equals("missing_id")) {
                 %>
                 <tr id="row-<%= product.getProductId() != null ? product.getProductId() : "N/A" %>">
                     <td><%= product.getProductId() != null ? product.getProductId() : "N/A" %></td>
-                    <td><%= product.getProductName() != null ? product.getProductName() : "N/A" %></td>
+                    <td>
+                        <%= product.getProductName() != null ? product.getProductName() : "N/A" %>
+                    </td>
+
                     <td>
                         <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" alt="Product Image">
                     </td>
                     <td><%= product.getCategoryId() != -1 ? product.getCategoryId() : "N/A" %></td>
                     <td><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
-                    <td><%= numberFormat.format(product.getPrice()) %>đ</td>
+                    <td><%= NumberFormat.getInstance().format(product.getPrice()) %>đ</td>
+
+
+
                     <td><%= product.getDiscountPercentage() %> %</td>
                     <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
-                    <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
+                    <td><%= product.getStockQuantity() %></td>
                     <td>
                         <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
                     </td>
@@ -139,6 +145,22 @@ if (error != null && error.equals("missing_id")) {
             </table>
         </div>
         <script type="text/javascript">
+            function makeEditable(id) {
+                var cell = document.getElementById(id);
+                var originalContent = cell.textContent;
+
+                cell.innerHTML = "<input type='text' id='input-" + id + "' value='" + originalContent + "'>";
+                var input = document.getElementById("input-" + id);
+
+                // Khi focus ra khỏi input, hãy convert lại thành text và gửi AJAX request để cập nhật DB
+                input.addEventListener("blur", function () {
+                    var newContent = input.value;
+                    cell.innerHTML = newContent;
+
+                    // Thực hiện AJAX request ở đây để cập nhật DB
+                });
+            }
+
             function deleteProduct(id) {
                 if (confirm('Are you sure?')) {
                     var xhr = new XMLHttpRequest();
@@ -179,4 +201,4 @@ if (error != null && error.equals("missing_id")) {
 
 
     </body>
-</html>67
+</html>
