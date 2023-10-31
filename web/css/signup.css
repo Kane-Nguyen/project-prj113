@@ -1,0 +1,76 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 22, 2023, 4:32:02 PM
+    Author     : TU ANH
+*/
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.container-1 {
+    display: flex;
+}
+div.container{
+    padding: 0;
+}
+
+div.signup_img {
+    flex: 1;
+    text-align: left;
+}
+
+.signup_img img{
+    width: 540px;
+    background-size: cover;
+}
+
+.signup-content-full {
+    flex: 2;
+    padding: 0px;
+    background: linear-gradient(45deg, rgba(115, 190, 255, 0.7), rgba(255, 255, 255, 1));
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.form-title{
+    margin-top: 20px;
+    font-weight: 700;
+}
+
+.signup-form{
+    margin-left: 130px;
+}
+.center
+{
+    text-align : center;
+    margin-right: 160px;
+}
+
+/* CSS cho input và nút submit */
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    border: 1px solid #000;
+    border-radius: 4px; /* Bo tròn viền */
+    padding: 5px;
+    margin-top: -4px; /* Điều chỉnh margin trên của input */
+
+}
+
+.form-button input[type="submit"] {
+    border: 1px solid rgba(105, 183, 255, 0.7);
+    background-color: rgb(64, 70, 245);
+    color: white;
+    padding: 6.5px;
+    border-radius: 10px; /* Bo tròn viền */
+    font-weight: bold;
+}
+
+.form-group label {
+    margin-bottom: 5px; /* Điều chỉnh margin dưới của label */
+}
