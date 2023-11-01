@@ -34,7 +34,14 @@
             });
 
         </script>
+        
     </head>
+      <%
+               String query = request.getParameter("search");
+
+                ProductDAO productDAO = new ProductDAO();
+                List<Product> productList = productDAO.searchProductsByName(query);
+            %>
     <body>
         <h1>All Products</h1>
         <div class="container">
@@ -42,7 +49,7 @@
                 <i class="bi bi-list h4"></i>
                 <div class="wrap-search-bar">
                     <form id="searchForm" action="search.jsp" method="post" accept-charset="UTF-8">           
-                        <input class="search-bar" id="searchInput" name="search" placeholder="Nhập để tìm kiếm" value="">
+                        <input class="search-bar" id="searchInput" name="search" placeholder="Nhập để tìm kiếm" value="<%=query%>">
                         <i id="submitSearch"  class="bi bi-search search-icon search-icon"></i>
                     </form>
 
@@ -75,12 +82,7 @@
                     %>
                 </div> 
             </div> 
-            <%
-               String query = request.getParameter("search");
-
-                ProductDAO productDAO = new ProductDAO();
-                List<Product> productList = productDAO.searchProductsByName(query);
-            %>
+          
 
             <div class="container">
                 <div class="row">
