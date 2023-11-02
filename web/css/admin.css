@@ -1,0 +1,99 @@
+body {
+    padding: 0px;
+    margin: 0px;
+
+}
+html {
+    padding: 0px;
+    margin: 0px;
+}
+.wrap-admin-page{
+    display: flex;
+    background-color: #F8F8F8;
+}
+.list-toolbar{
+    list-style: none;
+}
+.toolbar{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin-right: 40px;
+    background-color: #fff;
+    height: 100vh;
+    min-width: 230px;
+}
+.logo-img{
+    padding: 20px;
+    background-size: cover;
+    height: 65px;
+}
+.item-admin{
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.admin-product-description{
+    max-height: 150px;
+    overflow: hidden;
+}
+.active{
+    font-size: 16px;
+    color: #0B63F8;
+}
+.container-wrap{
+    margin-top: 50px;
+    margin-left: 270px;
+}
+.btn-add-product{
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color : #fff;
+}
+.btn-add-product:focus{
+    outline: none;
+}
+table {
+    padding: 20px;
+    background-color: #fff;
+    border-collapse: collapse;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+td {
+    border: 1px solid #007bff;
+    padding: 10px;
+    text-align: left;
+}
+th {
+    border: 1px solid #fff;
+    padding: 10px;
+    text-align: left;
+    color : #fff;
+}
+th {
+    background-color: #007bff;
+}
+img {
+    max-width: 100px;
+    max-height: 100px;
+}
+h1{
+    text-align: center;
+}
+.tile-book-management{
+    font-size: 26px;
+
+}
+.btn-delete{
+    margin-top: 20px;
+}

@@ -1,0 +1,487 @@
+/*General class*/
+/* For Webkit browsers */
+::-webkit-scrollbar {
+    width: 5px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #000; /* color of the scroll thumb */
+    border-radius: 4px; /* roundness of the scroll thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* color of the scroll thumb when hovering */
+}
+
+/* For Firefox */
+body {
+    scrollbar-width: 4px;
+    scrollbar-color: #ccc #222;
+}
+.prevent-a-tag {
+    color: #000;
+    text-decoration: none;
+}
+.prevent-a-tag:hover{
+     text-decoration: none;
+}
+.prevent-buttom-tag{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+/* Navbar and header */
+.navbar {
+    height: 88px;
+    flex-direction: row;
+}
+.search-icon {
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: absolute;
+    left: 10px;
+    margin-top: 4px;
+}
+.search-icon:hover {
+    transform: scale(1.3);
+}
+.wrap-search-bar {
+    position: relative;
+}
+.search-bar {
+    padding-left: 38px;
+    padding-right: 60px;
+    background-color: #eaeaea;
+    width: 296px;
+    height: 36px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+}
+.list-navbar{
+
+}
+.active{
+    font-weight: 500;
+    color:#0B63F8;
+}
+.list-features-navbar{
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+.icon-person-navbar {
+    cursor: pointer;
+}
+
+.btn-cart {
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    height: 36px;
+    padding: 6px;
+    align-items: center;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+.wrap-right-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+/* Content */
+.content-introduction{
+    height: 400px;
+}
+.wrap-content{
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.content-header{
+    margin-bottom: 30px;
+}
+.content-des{
+    color: #0D0842;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+.content-contact {
+    font-size: 16px;
+    font-weight: 400;
+    padding-left:20px;
+    padding-right:20px;
+}
+.wrap-content-right{
+    position: relative;
+    display: flex;
+}
+.img-home-bg-1{
+    position: absolute;
+    z-index: 100;
+    width: 272px;
+    height: 378px;
+}
+.img-home-bg-2{
+    position: absolute;
+    left: 140px;
+    top:8px;
+    z-index: 50;
+    width: 246px;
+    height: 342px;
+}
+.img-home-bg-3{
+    left: 275px;
+    top: 24px;
+    position: absolute;
+    z-index: 10;
+    width: 214px;
+    height: 297px;
+}
+.book-store{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrap-book-store{
+    margin-top: 70px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    gap:10px;
+}
+#scroll-book::-webkit-scrollbar {
+    height: 0px;
+    cursor: pointer;
+}
+#scroll-book::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+#scroll-book::-webkit-scrollbar-thumb {
+    background: #888;
+}
+.card-link{
+    width: 474px;
+    height: 280px;
+}
+.book-image{
+    padding: 15px;
+    width: 180px;
+    height: 250px;
+    background-size: cover;
+}
+.book-title{
+    color :#0D0842;
+    font-size: 16px;
+    font-weight: 600!important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.book-des{
+    margin-bottom: 0px;
+    color: #0D0842;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+    width: 150px;
+
+    /* Essential for multiline ellipsis */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.book-price{
+    color :#0D0842;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.book-original-price{
+    color :#ccc;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.btn-add-to-cart{
+    white-space: nowrap;
+    margin-top: 40px!important;
+    border-radius: 8px;
+    padding-right: 20px;
+    padding-left: 20px;
+
+}
+#arrow-right{
+    color: #000;
+    margin-left: 50px;
+    cursor: pointer;
+}
+#arrow-right:hover{
+    opacity: 0.5;
+}
+#arrow-left{
+    color: #000;
+    margin-right: 50px;
+    cursor: pointer;
+}
+#arrow-left:hover{
+    opacity: 0.5;
+}
+.footer{
+    margin-top: 70px;
+    display: flex;
+}
+.footer-left{
+    width: 50%
+
+}
+.logo{
+
+}
+.logo-img{
+    height: 50px;
+}
+.list-features{
+    list-style: none;
+    display: flex;
+    gap:10px;
+}
+.footer-right{
+    text-align: right;
+    width: 50%
+}
+.social-media > a{
+    margin-left: 10px;
+}
+.book-wrap{
+    margin-top: 50px;
+    display: flex;
+    gap: 35px;
+}
+.image-book-detail{
+    padding: 30px;
+    background-color: #F2F2F2;
+    border: none;
+    height: 631px;
+}
+.title-detail-book{
+    font-size: 40px;
+    font-weight: 700;
+
+}
+.category-detail{
+    font-weight: 400;
+    font-size: 20px;
+}
+.detail-book{
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.author-detail-book{
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400;
+}
+.original-price{
+    font-weight: 400;
+    font-size: 16px;
+}
+.not-sale{
+    font-weight: 400 !important;
+    text-decoration: line-through;
+    color:#ccc;
+}
+.discount-price-detail{
+    font-weight: 600;
+    color:red;
+    font-size: 36px;
+
+}
+.button-wrap-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.btn-custom-add-cart{
+    background-color: #fff;
+    color: #0B63F8;
+}
+.book-description{
+    margin-top: 20px;
+
+}
+.book-description-header{
+    font-size: 26px;
+    font-weight: 500;
+}
+.book-descriptionp-content{
+    margin-left: 20px;
+    width: 70%;
+}
+.comment-wrap{
+    margin-top : 20px;
+}
+.comment-input-wrap{
+    width: 70%;
+}
+.wrap-name-rating{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.comment-input{
+    outline: none;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+.date-rating{
+    font-weight: 300;
+    font-size: 16px;
+    color:#ccc;
+}
+.rating-solid-star{
+    color:#007bff;
+}
+.average-rating{
+    position: relative;
+}
+.background-line-detail{
+    width:  80%;
+    height: 5px;
+    background-color: #ccc;
+    border-radius: 6px;
+}
+.rating-star-wrap{
+    position: relative;
+
+}
+.rating-line-detail-0{
+    position: absolute;
+    left: 0px;
+    width: 0%;
+    height: 5px;
+}
+.rating-line-detail-1{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 16%;
+    border-radius: 6px;
+    height: 5px;
+    background-color: #0B63F8;
+}
+.rating-line-detail-2{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 32%;
+    border-radius: 6px;
+    height: 5px;
+    background-color: #0B63F8;
+}
+.rating-line-detail-3{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 48%;
+    border-radius: 6px;
+    height: 5px;
+    background-color: #0B63F8;
+}
+.rating-line-detail-4{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 64%;
+    border-radius: 6px;
+    height: 5px;
+    background-color: #0B63F8;
+}
+.rating-line-detail-5{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 80%;
+    border-radius: 6px;
+    height: 5px;
+    background-color: #0B63F8;
+}
+.rating-number{
+    position: absolute;
+    right: 15%;
+    top: 0px;
+}
+.notice-login{
+    font-weight: 500;
+
+}
+.rating {
+    display: inline-block;
+    font-size: 24px;
+    direction: rtl; /* Thêm dòng này để đảo ngược thứ tự */
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+}
+
+.rating label:before {
+    content: "\2605"; /* Unicode character for a star */
+    color: #ddd;
+    font-size: 24px;
+}
+
+.rating input:checked ~ label:before,
+.rating label:hover ~ label:before,
+.rating label:hover:before {
+    color: #0B63F8; /* Color for selected stars */
+}
+.rating label:before {
+    font-size: 24px;
+}
+.review{
+    margin-top: 50px;
+}
+.user-rating-comment-name{
+    font-size: 16px;
+    font-weight: 500;
+}
+.user-rating-comment-name::before{
+    content: "";
+    width: 14px;
+    height: 14px;
+    display: block;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    z-index: -1;
+    position: absolute;
+    left: -7px;
+    background: rgb(134,134,237);
+    background: linear-gradient(90deg, rgba(134,134,237,1) 6%, rgba(55,180,248,1) 44%, rgba(59,221,254,1) 100%);
+}
+
