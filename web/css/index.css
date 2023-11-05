@@ -278,16 +278,6 @@ body {
 .rating label:hover:before {
     color: #f1c40f; /* Color for selected stars */
 }
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-}
-.container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 .original-price {
     text-decoration: line-through;
     color: #888;
@@ -307,8 +297,4 @@ body {
 }
 .rating label:before {
     font-size: 18px;
-}
-.btn-primary {
-    background-color: #e74c3c;
-    border-color: #e74c3c;
 }
