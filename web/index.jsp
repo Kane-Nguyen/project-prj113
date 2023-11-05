@@ -152,10 +152,11 @@
                                     <button type="submit" class="btn-primary mt-auto btn-add-to-cart "> <i class="bi bi-cart h5"></i>Add to cart</button>
                                 </form>
                                 <% } else{
-}%>                                   <div class="button-wrap-detail">
+%>                                   <div class="button-wrap-detail">
                                     <button type="submit" class="btn-primary mt-auto btn-add-to-cart require-login-btn "> <i class="bi bi-cart h5"></i>Add to cart</button>
 
                                 </div>
+                                    <% } %>
 
                             </div>
                         </div>
