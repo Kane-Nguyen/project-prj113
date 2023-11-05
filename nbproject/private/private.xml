@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/model/History.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/dal/HistoryDAO.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/analysis.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/controller/AnalysisServlet.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/detail.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/index.jsp</file>
+            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/Addbook.jsp</file>
+            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/Buy.jsp</file>
         </group>
     </open-files>
 </project-private>

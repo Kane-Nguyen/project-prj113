@@ -23,7 +23,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Analysis</title>
         <!-- Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -112,6 +112,15 @@
                 display: inline-block;
                 width: auto;
             }
+            .table-responsive {
+                margin-bottom: 15px;
+            }
+            @media (max-width: 768px) {
+                .custom-header {
+                    font-size: 2rem;
+                }
+                /* Add more media queries for other elements if needed */
+            }
 
         </style>
     </head>
@@ -152,7 +161,7 @@
                     <option value="<%= i %>" <%= (selectedDay != null && selectedDay == i) ? "selected" : "" %>> <%= i %> </option>
                     <% } %>
                 </select>
-                
+
                 <label for="month">Select Month:</label>
                 <select name="month" class="form-control select-inline">
                     <option value="">All</option>
@@ -178,52 +187,53 @@
             </form>
 
             <h2 class="text-center custom-header">Analysis for <%= dayString %><%= monthString %><%= yearString %></h2>
-
-            <table id="table1" class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Number</th>
-                        <th>UserID</th>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Discount Percentage</th>
-                        <th>Sale price</th>
-                        <th>Time Buy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% 
-                        double totalRevenue = 0;
-                        List<History> histories = (List<History>) request.getAttribute("histories");
-                        if(histories != null && !histories.isEmpty()) {
-                            for(History history : histories) {
-                                double salePrice = history.getPrice() * (1 - history.getDiscountPercentage()/100);
-                                totalRevenue += salePrice;
-                    %>
-                    <tr>
-                        <td><%= history.getHistoryID() %></td>
-                        <td><%= history.getUserID() %></td>
-                        <td><%= history.getProductName() %></td>
-                        <td><%= history.getPrice() %></td>
-                        <td><%= history.getDiscountPercentage() %></td>
-                        <td><%= salePrice %></td>
-                        <td><%= history.getTimeBuy() %></td>
-                    </tr>
-                    <% 
+            <div class="table-responsive">
+                <table id="table1" class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>UserID</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Discount Percentage</th>
+                            <th>Sale price</th>
+                            <th>Time Buy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                            double totalRevenue = 0;
+                            List<History> histories = (List<History>) request.getAttribute("histories");
+                            if(histories != null && !histories.isEmpty()) {
+                                for(History history : histories) {
+                                    double salePrice = history.getPrice() * (1 - history.getDiscountPercentage()/100);
+                                    totalRevenue += salePrice;
+                        %>
+                        <tr>
+                            <td><%= history.getHistoryID() %></td>
+                            <td><%= history.getUserID() %></td>
+                            <td><%= history.getProductName() %></td>
+                            <td><%= history.getPrice() %></td>
+                            <td><%= history.getDiscountPercentage() %></td>
+                            <td><%= salePrice %></td>
+                            <td><%= history.getTimeBuy() %></td>
+                        </tr>
+                        <% 
+                                }
+                            } else {
+                        %>
+                        <tr>
+                            <td style="text-align: center" colspan="7">No data available for the selected month, year or day.</td>
+                        </tr>
+                        <% 
                             }
-                        } else {
-                    %>
-                    <tr>
-                        <td style="text-align: center" colspan="7">No data available for the selected month, year or day.</td>
-                    </tr>
-                    <% 
-                        }
-                    %>
-                </tbody>
-                <tfoot>
-                    <!-- You can put aggregate information here if needed -->
-                </tfoot>
-            </table>
+                        %>
+                    </tbody>
+                    <tfoot>
+                        <!-- You can put aggregate information here if needed -->
+                    </tfoot>
+                </table>
+            </div>
 
 
 
@@ -240,6 +250,7 @@
         <script>
             $(document).ready(function () {
                 $('#table1').DataTable();
+                responsive: true;
             });
         </script>
 
