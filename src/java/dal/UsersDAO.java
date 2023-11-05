@@ -37,10 +37,27 @@ public class UsersDAO extends DBContext {
             return null;
         }
     }
+public boolean updateUsers(String name, Date date, String phone, String email, String address,int id) {
+    String sql = "UPDATE Users SET FullName = ?, BirthDate = ?, PhoneNumber = ?, Email = ?, Address = ? where UserID = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        
+        st.setString(1, name);
+        st.setDate(2, date);
+        st.setString(3, phone);
+        st.setString(4, email);
+        st.setString(5, address);
+        st.setInt(6, id);
+    
+        return st.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.out.println(e);
+        return false;
+    }
+}
+    public boolean insertUser(String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, String userRole) {
 
-    public boolean insertUser(String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, String userRole, String SecretString) {
-
-        String sql = "INSERT INTO Users (FullName, BirthDate, PhoneNumber, Email, PassWord, Address, UserRole, SecretString) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (FullName, BirthDate, PhoneNumber, Email, PassWord, Address, UserRole) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -53,7 +70,6 @@ public class UsersDAO extends DBContext {
             st.setString(5, hashedPassword);
             st.setString(6, address);
             st.setString(7, userRole);
-            st.setString(8, SecretString);
 
             int affectedRows = st.executeUpdate();
 
@@ -95,6 +111,23 @@ public class UsersDAO extends DBContext {
 
         return list;
     }
+      public boolean delete(int id) {
+
+        String sql = "delete from Users where UserID=?";
+        String sql1 = "delete from ReviewsAndRatings where UserID=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql1);
+            st.setInt(1, id);
+            st.executeUpdate();
+            PreparedStatement st1 = connection.prepareStatement(sql);
+            st1.setInt(1, id);
+            st1.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+        return true;
+    }
 
     public boolean updatePassword(String email, String newPassword) {
         String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
@@ -119,7 +152,7 @@ public class UsersDAO extends DBContext {
     public static void main(String[] args) {
         UsersDAO u = new UsersDAO();
         List<Users> l = u.getAll();
-        System.out.println(l.get(0).getFullName());
+        System.out.println(l.get(0).getUserId());
     }
 
 }
