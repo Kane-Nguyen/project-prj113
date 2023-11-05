@@ -92,7 +92,7 @@
                     %>
                     <div class="col-12">
                         <div class="alert alert-info" role="alert">
-                            đéo có sản phảm nào cả
+                            Your keyword's not matching any books.
                         </div>
                     </div>
                     <%
