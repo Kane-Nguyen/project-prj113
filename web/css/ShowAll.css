@@ -1,0 +1,42 @@
+/* Custom styles */
+.card-img-top {
+    width: 100%; /* Ensures that image width is always 100% of the card */
+}
+
+/* Styles for laptops and desktops */
+@media (min-width: 1200px) {
+    .col-xl-2-4 {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+    .card-img-top {
+        height: 200px; /* Fixed height for larger screens */
+        object-fit: contain; /* Image will scale to fit this height */
+    }
+}
+/* Styles for mobile */
+@media (max-width: 767px) {
+    .col-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+    .card-img-top {
+        width: 100px; /* Fixed width for all images */
+        height: 100px; /* Fixed height for all images */
+        object-fit: contain; /* Will scale down images to fit within the fixed size */
+        margin: auto; /* Center the image in case it's smaller than the fixed dimensions */
+        display: block; /* To ensure that margin: auto takes effect */
+    }
+
+    /* Optionally, adjust font sizes if needed */
+    .card-title {
+        font-size: 1em;
+    }
+
+    .card-text {
+        font-size: 0.8em;
+    }
+
+    
+
+}

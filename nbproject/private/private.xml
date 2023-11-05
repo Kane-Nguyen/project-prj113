@@ -3,38 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/StyleForgotPassword.css</file>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/signup.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/payment.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/ProcessOrderServlet.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/OrderDAO.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/SaveOrdersServlet.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/UpdateQuantityServlet.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/admin.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/showAll.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/admin.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/paid.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/detail.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/index.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/DBContext.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/ShowProduct.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/CRUD.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/Buy.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/ProductDAO.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/login.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/AddToCartServlet.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/Addbook.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/search.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/buyservlet.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/loginServlet.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/ReviewsAndRatingsServlet.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/model/Product.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/edit.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/ReviewsAndRatingsDAO.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/CategoryDAO.java</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/Order.jsp</file>
-            <file>file:/D:/Workspace/PRJ/project-prj113/web/cart.jsp</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/src/java/controller/UpdateQuantityServlet.java</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/web/showAll.jsp</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/web/index.jsp</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/src/java/controller/select.java</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/web/search.jsp</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/src/java/controller/ShowProduct.java</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/src/java/controller/SaveOrdersServlet.java</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/web/Buy.jsp</file>
+            <file>file:/D:/work/New%20folder%20(2)/project-prj113/src/java/dal/ProductDAO.java</file>
         </group>
     </open-files>
 </project-private>

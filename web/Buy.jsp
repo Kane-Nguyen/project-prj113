@@ -56,8 +56,7 @@
                 <%
                                     for (int i = 0; i < productIds.length; i++) {
                                         String itemId = productIds[i];
-                        
-            
+
                                             Product product = productDAO.getProductById(itemId);
                                             String quantityStr = i < quantities.length ? quantities[i] : "N/A";
                                             int quantity = 1; // Giá trị mặc định nếu không có dữ liệu quantity
