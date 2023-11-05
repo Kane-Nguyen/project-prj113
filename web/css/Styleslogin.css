@@ -14,6 +14,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
 
 
@@ -45,15 +46,10 @@ body {
 /* Position the icon absolutely */
 .eye-icon {
     position: absolute;
-    right: 250px;
+    right: 10px;
     top: 65%;
     transform: translateY(-80%);
     cursor: pointer;
-}
-
-/* Adjust the input width to accommodate the icon */
-.form-control {
-    width: calc(100% - 30px); /* Adjust the value as needed */
 }
 
 /* Add styles for the icon itself */
@@ -61,7 +57,9 @@ ion-icon {
     font-size: 20px; /* Adjust the size as needed */
     color: #353535; /* Icon color */
 }
-
+wrap-form-login{
+    padding-left: 36px;
+}
 .form-control .name {
     color: #202020;
     font-family: Inter;
@@ -97,12 +95,13 @@ ion-icon {
 
 .form-check a
 {
+    text-decoration: underline;
     color: #3F46FF;
     text-align: center;
     font-family: Inter;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -118,12 +117,13 @@ ion-icon {
 
 .name-create a
 {
+    text-decoration: underline;
     color: #3F46FF;
     text-align: center;
     font-family: Inter;
-    font-size: 20px;
+    font-size: 14px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -131,6 +131,63 @@ ion-icon {
     color: red;
     text-align: center;
 }
+.wrap-password{
+    width: fit-content;
+}
+.forgot-password-icon{
+    margin-right: 5px;
+    font-size: 16px;
+}
+.dont-have-password-link{
+    white-space: nowrap;
+}
+.dont-have-password-icon{
+    margin-right: 5px;
+    font-size: 16px;
+
+}
+
+.create-account-link{
+    display: flex;
+    gap: 100px;
+}
+
+@media only screen and (max-width: 1215px) {
+    .image-background{
+        display: none;
+    }
+    .forgot-password-link{
+        gap: 5px;
+        white-space: nowrap;
+    }
+    .form-login{
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .login-word{
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 460px) {
+    .wrap-form-login{
+        padding-left: 0 !important;
+    }
+    .form-group .form-control {
+        width: 300px;
+    }
+    .sign-in-btn{
+        width: 300px;
+    }
+    .create-account-link{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+
+}
+
 
 
 
