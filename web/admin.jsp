@@ -86,8 +86,8 @@ if (error != null && error.equals("missing_id")) {
                             CategoryDAO ctDAO = new CategoryDAO();
                             List<Product> products = productDAO.getAll();
                             NumberFormat numberFormat = NumberFormat.getNumberInstance();
-                            numberFormat.setMinimumFractionDigits(3);
-                            numberFormat.setMaximumFractionDigits(3);
+                            numberFormat.setMinimumFractionDigits(0);
+                            numberFormat.setMaximumFractionDigits(0);
                             if (products != null && !products.isEmpty()) {
                                 for (Product product : products) {
                                     if (product != null) {
@@ -102,7 +102,7 @@ if (error != null && error.equals("missing_id")) {
                             <td><%= numberFormat.format(product.getPrice()) %>đ</td>
                             <td><%= product.getDiscountPercentage() %> %</td>
                             <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
-                            <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
+                            <td><%= numberFormat.format(product.getStockQuantity()) %></td>
                             <td>
                                 <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
                             </td>
