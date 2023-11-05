@@ -88,15 +88,28 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <script>
-            function updateQuantity(productId, action, discountedPrice) {
-                console.log(action);
-                console.log(`Update Quantity called for Product ID: ${productId}, Action: ${action}`);
-                var stock = parseInt($('#Stock-' + productId).val());
-                var quantity = parseInt($('#quantity-' + productId).text());
+            function updateQuantity(productId, action) {
+                console.log("Update Quantity called for Product ID: " + productId + ", Action: " + action);  // Debug line
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "UpdateQuantityServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("productId=" + productId + "&action=" + action);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var newQuantity = xhr.responseText;
+                        console.log("quantity-" + productId);
+                        document.getElementById("quantity-" + productId).innerText = newQuantity;
+                        updateTotalPrice();
+                    }
+                };
+            }
+            function updateTotalPrice() {
+                var cartItems = getCookie("cart").split(":");
+                var quantities = getCookie("quantity").split(":");
+                var totalPrice = 0;
 
-                if (quantity >= stock && action === "increase") {
-                    alert("khong du sach");
-                    console.log("khong du sach");
+                if (cartItems[0] === "") {
+                    document.getElementById("total-price").innerText = "Total Price: 0.000 VND";
                     return;
                 }
 
@@ -148,33 +161,46 @@
 //                }
 
             function removeProduct(productId) {
-                $.post("DeleteCartServlet", {
-                    productId: productId
-                }, function () {
-                    $('#quantity-' + productId).parent().remove();
-                    updateTotalPrice();
-                });
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "DeleteCartServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.send("productId=" + productId);
+                xhr.onload = function () {
+                    if (xhr.status == 200) {
+                        var listItem = document.getElementById("quantity-" + productId).parentNode;
+                        listItem.parentNode.removeChild(listItem);
+
+                        // Recalculate total price immediately after removing an item
+                        updateTotalPrice();
+                    }
+                };
             }
 
+
             function setInitialQuantities() {
+                // Code để đặt số lượng ban đầu từ cookie
                 var cartItems = getCookie("cart").split(":");
                 var quantities = getCookie("quantity").split(":");
-
                 for (var i = 0; i < cartItems.length; i++) {
                     var productId = cartItems[i];
                     var quantity = quantities[i];
-                    $("#quantity-" + productId).text(quantity);
+                    var quantityElement = document.getElementById("quantity-" + productId);
+                    if (quantityElement) {
+                        quantityElement.innerText = quantity;
+                    }
                 }
-                updateTotalPrice();
+                updateTotalPrice();  // Gọi hàm cập nhật tổng giá
             }
 
             function getCookie(cname) {
                 var name = cname + "=";
                 var decodedCookie = decodeURIComponent(document.cookie);
                 var ca = decodedCookie.split(';');
-
                 for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i].trim();
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') {
+                        c = c.substring(1);
+                    }
                     if (c.indexOf(name) === 0) {
                         return c.substring(name.length, c.length);
                     }
@@ -190,13 +216,9 @@
             }
 
             function clearCartCookies() {
-                setCookie("cart", "", -1);
+                setCookie("cart", "", -1);  // Setting -1 days will remove the cookie
                 setCookie("quantity", "", -1);
             }
-
-            setInitialQuantities(); // Call the function initially to set quantities
-            ;
-
 
         </script>
     </head>
