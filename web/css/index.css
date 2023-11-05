@@ -27,7 +27,7 @@ body {
     text-decoration: none;
 }
 .prevent-a-tag:hover{
-     text-decoration: none;
+    text-decoration: none;
 }
 .prevent-buttom-tag{
     cursor: pointer;
@@ -485,8 +485,111 @@ body {
     background: linear-gradient(90deg, rgba(134,134,237,1) 6%, rgba(55,180,248,1) 44%, rgba(59,221,254,1) 100%);
 }
 
-@media only screen and (max-width: 500px){
-    .navbar{
-        padding:50px;
+.show-list-icon{
+     display: none;
+}
+
+@media only screen and (max-width: 990px){
+    .wrap-content-right{
+        left: -25px;
     }
+    .img-home-bg-1 {
+        width: 178px;
+        height: 282px;
+    }
+    .img-home-bg-2 {
+        width: 144px;
+        height: 242px;
+    }
+    .img-home-bg-3 {
+        width: 116px;
+        height: 196px;
+    }
+    .content-des{
+        width: 280px;
+    }
+    .content-header{
+        font-size: 26px;
+    }
+}
+@media only screen and (max-width: 770px){
+    .navbar {
+        z-index: 1;
+    }
+
+    .content-right{
+        display: none;
+    }
+    .content-left{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        width: 100%!important;
+    }
+    .content-header{
+        text-align: center;
+    }
+    .content-des{
+        width: 100%!important;
+    }
+    .wrap-right-navbar{
+        display: none;
+    }
+    .show-list-icon{
+        display: block;
+    }
+    .wrap-model{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        right: 0;
+    }
+    .close-model{
+        width: fit-content;
+        padding: 5px 10px;
+    }
+
+    .model {
+        background: white; /* Or any color that suits the design */
+        width: 100%; /* As an example */
+        margin: auto; /* Center in the view vertically and horizontally */
+        position: absolute; /* If you want to use top/left to adjust position */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+        z-index: 1000; /* Ensure it's above the semi-transparent background */
+    }
+    .list-model{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-right: 50px;
+        list-style: none;
+    }
+    .list-model li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .list-model li:last-child{
+        border-bottom: none;
+    }
+
+
+
+}
+@media only screen and (max-width: 500px){
+    .navbar {
+        height: 60px;
+    }
+    .search-bar {
+        width: 200px;
+
+    }
+    .wrap-content {
+        padding: 20px;
+    }
+
+
+
 }

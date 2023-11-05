@@ -38,10 +38,51 @@
 
         </script>
     </head> 
+
     <body>
+        <%
+                 Integer userID = (Integer) session.getAttribute("userID");
+                 boolean isUserLoggedIn = userID != null;
+        %>
+        <div class="wrap-model">
+            <div class="model">
+                <ul class="list-model">
+
+                    <% if (!isUserLoggedIn) { %>
+                    <a href="login" class="prevent-a-tag">
+                        <i class="bi bi-person icon-person-navbar h4 "></i>
+                    </a>
+                    <% }else { %>
+                    <li>
+                        <a href="userDetail.jsp" class="prevent-a-tag">
+                            PROFILE
+                        </a>
+                    </li>
+                    <%} %>
+                    <% if (isUserLoggedIn) { %>
+                    <li>
+                        <a href="cart.jsp" class="prevent-a-tag">
+                            YOUR CART
+                        </a>
+                    </li>
+                    <%} %>
+                    <% if (isUserLoggedIn) { %>
+                    <li>
+                        <a href="Logout" class="prevent-a-tag">
+                            LOG OUT
+                        </a>
+                    </li>
+                    <%
+                   }
+                    %>
+                    <i class="bi bi-box-arrow-in-left close-model"></i>
+                </ul>
+            </div>
+        </div>
         <div class="container">
             <div class="navbar-nav ml-auto row navbar">
-                <i class="bi bi-list h4"></i>
+                <i class="bi bi-list h4 show-list-icon"></i>
+
                 <div class="wrap-search-bar">
                     <form id="searchForm" action="search.jsp" method="post" accept-charset="UTF-8">           
                         <input class="search-bar" id="searchInput" name="search" placeholder="Nhập để tìm kiếm" value="">
@@ -50,10 +91,7 @@
 
                 </div>
                 <div class="wrap-right-navbar"> 
-                    <%
-                   Integer userID = (Integer) session.getAttribute("userID");
-                   boolean isUserLoggedIn = userID != null;
-                    %>
+                  
                     <% if (!isUserLoggedIn) { %>
                     <a href="login" class="prevent-a-tag">
                         <i class="bi bi-person icon-person-navbar h4 "></i>
@@ -78,6 +116,7 @@
                     %>
                 </div> 
             </div> 
+
             <div class="content-introduction">
                 <div class="wrap-content">
                     <div class="content-left w-50">
@@ -97,7 +136,7 @@
 
             </div>
             <div id="loginAlert" style="display:none;" class="alert alert-danger mt-2">
-                Bạn cần đăng nhập để thực hiện chức năng này! <a href="login.jsp">Đăng nhập ngay</a>
+                You have to Sign in to using this feature <a href="login.jsp">Sign In</a>
             </div>
             <div class="book-store">
                 <i class="bi bi-arrow-left-circle h3" id="arrow-left"></i>
@@ -152,11 +191,11 @@
                                     <button type="submit" class="btn-primary mt-auto btn-add-to-cart "> <i class="bi bi-cart h5"></i>Add to cart</button>
                                 </form>
                                 <% } else{
-%>                                   <div class="button-wrap-detail">
+                                %>                                   <div class="button-wrap-detail">
                                     <button type="submit" class="btn-primary mt-auto btn-add-to-cart require-login-btn "> <i class="bi bi-cart h5"></i>Add to cart</button>
 
                                 </div>
-                                    <% } %>
+                                <% } %>
 
                             </div>
                         </div>
@@ -204,11 +243,48 @@
                 </div>
             </div>
         </div>
+
         <script type="text/javascript">
+
             $(document).ready(function () {
+                hidePopup();
+                $(".list-item").on("click", function () {
+
+                    $(".wrap-right-navbar").show();
+                })
                 $(".require-login-btn").click(function () {
                     $("#loginAlert").show();
                 });
+                function showPopup() {
+                    $('.model').fadeIn(); // This will slowly fade in the popup
+                    $('.wrap-model').fadeIn();
+                }
+
+                // Function to hide the popup
+                function hidePopup() {
+                    $('.wrap-model').fadeOut();
+                    $('.model').fadeOut(); // This will slowly fade out the popup
+                }
+
+                // Example of binding the showPopup function to a button click
+                $('.show-list-icon').click(function () {
+                    showPopup();
+                });
+
+                // Hiding the popup when clicking on the background
+                $('.close-model').click(function (event) {
+                    // Check if the clicked area is the background and not the model itself
+                    hidePopup();
+                });
+                $('.wrap-model').click(function (event) {
+
+                    // Check if the clicked area is the background and not the model itself
+                    if (event.target === this) {
+                        hidePopup();
+                    }
+                });
+
+                // Optionally, to prevent <a> tags from navigating away when clicked, you can use:
             });
         </script>
         <script>
