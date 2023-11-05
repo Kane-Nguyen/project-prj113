@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/test.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <script>
             $(document).ready(function () {
@@ -62,12 +63,13 @@
                         <i class="bi bi-person icon-person-navbar h4 "></i>
                     </a>
                     <%} %>
+                    <% if (isUserLoggedIn) { %>
                     <a href="cart.jsp" class="prevent-a-tag">
                         <button class="btn-primary rounded btn-cart">
                             <i class="bi bi-cart h5"></i> Your Cart
                         </button>
                     </a>
-
+                    <%} %>
                     <% if (isUserLoggedIn) { %>
                     <a href="Logout" class="prevent-a-tag">
                         <i class="bi bi-box-arrow-in-left h4"></i>
