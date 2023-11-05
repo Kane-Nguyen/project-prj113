@@ -142,18 +142,16 @@ wrap-form-login{
     white-space: nowrap;
 }
 .dont-have-password-icon{
-     margin-right: 5px;
+    margin-right: 5px;
     font-size: 16px;
-    
+
 }
 
 .create-account-link{
     display: flex;
     gap: 100px;
 }
-.wrap-form-login{
-    padding-left: 0 !important;
-}
+
 @media only screen and (max-width: 1215px) {
     .image-background{
         display: none;
@@ -173,19 +171,21 @@ wrap-form-login{
     }
 }
 @media only screen and (max-width: 460px) {
-    
+    .wrap-form-login{
+        padding-left: 0 !important;
+    }
     .form-group .form-control {
         width: 300px;
     }
     .sign-in-btn{
-         width: 300px;
+        width: 300px;
     }
     .create-account-link{
         flex-direction: column;
         gap: 20px;
     }
-    
-    
+
+
 }
 
 
