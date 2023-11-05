@@ -48,7 +48,7 @@
                         <div class="user-id"<label for="fullName">Contact Number</label></div> 
                         <input type="text" id="phone" value="${sessionScope.phoneNumber}" disabled>
                         <div class="form-group">
-                            <div class="user-id"<label for="fullName">Change Password: </label><a href="changePassword.jsp">Change Password</a></div> 
+                            <div class="user-id"<label for="fullName"></label><a href="changePassword.jsp">Change Password</a></div> 
                         </div>
                         <div class="form-group">
                             <div class="user-id">

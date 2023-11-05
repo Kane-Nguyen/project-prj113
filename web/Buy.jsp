@@ -20,8 +20,8 @@
 
             <form action="ProcessOrderServlet" method="post">
                 <h1 class="big-title">Order Summary</h1>
-                <a href="index.jsp" class="btn-primary mr-3"><button class="btn btn-primary">Home</button></a>
-                <a href="cart.jsp"> <button class="btn btn-primary">Cart</button> </a>
+                <a href="index.jsp" class="btn-primary mr-3 btn">Home</a>
+                <a href="cart.jsp" class="btn btn-primary"> Cart</a>
                 <div class="wraper"> 
                     <div class="left-content">
                         <ul class="product-list">
@@ -89,13 +89,15 @@
                                     <p class="title"><%= product.getProductName() %></p>
                                     <div class="wrap-content-right">
                                         <input type="number" name="quantity" id="quantity_<%=a%>" value="<%= quantity %>" onchange="updateQuantityAndTotal('<%=a%>', <%= discountedPrice %>);largeThan0('<%=a%>',<%= discountedPrice %>)">
-                                        <span id="stock_error_<%=a%>" style="color: red"></span>
+                                       
                                         <input type="hidden" id="stock_<%=a%>" value="<%= product.getStockQuantity() %>">
                                         <span id="itemTotal_<%=a%>">  <%= String.format("%.3f", itemTotal) %>VNĐ</span> 
                                     </div>
 
                                 </div>
+                                    
                             </li>
+                             <span id="stock_error_<%=a%>" style="color: #000"></span>
                             <%
                                 a++;
                                     } else {
@@ -152,7 +154,7 @@
 
                             <input type="hidden" name="productIds" value="<%= String.join(",", productIds) %>">   
                             <input type="hidden" name="userID" value="<%= id %>">
-                            <input type="submit" value="Place Order" onchange="return  validateForm()">
+                            <input class="submit-form" type="submit" value="Place Order" onchange="return  validateForm()">
                             <input type="hidden" name="methodbuy" value="<%=methodbuy%>">
                         </div>
                     </div>
