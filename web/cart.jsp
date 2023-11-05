@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <title>Shopping Cart</title>
         <style>
             .cart-container {
                 font-family: Arial, sans-serif;
@@ -73,92 +75,71 @@
                 color: #e74c3c;
                 margin-bottom: 0.5em;
             }
-            .btn-buy-now {
-                white-space: nowrap; /* Ensure the text doesn't wrap */
-                padding: .375rem .75rem; /* Bootstrap's default padding for buttons */
-            }
+
         </style>
 
-        <meta charset="UTF-8">
-        <title>Shopping Cart</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <script>
             function updateQuantity(productId, action) {
-                console.log("Update Quantity called for Product ID: " + productId + ", Action: " + action);  // Debug line
+                console.log("Update Quantity called for Product ID: " + productId + ", Action: " + action);
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "UpdateQuantityServlet", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.send("productId=" + productId + "&action=" + action);
+                var stock = parseInt(document.getElementById('Stock-' + productId).value);
+                xhr.send("productId=" + productId + "&action=" + action + "&stock=" + stock);
+
                 xhr.onload = function () {
-                    if (xhr.status === 200) {
+                    console.log('XHR status:', xhr.status);
+                    if (xhr.status == 200) {
                         var newQuantity = xhr.responseText;
-                        console.log("quantity-" + productId);
-                        document.getElementById("quantity-" + productId).innerText = newQuantity;
-                        updateTotalPrice();
+                        console.log("Server returned quantity:", newQuantity);
+
+                        var stock = parseInt(document.getElementById('Stock-' + productId).value);
+                        if (newQuantity > stock && action === "increase") {
+                            alert("khong du sach");
+                            return;
+                        } else {
+                            document.getElementById("quantity-" + productId).innerText = newQuantity;
+                            updateTotalPrice();
+                        }
+                    } else {
+                        console.error('Error from server:', xhr.responseText);  // Debug line
                     }
                 };
+
+                xhr.onerror = function (e) {
+                    console.error("XHR error:", e);  // Debug line
+                };
             }
+
             function updateTotalPrice() {
                 var cartItems = getCookie("cart").split(":");
                 var quantities = getCookie("quantity").split(":");
                 var totalPrice = 0;
 
                 if (cartItems[0] === "") {
-                    document.getElementById("total-price").innerText = "Total Price: 0.000 VND";
+                    document.getElementById("total-price").innerText = "Total Price: $0.000";
                     return;
                 }
 
-                $.post("UpdateQuantityServlet", {
-                    productId: productId,
-                    action: action,
-                    stock: stock
-                }, function (newQuantity) {
-                    $('#quantity-' + productId).text(newQuantity);
-                    var total = newQuantity * discountedPrice;
+                for (var i = 0; i < cartItems.length; i++) {
+                    var productId = cartItems[i];
+                    var quantity = parseInt(quantities[i]);
+                    var unitPriceElement = document.getElementById("unit-price-" + productId);
 
-                    $('#totalItem_' + productId).val("Total Price: " + total.toFixed(3) + " VND");
-                    let grandTotal = 0;
+                    if (unitPriceElement) {
+                        var unitPrice = parseFloat(unitPriceElement.innerText.replace('$', ''));
+                        totalPrice += (unitPrice * quantity);
+                    }
+                }
 
-                    $("[id^='totalItem_']").each(function () {
-                        const value = $(this).val();
-                        const amount = parseFloat(value.replace("Total Price: ", "").replace(" VND", ""));
-
-                        if (!isNaN(amount)) {
-                            grandTotal += amount;
-                        }
-                    });
-                    $("#total-price").text("Total Price: " + grandTotal.toFixed(3) + " VND");
-
-                }).fail(function (err) {
-                    console.error("XHR error:", err);
-                });
-
+                document.getElementById("total-price").innerText = "Total Price: " + totalPrice.toFixed(3) + "VNĐ";
             }
-
-//                function updateTotalPrice() {
-//else                    var cartItems = getCookie("cart").split(":");
-//                    var quantities = getCookie("quantity").split(":");
-//                    var totalPrice = 0;
-//
-//                    if (cartItems[0] === "") {
-//                        $("#total-price").text("Total Price: $0.000");
-//                        return;
-//                    }
-//
-//                    for (var i = 0; i < cartItems.length; i++) {
-//                        var productId = cartItems[i];
-//                        var quantity = parseInt(quantities[i]);
-//                        var unitPrice = parseFloat($('#unit-price-' + productId).text().replace('$', ''));
-//                        totalPrice += (unitPrice * quantity);
-//                    }
-//
-//                    $("#total-price").text(`Total Price: ${totalPrice.toFixed(3)}VNĐ`);
-//                }
 
             function removeProduct(productId) {
                 var xhr = new XMLHttpRequest();
@@ -167,8 +148,11 @@
                 xhr.send("productId=" + productId);
                 xhr.onload = function () {
                     if (xhr.status == 200) {
-                        var listItem = document.getElementById("quantity-" + productId).parentNode;
-                        listItem.parentNode.removeChild(listItem);
+                        // Hide the entire list item by changing its display style to 'none'
+                        var listItem = document.getElementById('product-item-' + productId);
+                        if (listItem) {
+                            listItem.style.display = 'none';
+                        }
 
                         // Recalculate total price immediately after removing an item
                         updateTotalPrice();
@@ -222,11 +206,10 @@
 
         </script>
     </head>
-    <body class="cart-container"  onload="setInitialQuantities()">
+    <body class="cart-container" onload="setInitialQuantities()">
         <div class="container mt-5">
             <h1 class="cart-header"">Shopping Cart</h1>
             <ul class="list-group">
-
                 <%
                     double totalPrice = 0;  // Declare totalPrice here
                     ProductDAO productDAO = new ProductDAO();
@@ -246,7 +229,7 @@
 
                     if (cartItems.isEmpty()) {
                 %>
-                <li class="list-group-item flex-item" style="text-align: center; color: red">Cart is empty</li>
+                <li>Cart is empty</li>
                     <% 
                         } else {
                             String[] cartItemArray = cartItems.split(":");
@@ -263,37 +246,36 @@
                                     double discountedPrice = unitPrice * (1 - discount / 100);
                                     totalPrice += discountedPrice * Integer.parseInt(quantity);
                     %>
-                <li class="list-group-item cart-item">
+                <li class="list-group-item cart-item" id="product-item-<%= itemId %>">
                     <div class="d-flex justify-content-between align-items-center">
                         <!-- Image and Product Details -->
                         <div class="d-flex align-items-center">
                             <!-- Image -->
                             <div class="cart-image-container mr-3">
-                                <img src="<%= product.getImageURL() %>" width="50" height="50">
+                                <img src="<%= product.getImageURL() %>"  class="img-fluid cart-thumbnail" width="70">
                             </div>
                             <div class="product-details">
                                 <strong>Product:</strong>
                                 <span><%= product.getProductName() %></span>
                                 <strong>Price:</strong>
-                                <span id="unit-price-<%= itemId %>"><%= String.format("%.3f", discountedPrice) %>VNĐ</span>
+                                <span id="unit-price-<%= itemId %>"><%= discountedPrice %>VND</span>
                             </div>
                         </div>
+
                         <div class="d-flex align-items-center">
                             <!-- Quantity Control -->
                             <div class="quantity-control mr-3">
-                                <% 
-                 double quant = Double.parseDouble(quantity); // Hoặc Integer.parseInt(quantity) nếu bạn chắc chắn nó là một số nguyên
-                                %>
-                                <input type="hidden" id="totalItem_<%= itemId %>" name="name" value="<%= quant * discountedPrice %>">
+                                <!--<span class="mr-2">Quantity:</span>-->
                                 <input type="hidden" id="Stock-<%= itemId %>" value="<%= productDAO.getStockQuantity(itemId)%>">
-
-                                <button type="button" class="btn btn-light btn-sm mr-1" onclick="updateQuantity('<%= itemId %>', 'increase',<%= discountedPrice %>)"><i class="fas fa-plus"></i></button>
-                                <span id="quantity-<%= itemId %>" class="mr-1"><%= quantity %></span>
-                                <button type="button" class="btn btn-light btn-sm mr-3" onclick="updateQuantity('<%= itemId %>', 'decrease',<%= discountedPrice %>)"><i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn btn-light btn-sm mr-3" onclick="updateQuantity('<%= itemId %>', 'increase')"><i class="fas fa-plus"></i></button>
+                                <span id="quantity-<%= itemId %>"><%= quantity %></span>
+                                <button type="button" class="btn btn-light btn-sm mr-1" onclick="updateQuantity('<%= itemId %>', 'decrease')"><i class="fas fa-minus"></i></button>
                             </div>
                             <button type="button" class="btn btn-danger btn-sm" onclick="removeProduct('<%= itemId %>')"><i class="fas fa-trash-alt"></i> Remove</button>
                         </div>
                     </div>
+
+
                 </li>
                 <% 
                             } else {
@@ -305,24 +287,25 @@
                         }
                     %>
             </ul>
-            <h2 class="cart-total" id="total-price">Total Price: <%= String.format("%.3f", totalPrice) %> VND</h2>
-            <form action="Buy.jsp" method="post" onsubmit="clearCartCookies()"  class="mt-3>
-                  <% 
-                  if (!cartItems.isEmpty()) {
-                      String[] cartItemArray = cartItems.split(":");
-                      String[] quantityArray = quantities.split(":");
+            <h2 id="total-price">Total Price: <%= totalPrice %> </h2>
+            
+            <form action="Buy.jsp" method="post" onsubmit="clearCartCookies()">
+                <% 
+                if (!cartItems.isEmpty()) {
+                    String[] cartItemArray = cartItems.split(":");
+                    String[] quantityArray = quantities.split(":");
 
-                      for (int i = 0; i < cartItemArray.length; i++) {
-                          String itemId = cartItemArray[i];
-                          Product product = productDAO.getProductById(itemId);
-                          String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
+                    for (int i = 0; i < cartItemArray.length; i++) {
+                        String itemId = cartItemArray[i];
+                        Product product = productDAO.getProductById(itemId);
+                        String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
 
-                          if (product != null) {
-                              double unitPrice = product.getPrice();
-                              double discount = product.getDiscountPercentage();
-                              double discountedPrice = unitPrice * (1 - discount / 100);
-                  %>
-                  <input type="hidden" name="productId" value="<%= product.getProductId() %>">
+                        if (product != null) {
+                            double unitPrice = product.getPrice();
+                            double discount = product.getDiscountPercentage();
+                            double discountedPrice = unitPrice * (1 - discount / 100);
+                %>
+                <input type="hidden" name="productId" value="<%= product.getProductId() %>">
                 <input type="hidden" name="productName" value="<%= product.getProductName() %>">
                 <input type="hidden" name="quantity" value="<%= quantity %>"> 
                 <input type="hidden" name="originalPrice" value="<%= unitPrice %>">
@@ -333,10 +316,8 @@
                     }
                 } 
                 %>
-                <div class="d-flex align-items-start">
-                    <a href="index.jsp" class="btn btn-danger mt-3 mr-2">Back to Product List</a>
-                    <input type="submit" value="Buy Now" class="btn btn-primary mt-3 btn-buy-now">
-                </div>
+                <input type="submit" class="btn  btn-primary  mt-3" value="BuyNow">
+                <a href="index.jsp" class="btn  btn-primary  mt-3">Back to Product List</a>
             </form>
         </div>
     </body>
