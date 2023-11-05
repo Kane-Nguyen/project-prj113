@@ -12,7 +12,7 @@
             .cart-header {
                 text-align: center;
                 font-weight: 400;
-                font-size: 3rem;
+                font-size: 2rem;
                 color: #2c3e50;
                 margin-top: 0.5em;
                 margin-bottom: 0.5em;
@@ -56,6 +56,8 @@
                 object-fit: cover;
             }
             .product-details {
+                display: flex;
+                flex-direction: column;
                 font-family: 'Helvetica Neue', Arial, sans-serif;
                 line-height: 1.5;
                 color: #333;
@@ -73,14 +75,13 @@
                 color: #e74c3c;
                 margin-bottom: 0.5em;
             }
-
         </style>
-
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
 
         <meta charset="UTF-8">
         <title>Shopping Cart</title>
@@ -185,6 +186,7 @@
 
         </script>
     </head>
+
     <body class="cart-container" onload="setInitialQuantities()">
         <div class="container mt-5">
             <h1 class="cart-header"">Shopping Cart</h1>
@@ -235,12 +237,10 @@
                             </div>
                             <!-- Product Details -->
                             <div class="product-details">
-                                <strong>Product:</strong>
                                 <span><%= product.getProductName() %></span>
                                 <!-- Original Price can be uncommented if needed, styled as muted text -->
                                 <!-- <strong class="text-muted">Original Price:</strong>
                                 <span class="text-muted" id="original-price-<%= itemId %>"><%= unitPrice %> VND</span> -->
-                                <strong>Price:</strong>
                                 <span id="unit-price-<%= itemId %>" class="price"><%= discountedPrice %> VND</span>
                             </div>
 
@@ -252,16 +252,16 @@
                             <div class="quantity-control mr-3">
                                 <!--<span class="mr-2">Quantity:</span>-->
                                 <button type="button" class="btn btn-light btn-sm mr-1" onclick="updateQuantity('<%= itemId %>', 'decrease')">
-                                    <i class="fas fa-minus"></i>
+                                   <i class="bi bi-dash"></i>
                                 </button>
                                 <span id="quantity-<%= itemId %>" class="mr-1"><%= quantity %></span>
                                 <button type="button" class="btn btn-light btn-sm mr-3" onclick="updateQuantity('<%= itemId %>', 'increase')">
-                                    <i class="fas fa-plus"></i>
+                                  <i class="bi bi-plus"></i>
                                 </button>
                             </div>
                             <!-- Remove Product Button -->
                             <button type="button" class="btn btn-danger btn-sm" onclick="removeProduct('<%= itemId %>')">
-                                <i class="fas fa-trash-alt"></i> Remove
+                                <i class="bi bi-trash"></i> Remove
                             </button>
                         </div>
                     </div>
