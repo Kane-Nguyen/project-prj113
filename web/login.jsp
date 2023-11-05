@@ -49,7 +49,7 @@
                 <div class="name-create pt-4 create-account-link">
 
                     <a class="forgot-password-link" href="changePassword.jsp"> <i class="bi bi-file-person forgot-password-icon"></i>Forgot Password?</a>
-                    <a href="signup.jsp" class="dont-have-password-link"><i class="bi bi-person-plus-fill dont-have-password-icon"></i>Don't have password ?</a>
+                    <a href="signup.jsp" class="dont-have-password-link"><i class="bi bi-person-plus-fill dont-have-password-icon"></i>Don't have Account ?</a>
                 </div>
             </form>
         </div>
