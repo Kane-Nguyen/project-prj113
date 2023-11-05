@@ -536,6 +536,7 @@ body {
         display: none;
     }
     .show-list-icon{
+        cursor: pointer;
         display: block;
     }
     .wrap-model{
@@ -549,6 +550,7 @@ body {
     .close-model{
         width: fit-content;
         padding: 5px 10px;
+        cursor: pointer;
     }
 
     .model {
@@ -589,7 +591,4 @@ body {
     .wrap-content {
         padding: 20px;
     }
-
-
-
 }
