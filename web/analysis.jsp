@@ -111,15 +111,34 @@
             .select-inline {
                 display: inline-block;
                 width: auto;
+                margin-left: 10px;
+                
             }
             .table-responsive {
                 margin-bottom: 15px;
             }
+            
+            @media(min-width: 768px) and (max-width: 1023px) {
+                .analysis-ct{
+                    font-size: 20px;
+                }
+            }
+            
             @media (max-width: 768px) {
                 .custom-header {
-                    font-size: 2rem;
+                    font-size: 20px;
                 }
-                /* Add more media queries for other elements if needed */
+                .analysis-ct{
+                    font-size: 14px;
+                }
+                .analysis-sl{
+                    display: flex;
+                    flex-direction: column;
+                }
+                .select-inline{
+                    margin-top: 15px;
+                    
+                }
             }
 
         </style>
@@ -153,7 +172,7 @@
                 }
             %>
 
-            <form action="AnalysisServlet" method="post"  class="custom-form">
+            <form class="analysis-sl" action="AnalysisServlet" method="post"  class="custom-form">
                 <label for="day">Select Day:</label>
                 <select name="day" class="form-control select-inline">
                     <option value="">All</option>
@@ -237,14 +256,15 @@
 
 
 
-
-            <% if (histories != null && !histories.isEmpty()) { %>
-            <p><strong>Total books sold this (<%= dayString %><%= monthString %><%= yearString %>): </strong> <%= histories.size() %> books</p>
-            <p><strong>Total Price in (<%= dayString %><%= monthString %><%= yearString %>): </strong> <%= totalRevenue %> VND</p>
-            <% } else { %>
-            <p><strong>Total books sold this  (<%= dayString %><%= monthString %><%= yearString %>): </strong> 0</p>
-            <p><strong>Total Price in (<%= dayString %><%= monthString %><%= yearString %>): </strong> 0</p>
-            <% } %>
+            <div class="analysis-ct">
+                <% if (histories != null && !histories.isEmpty()) { %>
+                <p><strong>Total books sold this (<%= dayString %><%= monthString %><%= yearString %>): </strong> <%= histories.size() %> books</p>
+                <p><strong>Total Price in (<%= dayString %><%= monthString %><%= yearString %>): </strong> <%= totalRevenue %> VND</p>
+                <% } else { %>
+                <p><strong>Total books sold this  (<%= dayString %><%= monthString %><%= yearString %>): </strong> 0</p>
+                <p><strong>Total Price in (<%= dayString %><%= monthString %><%= yearString %>): </strong> 0</p>
+                <% } %>
+            </div>
         </div>
 
         <script>
