@@ -139,15 +139,16 @@
                                     </div>
                                     <% } %>
                                 </div>
-
+                                </a>
                                 <!-- Form để thêm sản phẩm vào giỏ hàng -->
                                 <form action="AddToCartServlet" method="post" class="add-to-cart-home">
                                     <input type="hidden" name="productId" value="<%= product.getProductId()%>">
+                                    <input type="hidden" name="method" value="index" >
                                     <button type="submit" class="btn-primary mt-auto btn-add-to-cart "> <i class="bi bi-cart h5"></i>Add to cart</button>
                                 </form>
                             </div>
                         </div>
-                    </a>
+                   
                     <% 
                                 }
                             }
