@@ -32,11 +32,12 @@ public class Users {
     private String address;
     private Date regisstrationDate;
     private String userRole;
+    private String SecretString;
+
 
     public Users() {
     }
-
-    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole) {
+    public Users(int userId, String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, Date regisstrationDate, String userRole, String SecretString) {
         this.userId = userId;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -46,8 +47,10 @@ public class Users {
         this.address = address;
         this.regisstrationDate = regisstrationDate;
         this.userRole = userRole;
+        this.SecretString = SecretString;
     }
 
+    
     public int getUserId() {
         return userId;
     }
@@ -119,9 +122,14 @@ public class Users {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
-    
-   
-    
-    
-    
+
+
+    public String getSecretString() {
+        return SecretString;
+    }
+
+    public void setSecretString(String SecretString) {
+        this.SecretString = SecretString;
+    }
+
 }
