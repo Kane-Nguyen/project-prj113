@@ -96,6 +96,9 @@
                 </div>
 
             </div>
+            <div id="loginAlert" style="display:none;" class="alert alert-danger mt-2">
+                Bạn cần đăng nhập để thực hiện chức năng này! <a href="login.jsp">Đăng nhập ngay</a>
+            </div>
             <div class="book-store">
                 <i class="bi bi-arrow-left-circle h3" id="arrow-left"></i>
                 <div class="row wrap-book-store" id="scroll-book">
@@ -142,25 +145,32 @@
                                 </div>
                                 </a>
                                 <!-- Form để thêm sản phẩm vào giỏ hàng -->
+                                <%  if (isUserLoggedIn) {%>
                                 <form action="AddToCartServlet" method="post" class="add-to-cart-home">
                                     <input type="hidden" name="productId" value="<%= product.getProductId()%>">
                                     <input type="hidden" name="method" value="index" >
                                     <button type="submit" class="btn-primary mt-auto btn-add-to-cart "> <i class="bi bi-cart h5"></i>Add to cart</button>
                                 </form>
+                                <% } else{
+}%>                                   <div class="button-wrap-detail">
+                                    <button type="submit" class="btn-primary mt-auto btn-add-to-cart require-login-btn "> <i class="bi bi-cart h5"></i>Add to cart</button>
+
+                                </div>
+
                             </div>
                         </div>
-                   
-                    <% 
+
+                        <% 
+                                    }
                                 }
+                            } else {
+                        %>
+                        <div class="col-md-12">
+                            <p>No products found.</p>
+                        </div>
+                        <% 
                             }
-                        } else {
-                    %>
-                    <div class="col-md-12">
-                        <p>No products found.</p>
-                    </div>
-                    <% 
-                        }
-                    %>
+                        %>
                 </div>
                 <i class="bi bi-arrow-right-circle h3" id="arrow-right"></i>
             </div>
@@ -193,6 +203,13 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".require-login-btn").click(function () {
+                    $("#loginAlert").show();
+                });
+            });
+        </script>
         <script>
             $(document).ready(function () {
                 var scrollContainer = $(".wrap-book-store");
