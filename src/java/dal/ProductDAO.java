@@ -57,7 +57,53 @@ public class ProductDAO extends DBContext {
 
         return stockQuantity;
     }
+// chọn lọc thông tin sách
+    public List<Product> getAllByCardIds(List<Integer> categoryIds) {
+        List<Product> products = new ArrayList<>();
+        StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM Products WHERE CategoryID IN (");
+        for (int i = 0; i < categoryIds.size(); i++) {
+            sqlBuilder.append("?");
+            if (i < categoryIds.size() - 1) {
+                sqlBuilder.append(",");
+            }
+        }
+        sqlBuilder.append(")");
 
+        try {
+            PreparedStatement st = connection.prepareStatement(sqlBuilder.toString());
+            int index = 1;
+            for (Integer categoryId : categoryIds) {
+                st.setInt(index++, categoryId);
+            }
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                // Assume you have a method to map the ResultSet row to a Product object
+                mapResultSetToProduct(rs, product);
+                // Add the product to the list
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return products;
+    }
+
+    private void mapResultSetToProduct(ResultSet rs, Product product) throws SQLException {
+        product.setProductId(rs.getString("ProductID"));
+        product.setProductName(rs.getString("ProductName"));
+        product.setDescription(rs.getString("Description"));
+        product.setPrice(rs.getDouble("Price"));
+        product.setDiscountPercentage(rs.getDouble("DiscountPercentage"));
+        product.setImageURL(rs.getString("ImageURL"));
+        product.setStockQuantity(rs.getInt("StockQuantity"));
+        product.setCategoryId(rs.getInt("CategoryID"));
+        product.setAuthor(rs.getString("Author"));
+        product.setDateAdded(rs.getDate("DateAdded"));
+    }
+// --------------------------------------------------------------------------------------
     public boolean addProduct(String ProductName, String Description, double Price, double DiscountPercentage, String ImageURL,
             int StockQuantity, int CategoryId, String Author) {
 

@@ -4,19 +4,22 @@
  */
 package controller;
 
+import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import model.Product;
 
 /**
  *
- * @author tranq
+ * @author Asus
  */
-public class AddToCartServlet extends HttpServlet {
+public class select extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +38,10 @@ public class AddToCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartServlet</title>");
+            out.println("<title>Servlet select</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddToCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet select at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +59,33 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String[] cardIds = request.getParameterValues("cardId");
+        ProductDAO productDAO = new ProductDAO();
+        List<Product> productList;
+
+        if (cardIds != null) {
+            // Assuming that "all" is sent alone, not with other card IDs
+            if (cardIds.length == 1 && "all".equals(cardIds[0])) {
+                productList = productDAO.getAll();
+            } else {
+                // Convert the String array to a list of integers
+                List<Integer> ids = new ArrayList<>();
+                for (String idStr : cardIds) {
+                    try {
+                        ids.add(Integer.parseInt(idStr));
+                    } catch (NumberFormatException e) {
+                        // Handle the exception for non-integer values if necessary
+                    }
+                }
+                productList = productDAO.getAllByCardIds(ids); // This method needs to handle a list of IDs
+            }
+        } else {
+            // Handle the case where no cardIds are provided
+            productList = productDAO.getAll();
+        }
+
+        request.setAttribute("products", productList);
+        request.getRequestDispatcher("/showAll.jsp").forward(request, response);
     }
 
     /**
@@ -68,61 +97,9 @@ public class AddToCartServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productId = request.getParameter("productId");
-
-        Cookie[] cookies = request.getCookies();
-        String cartItems = "";
-        String quantities = "";
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("cart")) {
-                    cartItems = cookie.getValue();
-                } else if (cookie.getName().equals("quantity")) {
-                    quantities = cookie.getValue();
-                }
-            }
-        }
-
-        String[] productIds = cartItems.split(":");
-        String[] quantityValues = quantities.split(":");
-        boolean productExists = false;
-
-        // Check if product already exists in cart
-        for (int i = 0; i < productIds.length; i++) {
-            if (productIds[i].equals(productId)) {
-                int currentQuantity = Integer.parseInt(quantityValues[i]);
-                currentQuantity++;
-                quantityValues[i] = String.valueOf(currentQuantity);
-                productExists = true;
-                break;
-            }
-        }
-
-        // If product doesn't exist in cart, add it
-        if (!productExists) {
-            cartItems = cartItems.isEmpty() ? productId : cartItems + ":" + productId;
-            quantities = quantities.isEmpty() ? "1" : quantities + ":1";
-        } else {
-            // Update quantities string
-            quantities = String.join(":", quantityValues);
-        }
-
-        Cookie cartCookie = new Cookie("cart", cartItems);
-        Cookie quantityCookie = new Cookie("quantity", quantities);
-
-        cartCookie.setMaxAge(24 * 60 * 60);
-        quantityCookie.setMaxAge(24 * 60 * 60);
-
-        response.addCookie(cartCookie);
-        response.addCookie(quantityCookie);
-        String method = request.getParameter("method");
-        if(method.equals("index")){
-            response.sendRedirect("index.jsp");
-            return;
-        }
-        response.sendRedirect("detail.jsp?productId=" + productId);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
