@@ -2,7 +2,9 @@
 .card-img-top {
     width: 100%; /* Ensures that image width is always 100% of the card */
 }
-
+.form-check {
+            display: none;
+        }
 /* Styles for laptops and desktops */
 @media (min-width: 1200px) {
     .col-xl-2-4 {

@@ -23,7 +23,7 @@
                         Set<String> selected = selectedCategories != null ? new HashSet<>(Arrays.asList(selectedCategories)) : new HashSet<>();
                         %>
                         <% for(int i = 1; i <= 12; i++) { %>
-                        <div class="form-check">
+                        <div class="form-check hidden">
                             <input class="form-check-input" type="checkbox" name="cardId" value="<%= i %>" id="cardId<%= i %>" <%= selected.contains(String.valueOf(i)) ? "checked" : "" %>>
                             <label class="form-check-label" for="cardId<%= i %>">
                                 <% switch(i) {
@@ -96,7 +96,7 @@
                 $("#toggleCheckbox").click(function () {
                     $(".form-check").toggle();
                 });
-            });
+            });s
         </script>
     </body>
 </html>
