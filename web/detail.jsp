@@ -23,9 +23,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     </head>
     <body>
-
-
-
         <div class="container">
             <div class="navbar-nav ml-auto row navbar">
                 <i class="bi bi-list h4"></i>
@@ -308,5 +305,6 @@
                 %>
 
             </div>
+        </div>
     </body>
 </html>

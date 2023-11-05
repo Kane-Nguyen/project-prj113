@@ -112,7 +112,9 @@ wrap-form-login{
     color: #fff;
     border: none;
     cursor: pointer;
+    
 }
+
 
 .name-create a
 {
@@ -177,7 +179,7 @@ wrap-form-login{
         width: 300px;
     }
     .sign-in-btn{
-        width: 300px;
+        width: 300px !important;
     }
     .create-account-link{
         flex-direction: column;
