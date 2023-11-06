@@ -42,7 +42,7 @@ if (error != null && error.equals("missing_id")) {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-       
+
         <style>
 
 
@@ -59,6 +59,7 @@ if (error != null && error.equals("missing_id")) {
                     <a href="/" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
                     <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
                     <a href="" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
+                    <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
                 </ul>
             </div>

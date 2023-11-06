@@ -75,7 +75,7 @@ public class SaveUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- UsersDAO u;
+        UsersDAO u;
         u = new UsersDAO();
         List<Users> list = u.getAll();
         String name = request.getParameter("name");
@@ -86,18 +86,10 @@ public class SaveUserServlet extends HttpServlet {
         String password = request.getParameter("password");
         String role = request.getParameter("role");
         String method = request.getParameter("method");
+        System.out.println(method);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilBirthDate = null;
-        if (email != null && !email.isEmpty()) {
-            for (Users user : list) {
-                if (user.getEmail().equals(email)) {
-                    // Hiển thị thông báo lỗi và ngăn chặn chuyển hướng
-                    request.setAttribute("error", "Email already registered. Please try another email.");
-                    request.getRequestDispatcher("addUsers.jsp").forward(request, response);
-                    return;
-                }
-            }
-        }
+
         try {
             utilBirthDate = dateFormat.parse(date);
         } catch (ParseException e) {
@@ -105,7 +97,7 @@ public class SaveUserServlet extends HttpServlet {
 
         }
         java.sql.Date birthDate = new java.sql.Date(utilBirthDate.getTime());
-       
+
         switch (method) {
             case "delete": {
                 int id = Integer.parseInt(request.getParameter("id"));
@@ -117,21 +109,37 @@ public class SaveUserServlet extends HttpServlet {
                 break;
             }
             case "edit": {
+                System.out.println("edit1");
                 int id = Integer.parseInt(request.getParameter("id"));
+                System.out.println(id);
                 if (!u.updateUsers(name, birthDate, phone, email, address, id)) {
                     System.out.println("Loi update Users");
                 } else {
-                    response.sendRedirect("UserManagement.jsp");
+                    String method1= request.getParameter("method1");
+                    if(method1.isEmpty() || method1== null){
+                    response.sendRedirect("UserManagement.jsp");}
+                else{
+                        response.sendRedirect("userDetail.jsp");}
                 }
                 break;
-            }
+        }
             default:
-                if(!u.insertUser(name, birthDate, phone, email, password, address, role)){
-                       System.out.println("Loi add Users"); 
-                        response.sendRedirect("addUsers.jsp");
-                        }else{
-                                response.sendRedirect("UserManagement.jsp");
-                                }
+                if (email != null && !email.isEmpty()) {
+                    for (Users user : list) {
+                        if (user.getEmail().equals(email)) {
+                            // Hiển thị thông báo lỗi và ngăn chặn chuyển hướng
+                            request.setAttribute("error", "Email already registered. Please try another email.");
+                            request.getRequestDispatcher("addUsers.jsp").forward(request, response);
+                            return;
+                        }
+                    }
+                }
+                if (!u.insertUser(name, birthDate, phone, email, password, address, role)) {
+                    System.out.println("Loi add Users");
+                    response.sendRedirect("addUsers.jsp");
+                } else {
+                    response.sendRedirect("UserManagement.jsp");
+                }
                 break;
         }
     }

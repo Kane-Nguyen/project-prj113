@@ -49,85 +49,102 @@ List<Order> lo = o.getById(id);
 
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Paid</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+        <!-- Link Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Link Font Awesome for icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- Custom styles for this template -->
+        <style>
+            .table-responsive {
+                margin-top: 20px;
+            }
+        </style>
     </head>
     <body>
-        <h1>Paid</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>OrderID</th>
-                    <th>UserID</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
-                    <th>Name</th>
-                    <th>Payment Method</th>
-                    <th>total price</th>
-                    <th>Order Status</th>
-                    <th>Product</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (Order order : lo) { %>
-                <tr>
-                    <td><%= order.getOrderID() %></td>
-                    <td><%= order.getUserID() %></td>
-                    <td><%= order.getDeliveryAddress() %></td>
-                    <td><%= order.getPhoneNumber() %></td>
-                    <td><%= order.getRecipientName() %></td>
-                    <td><%= order.getPaymentMethod() %></td>
-                    <td><%= String.format("%.2f", order.getTotalPrice()) %></td>
-                    <td>
-                       <%= order.getOrderStatus()%>
-                    </td>
-                    <td>
-                    <%
-                    BooksInOrderDAO b = new BooksInOrderDAO();
-                    ProductDAO p = new ProductDAO();
-                   List<BooksInOrder> lp = b.getBookById(order.getOrderID());
-                    for(BooksInOrder bp: lp){
+        <!-- Bootstrap container to center content on the page -->
+        <div class="container">
+       
+            <h1 class="my-4">Paid</h1>
+                <a href="index.jsp" class="btn btn-outline-dark">Back</a>
+
+            <!-- Bootstrap responsive table -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">OrderID</th>
+                            <th scope="col">UserID</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Payment Method</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Order Status</th>
+                            <th scope="col">Product</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Order order : lo) { %>
+                        <tr>
+                            <td><%= order.getOrderID() %></td>
+                            <td><%= order.getUserID() %></td>
+                            <td><%= order.getDeliveryAddress() %></td>
+                            <td><%= order.getPhoneNumber() %></td>
+                            <td><%= order.getRecipientName() %></td>
+                            <td><%= order.getPaymentMethod() %></td>
+                            <td><%= String.format("%.2f", order.getTotalPrice()) %></td>
+                            <td>
+                                <%= order.getOrderStatus()%>
+                            </td>
+                            <td>
+                                <%
+                                BooksInOrderDAO b = new BooksInOrderDAO();
+                                ProductDAO p = new ProductDAO();
+                               List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                                for(BooksInOrder bp: lp){
                     
-                     %>
-                     <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
-                       <% }%>
-                       
-                   </td>
+                                %>
+                                <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
+                                <% }%>
 
-                </tr>
-                <% } %>
-            </tbody>
+                            </td>
 
-        </table>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".order-status").change(function () {
-                    var orderId = $(this).data("order-id");
-                    var newStatus = $(this).val();
+                        </tr>
+                        <% } %>
+                    </tbody>
 
-                    $.ajax({
-                        url: "updateOrderStatus", // Server-side script to handle updating
-                        type: "POST",
-                        data: {
-                            "orderId": orderId,
-                            "newStatus": newStatus
-                        },
-                        success: function (response) {
-                            console.log("Update successful:", response);
-                        },
-                        error: function (err) {
-                            console.log("Error:", err);
-                        }
+                </table>
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.7.12/dist/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $(".order-status").change(function () {
+                            var orderId = $(this).data("order-id");
+                            var newStatus = $(this).val();
+
+                            $.ajax({
+                                url: "updateOrderStatus", // Server-side script to handle updating
+                                type: "POST",
+                                data: {
+                                    "orderId": orderId,
+                                    "newStatus": newStatus
+                                },
+                                success: function (response) {
+                                    console.log("Update successful:", response);
+                                },
+                                error: function (err) {
+                                    console.log("Error:", err);
+                                }
+                            });
+                        });
                     });
-                });
-            });
-        </script>
+                </script>
 
-    </body>
-</html>
+                </body>
+                </html>

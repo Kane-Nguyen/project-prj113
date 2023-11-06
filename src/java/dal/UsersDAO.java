@@ -111,6 +111,36 @@ public boolean updateUsers(String name, Date date, String phone, String email, S
 
         return list;
     }
+    public List<Users> getAllById(int id) {
+        List<Users> list = new ArrayList<>();
+        String sql = "SELECT * FROM Users where UserID=?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1,id);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Users u = new Users(
+                        rs.getInt("UserID"),
+                        rs.getString("FullName"),
+                        rs.getDate("BirthDate"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Email"),
+                        rs.getString("PassWord"),
+                        rs.getString("Address"),
+                        rs.getDate("RegistrationDate"),
+                        rs.getString("UserRole"),
+                        rs.getString("SecretString")
+                );
+                list.add(u);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
       public boolean delete(int id) {
 
         String sql = "delete from Users where UserID=?";
@@ -151,8 +181,8 @@ public boolean updateUsers(String name, Date date, String phone, String email, S
 
     public static void main(String[] args) {
         UsersDAO u = new UsersDAO();
-        List<Users> l = u.getAll();
-        System.out.println(l.get(0).getUserId());
+        List<Users> l = u.getAllById(1);
+        System.out.println(l.get(0).getPhoneNumber());
     }
 
 }
