@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="navbar-nav ml-auto row navbar">
+            <div class="navbar-nav ml-auto row navbar navbar-custom">
                 <i class="bi bi-list h4 show-list-icon"></i>
 
                 <div class="wrap-search-bar">

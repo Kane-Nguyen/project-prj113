@@ -44,10 +44,73 @@
               ProductDAO productDAO = new ProductDAO();
               List<Product> productList = productDAO.searchProductsByName(query);
     %>
+    <style>
+        .search-icon {
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: absolute;
+            left: 10px;
+            margin-top: 4px;
+        }
+        .search-icon:hover {
+            transform: scale(1.3);
+        }
+        .wrap-search-bar {
+            position: relative;
+        }
+        .search-bar {
+            padding-left: 38px;
+            padding-right: 60px;
+            background-color: #eaeaea;
+            width: 296px;
+            height: 36px;
+            border-radius: 8px;
+            outline: none;
+            border: none;
+        }
+        .list-navbar{
+
+        }
+        .active{
+            font-weight: 500;
+            color:#0B63F8;
+        }
+        .list-features-navbar{
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+        .icon-person-navbar {
+            cursor: pointer;
+        }
+
+        .btn-cart {
+            cursor: pointer;
+            display: flex;
+            gap: 10px;
+            height: 36px;
+            padding: 6px;
+            align-items: center;
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+        .wrap-right-navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .navbar-custom{
+            flex-direction: row;
+            margin-bottom: 50px;
+            margin-top:  20px;
+        }
+
+    </style>
     <body>
-        <h1>All Products</h1>
         <div class="container">
-            <div class="navbar-nav ml-auto row navbar">
+            <div class="navbar-nav ml-auto row navbar navbar-custom">
                 <i class="bi bi-list h4"></i>
                 <div class="wrap-search-bar">
                     <form id="searchForm" action="search.jsp" method="post" accept-charset="UTF-8">           
