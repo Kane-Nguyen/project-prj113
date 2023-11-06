@@ -42,15 +42,16 @@ if (error != null && error.equals("missing_id")) {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <style>
-
-
 
         </style>
     </head>
     <body>
         <div class="wrap-admin-page">
+
             <div class="toolbar">
+                <button class="close-toolbar btn-primary" onclick="toggleToolbar()">X</button>
                 <div class="logo">
                     <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                 </div>
@@ -58,77 +59,86 @@ if (error != null && error.equals("missing_id")) {
                     <a href="/" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
                     <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
                     <a href="" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
+                    <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
                 </ul>
             </div>
+
+            
             <div class="container-wrap">
-                <h3 class="tile-book-management">Book Management</h3>
-                <div class="">
-                    <form action="CRUD" method="get">
-                        <input type="hidden" name="action" value="add">
-                        <button class="btn-add-product" type="submit"><i class="bi bi-folder-plus"></i></button>
-                    </form>  
-                    <table>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Product Image</th>
-                            <th>Product Category</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Discount Percentage</th>
-                            <th>Manufacturer</th>
-                            <th>Stock Quantity</th>
-                            <th>Date Added</th>
-                            <th>Actions</th>
-                        </tr>
-                        <% 
-                            ProductDAO productDAO = new ProductDAO();
-                            CategoryDAO ctDAO = new CategoryDAO();
-                            List<Product> products = productDAO.getAll();
-                            NumberFormat numberFormat = NumberFormat.getNumberInstance();
-                            numberFormat.setMinimumFractionDigits(3);
-                            numberFormat.setMaximumFractionDigits(3);
-                            if (products != null && !products.isEmpty()) {
-                                for (Product product : products) {
-                                    if (product != null) {
-                        %>
-                        <tr id="row-<%= product.getProductId() != null ? product.getProductId() : "N/A" %>">
-                            <td><%= product.getProductName() != null ? product.getProductName() : "N/A" %></td>
-                            <td>
-                                <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" alt="Product Image">
-                            </td>
-                            <td><%= product.getCategoryId() != -1 ? ctDAO.getCategoryByProductId(product.getCategoryId()) : "N/A" %></td>
-                            <td class="admin-product-description"><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
-                            <td><%= numberFormat.format(product.getPrice()) %>đ</td>
-                            <td><%= product.getDiscountPercentage() %> %</td>
-                            <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
-                            <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
-                            <td>
-                                <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
-                            </td>
-                            <td class="action-edit-delete">
+                <button class="hamburger-button btn-primary" onclick="toggleToolbar()">☰</button>
+                <div class="title-and-button">
 
-                                <form action="CRUD" method="get">
-                                    <input type="hidden" name="action" value="edit">
-                                    <input type="hidden" name="id" value="<%= product.getProductId() %>">
-                                    <button class="btn btn-warning" type="submit">Edit</button>
-                                </form>
+                    <h3 class="tile-book-management">Book Management</h3>
+                    <div class="">
+                        <form action="CRUD" method="get">
+                            <input type="hidden" name="action" value="add">
+                            <button class="btn-add-product" type="submit"><i class="bi bi-folder-plus"></i></button>
+                        </form> 
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Product Image</th>
+                                <th>Product Category</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Discount Percentage</th>
+                                <th>Manufacturer</th>
+                                <th>Stock Quantity</th>
+                                <th>Date Added</th>
+                                <th>Actions</th>
+                            </tr>
+                            <% 
+                                ProductDAO productDAO = new ProductDAO();
+                                CategoryDAO ctDAO = new CategoryDAO();
+                                List<Product> products = productDAO.getAll();
+                                NumberFormat numberFormat = NumberFormat.getNumberInstance();
+                                numberFormat.setMinimumFractionDigits(3);
+                                numberFormat.setMaximumFractionDigits(3);
+                                if (products != null && !products.isEmpty()) {
+                                    for (Product product : products) {
+                                        if (product != null) {
+                            %>
+                            <tr id="row-<%= product.getProductId() != null ? product.getProductId() : "N/A" %>">
+                                <td><%= product.getProductName() != null ? product.getProductName() : "N/A" %></td>
+                                <td>
+                                    <img src="<%= product.getImageURL() != null ? product.getImageURL() : "default.jpg" %>" alt="Product Image">
+                                </td>
+                                <td><%= product.getCategoryId() != -1 ? ctDAO.getCategoryByProductId(product.getCategoryId()) : "N/A" %></td>
+                                <td class="admin-product-description"><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
+                                <td><%= numberFormat.format(product.getPrice()) %>đ</td>
+                                <td><%= product.getDiscountPercentage() %> %</td>
+                                <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
+                                <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
+                                <td>
+                                    <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
+                                </td>
+                                <td class="action-edit-delete">
 
-                                <button class="btn btn-danger btn-delete" onclick="deleteProduct('<%= product.getProductId() != null ? product.getProductId() : "N/A" %>')">Delete</button>
-                            </td>
-                        </tr>
-                        <% 
+                                    <form action="CRUD" method="get">
+                                        <input type="hidden" name="action" value="edit">
+                                        <input type="hidden" name="id" value="<%= product.getProductId() %>">
+                                        <button class="btn btn-warning" type="submit">Edit</button>
+                                    </form>
+
+                                    <button class="btn btn-danger btn-delete" onclick="deleteProduct('<%= product.getProductId() != null ? product.getProductId() : "N/A" %>')">Delete</button>
+                                </td>
+                            </tr>
+                            <% 
+                                        }
                                     }
+                                } else {
+                            %>
+                            <tr>
+                                <td colspan="11">No products found.</td>
+                            </tr>
+                            <% 
                                 }
-                            } else {
-                        %>
-                        <tr>
-                            <td colspan="11">No products found.</td>
-                        </tr>
-                        <% 
-                            }
-                        %>
-                    </table>
+                            %>
+                        </table>
+                    </div>
                 </div>
                 <script type="text/javascript">
                     function deleteProduct(id) {
@@ -167,8 +177,24 @@ if (error != null && error.equals("missing_id")) {
                             xhr.send();
                         });
                     });
+
+
+                    function toggleToolbar() {
+                        var toolbar = document.querySelector('.toolbar');
+                        // Nếu toolbar đang hiển thị, ẩn nó đi
+                        if (toolbar.style.display === 'block') {
+                            toolbar.style.display = 'none';
+                        } else {
+                            // Nếu không, hiển thị nó
+                            toolbar.style.display = 'block';
+                            toolbar.classList.add('toggle'); // Thêm class để hiệu ứng chuyển đổi có thể hoạt động
+                        }
+                    }
+
+
                 </script>
+            </div>
+        </div>
 
-
-                </body>
-                </html>
+    </body>
+</html>

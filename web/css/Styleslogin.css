@@ -110,10 +110,11 @@ wrap-form-login{
     border-radius: 10px;
     background: #3F46FF;
     color: #fff;
-    padding: 0.375rem 10.85rem;
     border: none;
     cursor: pointer;
+    
 }
+
 
 .name-create a
 {
@@ -178,7 +179,7 @@ wrap-form-login{
         width: 300px;
     }
     .sign-in-btn{
-        width: 300px;
+        width: 300px !important;
     }
     .create-account-link{
         flex-direction: column;

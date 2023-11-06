@@ -34,14 +34,16 @@
             });
 
         </script>
-        
-    </head>
-      <%
-               String query = request.getParameter("search");
 
-                ProductDAO productDAO = new ProductDAO();
-                List<Product> productList = productDAO.searchProductsByName(query);
-            %>
+    </head>
+    <%
+             String query = request.getParameter("search");
+             if(query == null || query.isEmpty()){
+              response.sendRedirect("index.jsp");
+        }
+              ProductDAO productDAO = new ProductDAO();
+              List<Product> productList = productDAO.searchProductsByName(query);
+    %>
     <body>
         <h1>All Products</h1>
         <div class="container">
@@ -82,12 +84,20 @@
                     %>
                 </div> 
             </div> 
-          
 
             <div class="container">
                 <div class="row">
                     <%
-                        for (Product product : productList) {
+                        if (productList.isEmpty()) {
+                    %>
+                    <div class="col-12">
+                        <div class="alert alert-info" role="alert">
+                            Your keyword's not matching any books.
+                        </div>
+                    </div>
+                    <%
+                        } else {
+                            for (Product product : productList) {
                     %>
                     <div class="col-md-4 mb-4">
                         <a href="<%= "detail.jsp?productId=" + product.getProductId() %>" class="card-link" style="text-decoration: none; color: inherit;">
@@ -103,7 +113,7 @@
                         </a>
                     </div>
                     <%
-                        }
+                        } }
                     %>
                 </div>
             </div>

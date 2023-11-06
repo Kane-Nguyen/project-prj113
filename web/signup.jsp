@@ -93,7 +93,7 @@
                                     <div class="form-group error-message" id="address-error"></div>
                                     <div class="form-group" style="display: none;">
                                         <label for="userRole"><i class="zmdi zmdi-star zmdi-hc-fw" style="color: black;"></i></label>
-                                        <input type="text" name="userRole" id="userRole" placeholder="Your Role" value="user" readonly />
+                                        <input type="text" name="userRole" id="userRole" placeholder="Your Role" value="User" readonly />
                                         <span class="error-message" id="userRole-error"></span>
                                     </div>
                                 </form>

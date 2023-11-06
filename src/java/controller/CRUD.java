@@ -97,9 +97,11 @@ public class CRUD extends HttpServlet {
         String Author = request.getParameter("Author");
         String method = request.getParameter("method");
         boolean done = true;
+         System.out.println(method);
         try {
             if ("add".equals(method)) {
                 done = productDAO.addProduct(productName, description, price, discountpercentage, imageURL, stockQuantity, newCategory, Author);
+                System.out.println("adddone");
                 if (!done) {
                     throw new Exception("Không thể thêm sản phẩm.");
                 }
@@ -117,7 +119,7 @@ public class CRUD extends HttpServlet {
             String errorMessage = e.getMessage() != null ? e.getMessage() : "Có lỗi xảy ra. Vui lòng thử lại sau.";
             request.setAttribute("errorMessage", errorMessage);
             if ("add".equals(method)) {
-                request.getRequestDispatcher("add.jsp").forward(request, response);
+                request.getRequestDispatcher("Addbook.jsp").forward(request, response);
             } else if ("edit".equals(method)) {
                 request.getRequestDispatcher("edit.jsp?id=" + id).forward(request, response);
             }
