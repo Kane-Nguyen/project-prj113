@@ -32,7 +32,7 @@ public class userDetailPW extends HttpServlet {
         String myChecksum = DatatypeConverter
                 .printHexBinary(digest).toUpperCase();
         System.out.println(myChecksum);
-        return hashPassWord.equals(myChecksum);
+        return hashPassWord.equalsIgnoreCase(myChecksum);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

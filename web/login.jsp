@@ -43,6 +43,26 @@
                     }
                 %>
                 <input type="hidden" name="redirect" value="<%= request.getParameter("redirect") %>" />
+                <div class="form-group form-check pt-2">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember" 
+                           <% 
+                           Cookie[] cookies = request.getCookies();
+                           String crValue = null;
+                           if (cookies != null) {
+                               for (Cookie cookie : cookies) {
+                                   if ("Cr".equals(cookie.getName())) {
+                                       crValue = cookie.getValue();
+                                       break;
+                                   }
+                               }
+                           }
+                           if ("on".equals(crValue)) { 
+                               out.print("checked"); 
+                           } 
+                           %>>
+
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
                 <div class="button  pt-4 ">
                     <button type="submit" value="LOGIN" class="btn btn-primary sign-in-btn" style="background: #3F46FF;">Sign In</button>
                 </div>

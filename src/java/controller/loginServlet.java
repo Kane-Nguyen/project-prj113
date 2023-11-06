@@ -64,7 +64,8 @@ public class loginServlet extends HttpServlet {
         String myChecksum = DatatypeConverter
                 .printHexBinary(digest).toUpperCase();
         System.out.println(myChecksum);
-        return hashPassWord.equals(myChecksum);
+        return hashPassWord.equalsIgnoreCase(myChecksum);
+
     }
 
     @Override
@@ -78,7 +79,7 @@ public class loginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String SecretString = request.getParameter("SecretString");
         String redirectURL = request.getParameter("redirect"); // Lấy tham số redirect từ request
-        String rememberMe = request.getParameter("rememberMe");
+        String rememberMe = request.getParameter("remember");
 
         HttpSession session = request.getSession();
         Cookie Ce = new Cookie("Ce", email);
