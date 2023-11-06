@@ -79,14 +79,20 @@ if (error != null && error.equals("missing_id")) {
                         <td><input type="text" style="border:0px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
                         <td><input type="text" style="border:0px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
                         <td><input type="number" style="border:0px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
-                            <%if(order.getOrderStatus().equals("Canceled")){
+                            <%if(order.getOrderStatus().equals("Cancel")){
                             %>
-                        <td><P>Canceled</P></td>
+                        <td><P class="text-danger">Canceled</P>
+                            <form action="SaveOrdersServlet" method="POST">
+                         <input type="hidden" name="iddelete" value="<%= order.getOrderID() %>">
+                                <input type="hidden" name="method" value="delete">
+                                <button type="submit" class="btn-danger">Delete</button>
+                            </form>
+                        </td>
                                 <%
                             } else{ %>
                         <td>
                             <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
-                                <option value="pending" <%= order.getOrderStatus().equals("pending") ? "selected" : "" %>>pending</option>
+                                <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
                                 <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
                                 <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
                                 <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
@@ -109,7 +115,7 @@ if (error != null && error.equals("missing_id")) {
 
         </table>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+        <input type="hidden" name="method" value="payment">
     </form>
 </body>
 </html>

@@ -78,7 +78,23 @@ public class SaveOrdersServlet extends HttpServlet {
         String[] paymentMethods = request.getParameterValues("paymentMethod");
         String[] totalPrices = request.getParameterValues("totalPrices");
         String[] orderStatuses = request.getParameterValues("orderStatus");
-        OrderDAO o = new OrderDAO();
+       
+        String method = request.getParameter("method");
+         OrderDAO o = new OrderDAO();
+        if(method.equals("Cancel")){
+             int iddelete= Integer.parseInt(request.getParameter("iddelete"));
+            o.updateOrderStatus(iddelete,"Cancel");
+            System.out.println("Cancel Done");
+            response.sendRedirect("paid.jsp");
+            return;
+        }else if(method.equals("delete")){
+             int iddelete= Integer.parseInt(request.getParameter("iddelete"));
+               o.deleteProductAndRelatedData(iddelete);
+               System.out.println("delete Done");
+               response.sendRedirect("payment.jsp");
+            return;
+        }
+       
         boolean allUpdatesSuccessful = true;
         for (int i = 0; i < orderIDs.length; i++) {
             int orderIdInt = Integer.parseInt(orderIDs[i]);

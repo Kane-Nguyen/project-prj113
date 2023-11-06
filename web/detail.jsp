@@ -125,6 +125,7 @@
                             </form>
                             <form action="AddToCartServlet" method="post">
                                 <input type="hidden"name="productId" value="<%= product.getProductId()%>">
+                                <input type="hidden" name="method" value="detail">
                                 <button type="submit" class="btn btn-primary btn-custom-add-cart mt-auto w-100">Add to cart</button>
                             </form>
                             <%

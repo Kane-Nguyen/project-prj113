@@ -6,7 +6,6 @@ package dal;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +37,83 @@ public boolean updateOrder(int orderID, int userID, String deliveryAddress, Stri
         return false;
     }
 }
+public boolean updateOrderStatus(int id,String orderStatus) {
+    String sql = "UPDATE Orders SET OrderStatus = ? WHERE OrderID = ?";
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        
+        st.setString(1, orderStatus);
+        st.setInt(2, id);
+        return st.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.out.println(e);
+        return false;
+    }
+}
+  public boolean deleteProductAndRelatedData(int OrderID) {
+    PreparedStatement stTransactionHistory = null;
+    PreparedStatement stOrders = null;
+    PreparedStatement stBookInOrder = null;
+    
+    
+    String deleteBookInOrderSQL = "DELETE FROM BooksInOrder WHERE OrderID=?";
+    String deleteHistoryBuyBookSQL = "DELETE FROM TransactionHistory WHERE OrderID=?";
+    String deleteOrderSQL = "DELETE FROM Orders WHERE OrderID=?";
+    
+
+    try {
+        connection.setAutoCommit(false);
+
+        // 1. Delete from HistoryBuyBook
+        stBookInOrder = connection.prepareStatement(deleteBookInOrderSQL);
+        stBookInOrder.setInt(1, OrderID);
+        stBookInOrder.executeUpdate();
+        
+        stTransactionHistory = connection.prepareStatement(deleteHistoryBuyBookSQL);
+        stTransactionHistory.setInt(1, OrderID);
+        stTransactionHistory.executeUpdate();
+
+        // 2. Delete from Orders
+        stOrders = connection.prepareStatement(deleteOrderSQL);
+        stOrders.setInt(1, OrderID);
+        stOrders.executeUpdate();
+
+        // If both deletes are successful, commit the transaction
+        connection.commit();
+        return true; // Return true if the operation was successful
+    } catch (SQLException e) {
+        // Log the SQLException
+        e.printStackTrace(); // This prints the stack trace to the server logs
+        if (connection != null) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                // Log the exception that occurred during the rollback
+                ex.printStackTrace(); // This prints the stack trace to the server logs
+            }
+        }
+        return false; // Return false if there was an exception and a rollback occurred
+    } finally {
+        try {
+            if (stTransactionHistory != null) {
+                stTransactionHistory.close();
+            }
+            if (stOrders != null) {
+                stOrders.close();
+            }
+            if (stBookInOrder != null) {
+                stBookInOrder.close();
+            }
+            if (connection != null) {
+                connection.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            // Log the exception that occurred during cleanup
+            e.printStackTrace(); // This prints the stack trace to the server logs
+        }
+    }
+}
+
 
    public List<Order> getById(int id) {
     List<Order> list = new ArrayList<>();
@@ -109,11 +185,9 @@ public int getLatestOrderID() {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         OrderDAO u = new OrderDAO();
-        int id = 1;
-        List<Order> l = u.getById(id);
-        System.out.println(l.get(0).getOrderID());
-    }
-
-}
+        System.out.println(u.deleteProductAndRelatedData(1));
+      
+   
+}}
