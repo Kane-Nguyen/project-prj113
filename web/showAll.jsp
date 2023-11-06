@@ -2,6 +2,9 @@
 <%@page import="model.Product"%>
 <%@page import="dal.ProductDAO"%>
 <%@page import="java.util.*"%>
+<%@page import="dal.CategoryDAO"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,11 +15,15 @@
     </head>
     <body>
         <div class="container-fluid">
-            <h1>All Products</h1>
+
+            <div style="display: flex">
+                <a href="index.jsp" style="color: blue; text-decoration: none; font-size: 25px; font-weight: 600">Home</a>
+            </div>
+            <h1 style="text-align: center">Bookstore</h1>
             <div class="product-row row">
                 <div class="col-lg-2 col-md-3 col-sm-12 filter-form">
                     <h4>Select your choice</h4>
-                    <button id="toggleCheckbox" class="btn btn-primary mt-2">Menu</button>
+                    <button id="toggleCheckbox" class="btn btn-primary mt-2 mobile-menu-button">Menu</button>
                     <form action="select" method="get">
                         <% 
                         String[] selectedCategories = request.getParameterValues("cardId");
@@ -44,15 +51,19 @@
                         </div>
                         <% } %>
                     </form>
-                    <button class="btn btn-primary mt-2"><a href="index.jsp" style="color: white; text-decoration: none">Back to home</a></button>
+
                 </div>
                 <!-- Products Column -->
                 <div class="col-lg-10 col-md-9 col-sm-12">
                     <div class="row" id="products-container">
                         <% 
+                        CategoryDAO cbDAO = new CategoryDAO();
                         ProductDAO productDAO = new ProductDAO();
                         List<Product> productList = productDAO.getAll();
                         List<Product> requestProductList = (List<Product>) request.getAttribute("products");
+                        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+                        numberFormat.setMinimumFractionDigits(3);
+                        numberFormat.setMaximumFractionDigits(3);
                         if (requestProductList != null) {
                             productList = requestProductList;
                         }
@@ -66,7 +77,8 @@
                                 <img src="<%= product.getImageURL() %>" class="card-img-top" alt="<%= product.getProductName() %>">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><%= product.getProductName() %></h5>
-                                    <p class="card-text">Price: <%= product.getPrice() %> VND</p>
+                                    <p class="card-text">Price: <%= numberFormat.format(product.getPrice()) %> VND</p>
+                                    <p>genre: <span class="category-detail"><%= cbDAO.getCategoryByProductId(product.getCategoryId()) %></span></p>
                                     <a href="<%= "detail.jsp?productId=" + product.getProductId() %>" class="btn btn-primary mt-auto">View Details</a>
                                 </div>
                             </div>
@@ -96,7 +108,7 @@
                 $("#toggleCheckbox").click(function () {
                     $(".form-check").toggle();
                 });
-            });s
+            });
         </script>
     </body>
 </html>
