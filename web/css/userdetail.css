@@ -24,6 +24,7 @@ div.userDetail-left {
 }
 .ic-home{
     padding-top: 100px;
+    height: 100vh;
 }
 .userDetail-right{
     flex: 2;
