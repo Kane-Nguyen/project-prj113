@@ -217,15 +217,15 @@
                     String cartItems = "";
                     String quantities = "";
 
-                    if (cookies != null) {
-                        for (Cookie cookie : cookies) {
-                            if ("cart".equals(cookie.getName())) {
-                                cartItems = cookie.getValue();
-                            } else if ("quantity".equals(cookie.getName())) {
-                                quantities = cookie.getValue();
-                            }
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        if ("cart".equals(cookie.getName())) {
+                            cartItems = cookie.getValue();
+                        } else if ("quantity".equals(cookie.getName())) {
+                            quantities = cookie.getValue();
                         }
                     }
+                }
 
                     if (cartItems.isEmpty()) {
                 %>
@@ -235,10 +235,10 @@
                             String[] cartItemArray = cartItems.split(":");
                             String[] quantityArray = quantities.split(":");
 
-                            for (int i = 0; i < cartItemArray.length; i++) {
-                                String itemId = cartItemArray[i];
-                                Product product = productDAO.getProductById(itemId);
-                                String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
+                        for (int i = 0; i < cartItemArray.length; i++) {
+                            String itemId = cartItemArray[i];
+                            Product product = productDAO.getProductById(itemId);
+                            String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
 
                                 if (product != null) {
                                     double unitPrice = product.getPrice();
@@ -295,10 +295,10 @@
                     String[] cartItemArray = cartItems.split(":");
                     String[] quantityArray = quantities.split(":");
 
-                    for (int i = 0; i < cartItemArray.length; i++) {
-                        String itemId = cartItemArray[i];
-                        Product product = productDAO.getProductById(itemId);
-                        String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
+                for (int i = 0; i < cartItemArray.length; i++) {
+                    String itemId = cartItemArray[i];
+                    Product product = productDAO.getProductById(itemId);
+                    String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
 
                         if (product != null) {
                             double unitPrice = product.getPrice();
