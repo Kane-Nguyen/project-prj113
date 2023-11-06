@@ -12,18 +12,16 @@
         <title>All Products</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/ShowAll.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     </head>
     <body>
         <div class="container-fluid">
 
-            <div style="display: flex">
-                <a href="index.jsp" style="color: blue; text-decoration: none; font-size: 25px; font-weight: 600">Home</a>
-            </div>
+
             <h1 style="text-align: center">Bookstore</h1>
             <div class="product-row row">
-                <div class="col-lg-2 col-md-3 col-sm-12 filter-form">
-                    <h4>Select your choice</h4>
-                    <button id="toggleCheckbox" class="btn btn-primary mt-2 mobile-menu-button">Menu</button>
+                <i class="bi bi-list h4 list-show-all-book ml-5"></i> <a class="btn btn-primary" href="index.jsp" style="color: white; text-decoration: none; font-size: 15px; font-weight: 400 ;margin-left: 5px;height: 40px;">Home</a>
+                <div class="col-lg-2 col-md-3 col-sm-12 filter-form ">
                     <form action="select" method="get">
                         <% 
                         String[] selectedCategories = request.getParameterValues("cardId");
@@ -50,13 +48,15 @@
                             </label>
                         </div>
                         <% } %>
+                        <div><i class="bi bi-arrow-bar-up h4 scroll-up"></i>
+                        </div>
                     </form>
 
                 </div>
                 <!-- Products Column -->
                 <div class="col-lg-10 col-md-9 col-sm-12">
                     <div class="row" id="products-container">
-                        <% 
+                        <%  
                         CategoryDAO cbDAO = new CategoryDAO();
                         ProductDAO productDAO = new ProductDAO();
                         List<Product> productList = productDAO.getAll();
@@ -72,7 +72,7 @@
                         } else {
                             for (Product product : productList) {
                         %>
-                        <div class="col-4 col-xl-2-4 mb-4">
+                        <div class="col-6 col-xl-2-4 mb-4">
                             <div class="card h-100">
                                 <img src="<%= product.getImageURL() %>" class="card-img-top" alt="<%= product.getProductName() %>">
                                 <div class="card-body d-flex flex-column">
@@ -99,6 +99,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             $(document).ready(function () {
+                $('.filter-form').hide();
+                $('.list-show-all-book').on("click", function () {
+
+                    $('.filter-form').show();
+                });
+                $('.scroll-up').on("click", function () {
+
+                    $('.filter-form').hide();
+                });
+                
+
                 $('input[name="cardId"]').change(function () {
                     this.form.submit();
                 });
