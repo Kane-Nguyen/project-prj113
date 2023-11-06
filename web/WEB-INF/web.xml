@@ -64,6 +64,10 @@
         <servlet-name>SaveUserServlet</servlet-name>
         <servlet-class>controller.SaveUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AnalysisServlet</servlet-name>
+        <servlet-class>controller.AnalysisServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tinhServer</servlet-name>
         <url-pattern>/tinh</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>SaveUserServlet</servlet-name>
         <url-pattern>/SaveUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnalysisServlet</servlet-name>
+        <url-pattern>/AnalysisServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
