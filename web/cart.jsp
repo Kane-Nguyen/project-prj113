@@ -124,7 +124,7 @@
                 var totalPrice = 0;
 
                 if (cartItems[0] === "") {
-                    document.getElementById("total-price").innerText = "Total Price: $0.000";
+                    document.getElementById("total-price").innerText = "Total Price: $0";
                     return;
                 }
 
@@ -135,12 +135,16 @@
 
                     if (unitPriceElement) {
                         var unitPrice = parseFloat(unitPriceElement.innerText.replace('$', ''));
-                        totalPrice += (unitPrice * quantity);
+                        totalPrice += (unitPrice * quantity)*1000;
                     }
                 }
 
-                document.getElementById("total-price").innerText = "Total Price: " + totalPrice.toFixed(3) + "VNĐ";
+                // Format the total price with commas and no decimal places
+                var formattedTotalPrice = totalPrice.toLocaleString('en-US', {maximumFractionDigits: 0});
+
+                document.getElementById("total-price").innerText = "Total Price: " + formattedTotalPrice + " VNĐ";
             }
+
 
             function removeProduct(productId) {
                 var xhr = new XMLHttpRequest();
