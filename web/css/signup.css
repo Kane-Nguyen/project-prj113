@@ -1,0 +1,121 @@
+center/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 22, 2023, 4:32:02 PM
+    Author     : TU ANH
+*/
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.container-1 {
+    display: flex;
+}
+div.container{
+    padding: 0;
+}
+.signup{
+    margin-top: 85px;
+    width: 100%;
+}
+
+div.signup_img {
+    width: 50%;
+}
+
+.signup_img img{
+    width: 100%;
+    background-size: cover;
+}
+
+.signup-content-full {
+    width: 50%;
+    padding: 0px;
+    background: linear-gradient(45deg, rgba(115, 190, 255, 0.7), rgba(255, 255, 255, 1));
+    font-weight: 600;
+    font-size: 15px;
+}
+.wrap-form-signup{
+    padding-right: 80px!important;
+}
+
+.form-title{
+    margin-top: 20px;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.signup-form{
+    margin-left: 130px;
+}
+.center
+{
+    text-align : center;
+    margin-right: 160px;
+}
+
+/* CSS cho input và nút submit */
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    border: 1px solid #000;
+    border-radius: 4px; /* Bo tròn viền */
+    padding: 5px;
+    margin-top: -4px; /* Điều chỉnh margin trên của input */
+
+}
+
+.form-button input[type="submit"] {
+    border: 1px solid rgba(105, 183, 255, 0.7);
+    background-color: rgb(64, 70, 245);
+    color: white;
+    padding: 6.5px;
+    border-radius: 10px; /* Bo tròn viền */
+    font-weight: bold;
+}
+
+.form-group label {
+    margin-bottom: 5px; /* Điều chỉnh margin dưới của label */
+}
+.password-form-sign-up{
+    position: relative;
+}
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 65%;
+    transform: translateY(-80%);
+    cursor: pointer;
+}
+.form-login{
+    margin-top: 20px;
+}
+@media only screen and (max-width: 1215px) {
+    .signup_img{
+        display: none;
+    }
+    .signup-content-full {
+        width: 100%;
+    }
+    .form-title{
+        text-align: center;
+    }
+    .form-group{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-group label {
+        text-align: left;
+
+    }
+    .form-button{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

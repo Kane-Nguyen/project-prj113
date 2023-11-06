@@ -1,0 +1,43 @@
+/* Custom styles */
+.card-img-top {
+    height: 200px;
+    object-fit: contain;
+    width: 100%;
+}
+
+/* Hide menu button on screens larger than 767px by default */
+.mobile-menu-button {
+    display: none; /* Hide by default */
+}
+
+/* Styles for mobile */
+@media (max-width: 767px) {
+    .mobile-menu-button {
+        display: block; /* Show menu button on mobile devices */
+    }
+    .col-4 {
+        flex: 0 0 33.333333%; /* Set to display three products per row on mobile */
+        max-width: 33.333333%;
+    }
+    
+    /* Optionally, adjust font sizes if needed */
+    .card-title {
+        font-size: 1em;
+    }
+    .card-text {
+        font-size: 0.8em;
+    }
+}
+
+/* Styles for tablets to smaller laptop screens */
+@media (min-width: 768px) {
+    /* No specific styles needed here unless you want to add custom styles for tablet to smaller laptops */
+}
+
+/* Styles for laptops and desktops */
+@media (min-width: 1200px) {
+    .col-xl-2-4 {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
