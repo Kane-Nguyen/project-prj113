@@ -77,7 +77,7 @@
                                 <img src="<%= product.getImageURL() %>" class="card-img-top" alt="<%= product.getProductName() %>">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><%= product.getProductName() %></h5>
-                                    <p class="card-text">Price: <%= numberFormat.format(product.getPrice()) %> VND</p>
+                                    <p class="card-text">Price: <%= numberFormat.format(product.getPrice()) %> VNĐ</p>
                                     <p>genre: <span class="category-detail"><%= cbDAO.getCategoryByProductId(product.getCategoryId()) %></span></p>
                                     <a href="<%= "detail.jsp?productId=" + product.getProductId() %>" class="btn btn-primary mt-auto">View Details</a>
                                 </div>

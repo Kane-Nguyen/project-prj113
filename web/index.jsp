@@ -107,7 +107,18 @@
                             <i class="bi bi-cart h5"></i> Your Cart
                         </button>
                     </a>
-                    <%} %>
+                    <a href="paid.jsp" class="prevent-a-tag">
+                        <button class="btn-primary rounded btn-cart">
+                            <i class="bi bi-wallet2 h5"></i> Your Paid
+                        </button>
+                    </a>
+                    <%if(session.getAttribute("role").equals("Admin")){%>
+                    <a href="admin.jsp" class="prevent-a-tag">
+                        <button class="btn-primary rounded btn-cart btn-danger">
+                            <i class="bi bi-shop h5"></i> Admin
+                        </button>
+                    </a>
+                    <%} }%>
                     <% if (isUserLoggedIn) { %>
                     <a href="Logout" class="prevent-a-tag">
                         <i class="bi bi-box-arrow-in-left h4"></i>
@@ -175,10 +186,10 @@
                                         String formattedPrice11 = formatter.format(totalPriceAsInt1);
                                     %>
                                     <% if (product.getDiscountPercentage() == 0) { %>
-                                    <span class="original-price"><%=formattedPrice11 %> đ</span>
+                                    <span class="original-price"><%=formattedPrice11 %> VNĐ</span>
                                     <% } else { %>
                                     <div>
-                                        <span class="book-price book-original-price" style="text-decoration: line-through;"><%= formattedPrice11 %> đ</span>
+                                        <span class="book-price book-original-price" style="text-decoration: line-through;"><%= formattedPrice11 %> VNĐ</span>
                                     </div>
                                     <div>
                                         <%
@@ -186,7 +197,7 @@
               
                                         String formattedPrice1 = formatter.format(totalPriceAsInt);
                                         %>
-                                        <span class="discounted-price"> <%= formattedPrice1 %>đ</span>
+                                        <span class="discounted-price"> <%= formattedPrice1 %> VNĐ</span>
                                     </div>
                                     <% } %>
                                 </div>

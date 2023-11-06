@@ -116,7 +116,20 @@ List<Order> lo = o.getById(id);
 
 
                             <td>
-                                <%= order.getOrderStatus()%>
+                                <%
+if(order.getOrderStatus().equals("Pending"))
+                                
+                                {%>
+                                    <%= order.getOrderStatus()%> 
+                                <form action="SaveOrdersServlet" method="post">
+                                    <input type="hidden" name="iddelete" value="<%= order.getOrderID() %>">
+                                    <input type="hidden" name="orderStatus" value="Cancel">
+                                    <input type="hidden" name="method" value="Cancel">
+                                    <button style="submit" class="btn-danger">Cancel</button>
+                                </form>
+                                    <%} else{%>
+                                    <%= order.getOrderStatus()%>  
+                                <%}%>                   
                             </td>
                             <td>
                                 <%

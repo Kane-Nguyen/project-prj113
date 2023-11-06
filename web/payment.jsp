@@ -107,20 +107,20 @@ if (error != null && error.equals("missing_id")) {
                                             <td><P>Canceled</P></td>
                                                     <%
                             } else{ %>
-                                            <td>
-                                                <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
-                                                    <option value="pending" <%= order.getOrderStatus().equals("pending") ? "selected" : "" %>>pending</option>
-                                                    <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
-                                                    <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
-                                                    <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
-                                                </select>
-                                            </td> <%}%>
-                                            <td>
-                                                <%
-                                       BooksInOrderDAO b = new BooksInOrderDAO();
-                                       ProductDAO p = new ProductDAO();
-                                      List<BooksInOrder> lp = b.getBookById(order.getOrderID());
-                                       for(BooksInOrder bp: lp){
+                        <td>
+                            <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
+                                <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
+                                <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
+                                <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
+                                <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
+                            </select>
+                        </td> <%}%>
+                        <td>
+                             <%
+                    BooksInOrderDAO b = new BooksInOrderDAO();
+                    ProductDAO p = new ProductDAO();
+                   List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                    for(BooksInOrder bp: lp){
                     
                                                 %>
                                                 <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
@@ -133,7 +133,7 @@ if (error != null && error.equals("missing_id")) {
                             </table>
 
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+                            <input type="hidden" name="method" value="payment">
                             </form>
                         </div>
                     </div>

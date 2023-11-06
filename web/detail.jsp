@@ -125,6 +125,7 @@
                             </form>
                             <form action="AddToCartServlet" method="post">
                                 <input type="hidden"name="productId" value="<%= product.getProductId()%>">
+                                <input type="hidden" name="method" value="detail">
                                 <button type="submit" class="btn btn-primary btn-custom-add-cart mt-auto w-100">Add to cart</button>
                             </form>
                             <%
@@ -280,7 +281,7 @@
                                 <%
                                 try {
                                 %>
-                                <span class="user-rating-comment-name"><%= u.get(review.getUserID()).getFullName() %></span>
+                                <span class="user-rating-comment-name"><%= u.get(review.getUserID() - 1).getFullName() %></span>
                                 <%
                                 } catch (Exception e) {
                                     e.printStackTrace(); // This will print the error details to your server's console

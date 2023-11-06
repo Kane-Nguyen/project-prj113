@@ -118,7 +118,8 @@ public class AddToCartServlet extends HttpServlet {
         response.addCookie(cartCookie);
         response.addCookie(quantityCookie);
         String method = request.getParameter("method");
-        if(method.equals("index")){
+        System.out.println(method);
+        if(method != null ||  method.equals("index")){
             response.sendRedirect("index.jsp");
             return;
         }
