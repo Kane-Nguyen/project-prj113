@@ -9,9 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-import java.sql.Date;
 import java.util.List;
-import java.sql.Date;
 
 public class signup extends HttpServlet {
 
@@ -30,8 +28,7 @@ public class signup extends HttpServlet {
         String passWord = request.getParameter("passWord");
         String address = request.getParameter("address");
         String userRole = request.getParameter("userRole");
-        String SecretString = request.getParameter("SecretString");
-
+         System.out.println(passWord);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date utilBirthDate = null;
 
@@ -53,7 +50,6 @@ public class signup extends HttpServlet {
         request.setAttribute("phoneNumber", phoneNumber);
         request.setAttribute("address", address);
         request.setAttribute("userRole", userRole);
-        request.setAttribute("SecretString", SecretString);
         // Kiểm tra email đã được đăng ký trước đó
         if (email != null && !email.isEmpty()) {
             for (Users user : list) {
@@ -67,15 +63,12 @@ public class signup extends HttpServlet {
         }
 
         // Thêm người dùng mới vào cơ sở dữ liệu
-        boolean isSuccess = userDAO.insertUser(fullName, birthDate, phoneNumber, email, passWord, address, userRole, SecretString);
+        boolean isSuccess = userDAO.insertUser(fullName, birthDate, phoneNumber, email, passWord, address, userRole);
 
         if (isSuccess) {
-            // Success
-            //response.getWriter().write("User registered successfully.");
-            String redirectURL = "login.jsp"; // Thay thế URL mong muốn
-            String redirectURL1 = "http://localhost:8080/projectPRJ113/";
-            String popupScript = "<script>var result = confirm('User registered successfully'); if (result) { window.location.href='" + redirectURL + "'; } else { window.location.href='" + redirectURL1 + "'; }</script>";
-            response.getWriter().write(popupScript);
+          response.sendRedirect("login.jsp");
+          return;
+          
         } else {
             // Failure
             response.getWriter().write("Registration failed. Please try again.");
