@@ -92,10 +92,22 @@
                                 <span class="discount-price-detail"><%= numberFormat.format(product.getPrice()) %>đ</span>
                                 <% } else { %>
                                 <div>
-                                    <span class="original-price not-sale"> <%= numberFormat.format(product.getPrice()) %>đ</span>
+                                      <%
+                                
+                                        int totalPriceAsInt = (int) Math.round(product.getPrice());
+                                        NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                        String formattedPrice11 = formatter.format(totalPriceAsInt);
+                                    %>
+                                    <span class="original-price not-sale"> <%= formattedPrice11%>đ</span>
                                 </div>
                                 <div>
-                                    <span class="discount-price-detail"> <%= numberFormat.format(product.getPrice() * (1 - product.getDiscountPercentage() / 100)) %>đ</span>
+                                    <%
+                                
+                                        int totalPriceAsInt1 = (int) Math.round(product.getPrice() * (1 - product.getDiscountPercentage() / 100));
+                                       
+                                        String formattedPrice1 = formatter.format(totalPriceAsInt1);
+                                    %>
+                                    <span class="discount-price-detail"> <%=formattedPrice1%>đ</span>
                                 </div>
                                 <% } %>
                             </div>
@@ -106,6 +118,7 @@
                                 <input type="hidden" name="productId" value="<%= product.getProductId()%>">
                                 <input type="hidden" name="productName" value="<%= product.getProductName()%>">
                                 <input type="hidden" name="quantity" value="1">
+                                
                                 <input type="hidden" name="originalPrice" value="<%= numberFormat.format(product.getPrice())%>">
                                 <input type="hidden" name="discountedPrice" value="<%= product.getDiscountPercentage()%>">
                                 <button type="submit" class="btn btn-primary mt-auto w-100">Buy now</button>

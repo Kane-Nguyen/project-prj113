@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="dal.ProductDAO"%>
 <%@page import="model.Product"%>
+<%@page import="java.text.NumberFormat" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -239,7 +240,9 @@
                             String itemId = cartItemArray[i];
                             Product product = productDAO.getProductById(itemId);
                             String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
-
+                             NumberFormat numberFormat = NumberFormat.getNumberInstance();
+                                numberFormat.setMinimumFractionDigits(3);
+                                numberFormat.setMaximumFractionDigits(3);
                                 if (product != null) {
                                     double unitPrice = product.getPrice();
                                     double discount = product.getDiscountPercentage();
@@ -258,7 +261,11 @@
                                 <strong>Product:</strong>
                                 <span><%= product.getProductName() %></span>
                                 <strong>Price:</strong>
-                                <span id="unit-price-<%= itemId %>"><%= discountedPrice %>VND</span>
+                                <%
+                                int totalPriceAsInt = (int) Math.round(discountedPrice);
+    NumberFormat formatter = NumberFormat.getIntegerInstance();
+    String formatteddiscountedPrice = formatter.format(totalPriceAsInt);%>
+                                <span id="unit-price-<%= itemId %>"><%= formatteddiscountedPrice %>VND</span>
                             </div>
                         </div>
 
@@ -287,8 +294,15 @@
                         }
                     %>
             </ul>
-            <h2 id="total-price">Total Price: <%= totalPrice %> </h2>
-            
+            <%
+   
+    int totalPriceAsInt = (int) Math.round(totalPrice);
+    NumberFormat formatter = NumberFormat.getIntegerInstance();
+    String formattedPrice = formatter.format(totalPriceAsInt);
+            %>
+            <h2 id="total-price">Total Price: <%= formattedPrice %> </h2>
+
+
             <form action="Buy.jsp" method="post" onsubmit="clearCartCookies()">
                 <% 
                 if (!cartItems.isEmpty()) {

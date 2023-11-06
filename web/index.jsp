@@ -91,7 +91,7 @@
 
                 </div>
                 <div class="wrap-right-navbar"> 
-                  
+
                     <% if (!isUserLoggedIn) { %>
                     <a href="login" class="prevent-a-tag">
                         <i class="bi bi-person icon-person-navbar h4 "></i>
@@ -144,9 +144,6 @@
                     <% 
                         ProductDAO productDAO = new ProductDAO();
                         List<Product> products = productDAO.getAll();
-                        NumberFormat numberFormat = NumberFormat.getNumberInstance();
-                        numberFormat.setMinimumFractionDigits(3);
-                        numberFormat.setMaximumFractionDigits(3);
                         int count = 0;
                         if (products != null && !products.isEmpty()) {
                             for (Product product : products) {
@@ -171,14 +168,25 @@
                                 </h5>
 
                                 <div class="book-price">
+                                    <%
+                                
+                                        int totalPriceAsInt1 = (int) Math.round(product.getPrice());
+                                        NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                        String formattedPrice11 = formatter.format(totalPriceAsInt1);
+                                    %>
                                     <% if (product.getDiscountPercentage() == 0) { %>
-                                    <span class="original-price"><%= numberFormat.format(product.getPrice()) %> đ</span>
+                                    <span class="original-price"><%=formattedPrice11 %> đ</span>
                                     <% } else { %>
                                     <div>
-                                        <span class="book-price book-original-price" style="text-decoration: line-through;"><%= numberFormat.format(product.getPrice()) %> đ</span>
+                                        <span class="book-price book-original-price" style="text-decoration: line-through;"><%= formattedPrice11 %> đ</span>
                                     </div>
                                     <div>
-                                        <span class="discounted-price"> <%= numberFormat.format(product.getPrice() * (1 - product.getDiscountPercentage() / 100)) %>đ</span>
+                                        <%
+                                        int totalPriceAsInt = (int) Math.round(product.getPrice() * (1 - product.getDiscountPercentage() / 100));
+              
+                                        String formattedPrice1 = formatter.format(totalPriceAsInt);
+                                        %>
+                                        <span class="discounted-price"> <%= formattedPrice1 %>đ</span>
                                     </div>
                                     <% } %>
                                 </div>
@@ -224,20 +232,12 @@
                     <div class="logo">
                         <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                     </div>
-                    <div class="features">
-                        <ul class="list-features">
-                            <a> <li>All of books</li></a>
-                            <a> <li>Payment</li></a>
-                            <a> <li>Contact US</li></a>
-                            <a> <li>Our Developer Team</li></a>
-                        </ul>
-                    </div> 
+                  
                 </div>
                 <div class="footer-right">
                     <h3>Social Media</h3>
                     <div class="social-media">
-                        <a><i class="bi bi-facebook h5"></i></a>
-                        <a><i class="bi bi-instagram h5"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61553300578539&is_tour_dismissed=true"><i class="bi bi-facebook h5"></i></a>
                     </div>
 
                 </div>

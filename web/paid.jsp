@@ -12,7 +12,9 @@
 <%@page import="dal.BooksInOrderDAO"%>
 <%@page import="model.BooksInOrder" %>
 <%@page import="java.util.List"%>
-<%@ page import="java.net.URLEncoder" %>
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.NumberFormat" %>
+<%@page import="java.net.URLEncoder" %>
 <%
 OrderDAO o = new OrderDAO();
 int id=-1;
@@ -68,9 +70,9 @@ List<Order> lo = o.getById(id);
     <body>
         <!-- Bootstrap container to center content on the page -->
         <div class="container">
-       
+
             <h1 class="my-4">Paid</h1>
-                <a href="index.jsp" class="btn btn-outline-dark">Back</a>
+            <a href="index.jsp" class="btn btn-outline-dark">Back</a>
 
             <!-- Bootstrap responsive table -->
             <div class="table-responsive">
@@ -89,7 +91,10 @@ List<Order> lo = o.getById(id);
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (Order order : lo) { %>
+                        <% for (Order order : lo) { 
+                         NumberFormat numberFormat = NumberFormat.getNumberInstance();
+                                numberFormat.setMinimumFractionDigits(3);
+                                numberFormat.setMaximumFractionDigits(3);%>
                         <tr>
                             <td><%= order.getOrderID() %></td>
                             <td><%= order.getUserID() %></td>
@@ -97,7 +102,19 @@ List<Order> lo = o.getById(id);
                             <td><%= order.getPhoneNumber() %></td>
                             <td><%= order.getRecipientName() %></td>
                             <td><%= order.getPaymentMethod() %></td>
-                            <td><%= String.format("%.2f", order.getTotalPrice()) %></td>
+                            <%
+     double totalPrice = order.getTotalPrice();
+     int totalPriceAsInt = (int) totalPrice;
+     NumberFormat formatter = NumberFormat.getIntegerInstance();
+     String formattedPrice = formatter.format(totalPriceAsInt);
+                            %>
+                            <td><%= formattedPrice %></td>
+
+
+
+
+
+
                             <td>
                                 <%= order.getOrderStatus()%>
                             </td>

@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="java.text.NumberFormat"%>
+<%@page import="java.text.NumberFormat" %>
 <%@page import="model.Product"%>
 <%@page import="dal.ProductDAO"%>
 <%@page import="dal.CategoryDAO"%>
@@ -94,9 +94,7 @@ if (error != null && error.equals("missing_id")) {
                                 ProductDAO productDAO = new ProductDAO();
                                 CategoryDAO ctDAO = new CategoryDAO();
                                 List<Product> products = productDAO.getAll();
-                                NumberFormat numberFormat = NumberFormat.getNumberInstance();
-                                numberFormat.setMinimumFractionDigits(3);
-                                numberFormat.setMaximumFractionDigits(3);
+                               
                                 if (products != null && !products.isEmpty()) {
                                     for (Product product : products) {
                                         if (product != null) {
@@ -108,10 +106,15 @@ if (error != null && error.equals("missing_id")) {
                                 </td>
                                 <td><%= product.getCategoryId() != -1 ? ctDAO.getCategoryByProductId(product.getCategoryId()) : "N/A" %></td>
                                 <td class="admin-product-description"><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
-                                <td><%= numberFormat.format(product.getPrice()) %>đ</td>
+                                  <%
+                                         int totalPriceAsInt = (int) Math.round(product.getPrice());
+                                         NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                         String formattedPrice1 = formatter.format(totalPriceAsInt);
+                                        %>
+                                <td><%= formattedPrice1 %>đ</td>
                                 <td><%= product.getDiscountPercentage() %> %</td>
                                 <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
-                                <td><%= numberFormat.format(product.getStockQuantity()) %>đ</td>
+                                <td><%=product.getStockQuantity() %></td>
                                 <td>
                                     <%= product.getDateAdded() != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(product.getDateAdded()) : "N/A" %>
                                 </td>
