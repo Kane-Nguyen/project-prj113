@@ -124,7 +124,7 @@
                 var totalPrice = 0;
 
                 if (cartItems[0] === "") {
-                    document.getElementById("total-price").innerText = "Total Price: $0";
+                    document.getElementById("total-price").innerText = "Total Price: 0 VNĐ";
                     return;
                 }
 
@@ -352,7 +352,7 @@
                     <!-- Các input fields của bạn ở đây -->
                     <input type="submit" id="buyNowButton" class="btn btn-primary mt-3" value="BuyNow">
                     <a href="index.jsp" class="btn btn-primary mt-3">Back to Product List</a>
-                    <div id="errorMessage" style="color: red; display: none; margin-top: 10px;">Your cart is empty. Please add some items before proceeding to buy.</div>
+                    <div id="errorMessage" style="color: red; display: none; margin-top: 10px;">Your cart is empty. Please add some books before proceeding to buy.</div>
                 </form>
 
             </form>

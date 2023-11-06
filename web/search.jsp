@@ -106,7 +106,7 @@
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><%= product.getProductName() %></h5>
                                     <p class="card-text flex-fill"><%= product.getDescription() %></p>
-                                    <p class="card-text">Price: <%= product.getPrice() %>VND</p>
+                                    <p class="card-text">Price: <%= product.getPrice() %> VNĐ</p>
                                     <a href="<%= "detail.jsp?productId=" + product.getProductId() %>" class="btn btn-primary mt-auto">View Details</a>
                                 </div>
                             </div>

@@ -280,7 +280,7 @@
                                 <%
                                 try {
                                 %>
-                                <span class="user-rating-comment-name"><%= u.get(review.getUserID()).getFullName() %></span>
+                                <span class="user-rating-comment-name"><%= u.get(review.getUserID() - 1).getFullName() %></span>
                                 <%
                                 } catch (Exception e) {
                                     e.printStackTrace(); // This will print the error details to your server's console

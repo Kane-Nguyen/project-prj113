@@ -175,10 +175,10 @@
                                         String formattedPrice11 = formatter.format(totalPriceAsInt1);
                                     %>
                                     <% if (product.getDiscountPercentage() == 0) { %>
-                                    <span class="original-price"><%=formattedPrice11 %> đ</span>
+                                    <span class="original-price"><%=formattedPrice11 %> VNĐ</span>
                                     <% } else { %>
                                     <div>
-                                        <span class="book-price book-original-price" style="text-decoration: line-through;"><%= formattedPrice11 %> đ</span>
+                                        <span class="book-price book-original-price" style="text-decoration: line-through;"><%= formattedPrice11 %> VNĐ</span>
                                     </div>
                                     <div>
                                         <%
@@ -186,7 +186,7 @@
               
                                         String formattedPrice1 = formatter.format(totalPriceAsInt);
                                         %>
-                                        <span class="discounted-price"> <%= formattedPrice1 %>đ</span>
+                                        <span class="discounted-price"> <%= formattedPrice1 %> VNĐ</span>
                                     </div>
                                     <% } %>
                                 </div>
