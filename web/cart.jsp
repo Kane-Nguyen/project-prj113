@@ -204,6 +204,21 @@
                 setCookie("quantity", "", -1);
             }
 
+            $(document).ready(function () {
+                $('#buyNowButton').click(function (event) {
+                    var cartItems = getCookie('cart');
+                    // Kiểm tra xem cookie có rỗng không
+                    if (!cartItems || cartItems === '') {
+                        $('#errorMessage').show(); // Hiển thị thông báo lỗi
+                        event.preventDefault(); // Ngăn chặn việc gửi form
+                    } else {
+                        $('#errorMessage').hide(); // Ẩn thông báo lỗi nếu không cần thiết
+                        clearCartCookies(); // Xóa cookies trước khi submit
+                        // Để cho phép form được submit, bạn không cần làm gì cả ở đây.
+                    }
+                });
+            });
+
         </script>
     </head>
     <body class="cart-container" onload="setInitialQuantities()">
@@ -217,15 +232,15 @@
                     String cartItems = "";
                     String quantities = "";
 
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if ("cart".equals(cookie.getName())) {
-                            cartItems = cookie.getValue();
-                        } else if ("quantity".equals(cookie.getName())) {
-                            quantities = cookie.getValue();
+                    if (cookies != null) {
+                        for (Cookie cookie : cookies) {
+                            if ("cart".equals(cookie.getName())) {
+                                cartItems = cookie.getValue();
+                            } else if ("quantity".equals(cookie.getName())) {
+                                quantities = cookie.getValue();
+                            }
                         }
                     }
-                }
 
                     if (cartItems.isEmpty()) {
                 %>
@@ -235,10 +250,10 @@
                             String[] cartItemArray = cartItems.split(":");
                             String[] quantityArray = quantities.split(":");
 
-                        for (int i = 0; i < cartItemArray.length; i++) {
-                            String itemId = cartItemArray[i];
-                            Product product = productDAO.getProductById(itemId);
-                            String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
+                            for (int i = 0; i < cartItemArray.length; i++) {
+                                String itemId = cartItemArray[i];
+                                Product product = productDAO.getProductById(itemId);
+                                String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
 
                                 if (product != null) {
                                     double unitPrice = product.getPrice();
@@ -288,17 +303,17 @@
                     %>
             </ul>
             <h2 id="total-price">Total Price: <%= totalPrice %> </h2>
-            
+
             <form action="Buy.jsp" method="post" onsubmit="clearCartCookies()">
                 <% 
                 if (!cartItems.isEmpty()) {
                     String[] cartItemArray = cartItems.split(":");
                     String[] quantityArray = quantities.split(":");
 
-                for (int i = 0; i < cartItemArray.length; i++) {
-                    String itemId = cartItemArray[i];
-                    Product product = productDAO.getProductById(itemId);
-                    String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
+                    for (int i = 0; i < cartItemArray.length; i++) {
+                        String itemId = cartItemArray[i];
+                        Product product = productDAO.getProductById(itemId);
+                        String quantity = i < quantityArray.length ? quantityArray[i] : "N/A";
 
                         if (product != null) {
                             double unitPrice = product.getPrice();
@@ -316,8 +331,12 @@
                     }
                 } 
                 %>
-                <input type="submit" class="btn  btn-primary  mt-3" value="BuyNow">
-                <a href="index.jsp" class="btn  btn-primary  mt-3">Back to Product List</a>
+                    <!-- Các input fields của bạn ở đây -->
+                    <input type="submit" id="buyNowButton" class="btn btn-primary mt-3" value="BuyNow">
+                    <a href="index.jsp" class="btn btn-primary mt-3">Back to Product List</a>
+                    <div id="errorMessage" style="color: red; display: none; margin-top: 10px;">Your cart is empty. Please add some items before proceeding to buy.</div>
+                </form>
+
             </form>
         </div>
     </body>
