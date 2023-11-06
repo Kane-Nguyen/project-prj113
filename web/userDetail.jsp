@@ -1,7 +1,7 @@
- <%-- 
-    Document   : userDetail
-    Created on : Oct 19, 2023, 5:17:35 PM
-    Author     : TU ANH
+<%-- 
+   Document   : userDetail
+   Created on : Oct 19, 2023, 5:17:35 PM
+   Author     : TU ANH
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -59,51 +59,63 @@ List<Users> l = u.getAllById(id);
                 <c:if test="${not empty sessionScope.isLoggedIn}">
                     <form action="SaveUserServlet" method="post">                               
                         <input type="hidden" name="id" id="id" value="${sessionScope.userID}" >
-                    <div class="form-group">
-                        <div class="user-id"><label for="fullName">Your name</label></div>                    
-                        <input type="text" name="name" id="name" value="<%=l.get(0).getFullName()%>" >
-                    </div>
-                    <div class="form-group">
-                        <div class="user-id"<label for="fullName">Birthday</label></div> 
-                        <input type="text" name="date" id="birthday" value="<%=l.get(0).getBirthDate()%>" >
-                    
-                    </div>
-                    <div class="form-group">
-                        <div class="user-id"<label for="fullName">Email</label></div> 
-                        <input type="text"name="email" id="email" value="<%=l.get(0).getEmail()%>" >
-                    </div>
-                    <div class="form-group">
-                        <div class="user-id"<label for="fullName">Address</label></div> 
-                        <input type="text" name="address" id="address" value="<%=l.get(0).getAddress()%>" >
-                    </div>
-                    <div class="form-group">
-                        <div class="user-id"<label for="fullName">Contact Number</label></div> 
-                        <input type="text" name="phone" id="phone" value="<%=l.get(0).getPhoneNumber()%>" >
-                          </div>
-                          <input name="method" type="hidden" value="edit">
-                          <input name="method1" type="hidden" value="edit1">
-                    <button type="submit" id="showSecretButton1">Save</button>
-                      </form>
                         <div class="form-group">
-                            <div class="user-id"<label for="fullName"></label><a href="changePassword.jsp">Change Password</a></div> 
+                            <div class="user-id"><label for="fullName">Your name</label></div>                    
+                            <input type="text" name="name" id="name" value="<%=l.get(0).getFullName()%>" >
                         </div>
-                        <div class="form-group d-flex">
-                            <div class="user-id">
-                                <button id="showSecretButton">Show Secret String</button> <span id="secretStringDiv" style="display: none;">Secret String: ${sessionScope.SecretString}</span>                          
-                            </div>
-                               
-                        </div>
-                              
-                    </c:if>
+                        <div class="form-group">
+                            <div class="user-id"<label for="fullName">Birthday</label></div> 
+                            <input type="text" name="date" id="birthday" value="<%=l.get(0).getBirthDate()%>" >
 
-                    <c:if test="${empty sessionScope.isLoggedIn}">
-                        <p>You are not logged in.</p>
-                        <a href="http://localhost:8080/projectPRJ113/login" alt="btn-link-login" class="btn btn-outline-success me-2">Login</a>
-                    </c:if>
-             
+                        </div>
+                        <div class="form-group">
+                            <div class="user-id"<label for="fullName">Email</label></div> 
+                            <input type="text"name="email" id="email" value="<%=l.get(0).getEmail()%>" >
+                        </div>
+                        <div class="form-group">
+                            <div class="user-id"<label for="fullName">Address</label></div> 
+                            <input type="text" name="address" id="address" value="<%=l.get(0).getAddress()%>" >
+                        </div>
+                        <div class="form-group">
+                            <div class="user-id"<label for="fullName">Contact Number</label></div> 
+                            <input type="text" name="phone" id="phone" value="<%=l.get(0).getPhoneNumber()%>" >
+                        </div>
+                        <input name="method" type="hidden" value="edit">
+                        <input name="method1" type="hidden" value="edit1">
+                        <button type="submit" id="showSecretButton1">Save</button>
+                    </form>
+                    <div class="form-group">
+                        <div class="user-id"<label for="fullName"></label><a href="changePassword.jsp">Change Password</a></div> 
+                    </div>
+                    <div class="form-group d-flex">
+                        <div class="user-id">
+                            <button id="showSecretButton">Show Secret String</button> <span id="secretStringDiv" style="display: none;">Secret String: ${sessionScope.SecretString}<button id="showSecretButton3">Change Secret</button></span>                          
+
+                            </span>  
+                        </div>
+                    </div>
+                    <form action="ChangeSecret" method="post">
+                        <div id="newSecretInput" class="form-group" style="display: none;">
+                            <input type="text" style="display: none" name="email" value="<%=l.get(0).getEmail()%>">
+                            <input type="text" class="form-control" id="newSecret" name="secret" placeholder="Enter new secret">
+                            <button type="submit">Change</button>
+                        </div>                  
+                    </form>
+
+                </c:if>
+
+                <c:if test="${empty sessionScope.isLoggedIn}">
+                    <p>You are not logged in.</p>
+                    <a href="http://localhost:8080/projectPRJ113/login" alt="btn-link-login" class="btn btn-outline-success me-2">Login</a>
+                </c:if>
+
 
                 </body>
                 <script>
+                    document.getElementById("showSecretButton3").addEventListener("click", function () {
+                        var newSecretInput = document.getElementById("newSecretInput");
+                        newSecretInput.style.display = newSecretInput.style.display === "none" ? "block" : "none";
+                    });
                     document.getElementById("showSecretButton").addEventListener("click", function () {
                         // Create a custom modal for password input
                         var modal = document.createElement('div');
