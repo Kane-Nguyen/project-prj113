@@ -59,7 +59,7 @@ if (error != null && error.equals("missing_id")) {
 
         <div class="wrap-admin-page">
             <div class="toolbar">
-                <button class="close-toolbar btn-primary  mobile-menu-button ml-5" onclick="toggleToolbar()">☰</button>
+                <button class="close-toolbar mobile-menu-button" onclick="toggleToolbar()"><i class="bi bi-x"></i></button>
                 <div class="logo">
                     <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                 </div>
@@ -73,84 +73,86 @@ if (error != null && error.equals("missing_id")) {
             </div>
             <div class="main-content">
                 <div class="container-wrap">
-                <button class="hamburger-button btn-primary" onclick="toggleToolbar()">☰</button>
-                <div class="title-and-button">
-                <h1>Payment</h1>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>UserID</th>
-                                <th>Address</th>
-                                <th>Phone Number</th>
-                                <th>Name</th>
-                                <th>Payment Method</th>
-                                <th>total price</th>
-                                <th>Order Status</th>
-                                <th>Products</th>
-                            </tr>
-                        </thead>
-                        <form action="SaveOrdersServlet" method="POST">
-                            <button type="submit" class="btn btn-primary mt-2 ml-1"">Save</button>
-                            <tbody>
-                                <% for (Order order : lo) { %>
-                                <tr>
-                                    <td style="display: none"><input type="hidden" style="border:1px;" name="orderID" value="<%= order.getOrderID() %>"></td>
-                                    <td><input type="number" style="border:1px;" name="userID" value="<%= order.getUserID() %>"></td>
-                                    <td><input type="text" style="border:1px;" name="deliveryAddress" value="<%= order.getDeliveryAddress() %>"></td>
-                                    <td><input  type="text" style="border:1px;" name="phoneNumber" value="<%= order.getPhoneNumber() %>"></td>
-                                    <td><input type="text" style="border:1px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
-                                    <td><input type="text" style="border:1px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
-                                    <td><input type="number" style="border:1px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
-                                        <%if(order.getOrderStatus().equals("Canceled")){
-                                        %>
-                                    <td><P>Canceled</P></td>
-                                            <%
+                    <button class="hamburger-button" onclick="toggleToolbar()"><i class="bi bi-list"></i></button>
+                    <div class="title-and-button">
+                        <h1>Payment</h1>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>UserID</th>
+                                        <th>Address</th>
+                                        <th>Phone Number</th>
+                                        <th>Name</th>
+                                        <th>Payment Method</th>
+                                        <th>total price</th>
+                                        <th>Order Status</th>
+                                        <th>Products</th>
+                                    </tr>
+                                </thead>
+                                <form action="SaveOrdersServlet" method="POST">
+                                    <button type="submit" class="btn btn-primary mt-2 ml-1"">Save</button>
+                                    <tbody>
+                                        <% for (Order order : lo) { %>
+                                        <tr>
+                                            <td style="display: none"><input type="hidden" style="border:1px;" name="orderID" value="<%= order.getOrderID() %>"></td>
+                                            <td><input type="number" style="border:1px;" name="userID" value="<%= order.getUserID() %>"></td>
+                                            <td><input type="text" style="border:1px;" name="deliveryAddress" value="<%= order.getDeliveryAddress() %>"></td>
+                                            <td><input  type="text" style="border:1px;" name="phoneNumber" value="<%= order.getPhoneNumber() %>"></td>
+                                            <td><input type="text" style="border:1px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
+                                            <td><input type="text" style="border:1px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
+                                            <td><input type="number" style="border:1px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
+                                                <%if(order.getOrderStatus().equals("Canceled")){
+                                                %>
+                                            <td><P>Canceled</P></td>
+                                                    <%
                             } else{ %>
-                                    <td>
-                                        <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
-                                            <option value="pending" <%= order.getOrderStatus().equals("pending") ? "selected" : "" %>>pending</option>
-                                            <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
-                                            <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
-                                            <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
-                                        </select>
-                                    </td> <%}%>
-                                    <td>
-                                        <%
-                               BooksInOrderDAO b = new BooksInOrderDAO();
-                               ProductDAO p = new ProductDAO();
-                              List<BooksInOrder> lp = b.getBookById(order.getOrderID());
-                               for(BooksInOrder bp: lp){
+                                            <td>
+                                                <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
+                                                    <option value="pending" <%= order.getOrderStatus().equals("pending") ? "selected" : "" %>>pending</option>
+                                                    <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
+                                                    <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
+                                                    <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
+                                                </select>
+                                            </td> <%}%>
+                                            <td>
+                                                <%
+                                       BooksInOrderDAO b = new BooksInOrderDAO();
+                                       ProductDAO p = new ProductDAO();
+                                      List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                                       for(BooksInOrder bp: lp){
                     
-                                        %>
-                                        <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
-                                        <% }%>
-                                    </td>
-                                </tr>
-                                <% } %>
-                            </tbody>
+                                                %>
+                                                <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
+                                                <% }%>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
 
-                    </table>
+                            </table>
 
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-                    </form>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <script>
-            function toggleToolbar() {
-                var toolbar = document.querySelector('.toolbar');
-                // Nếu toolbar đang hiển thị, ẩn nó đi
-                if (toolbar.style.display === 'block') {
-                    toolbar.style.display = 'none';
-                } else {
-                    // Nếu không, hiển thị nó
-                    toolbar.style.display = 'block';
-                    toolbar.classList.add('toggle'); // Thêm class để hiệu ứng chuyển đổi có thể hoạt động
-                }
-            }
+                        function toggleToolbar() {
+                            var toolbar = document.querySelector('.toolbar');
+                            // Nếu toolbar đang hiển thị, ẩn nó đi
+                            if (toolbar.style.display === 'block') {
+                                toolbar.style.display = 'none';
+                            } else {
+                                // Nếu không, hiển thị nó
+                                toolbar.style.display = 'block';
+                                toolbar.classList.add('toggle'); // Thêm class để hiệu ứng chuyển đổi có thể hoạt động
+                            }
+                        }
         </script>
     </body>
 </html>

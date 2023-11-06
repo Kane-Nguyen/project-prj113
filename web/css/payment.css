@@ -203,7 +203,12 @@ html, body {
     display: none; /* Hide by default */
 }
 /* Other styles... */
-
+.close-toolbar {
+    display: none;
+}
+.hamburger-button{
+    display: none;
+}
 /* Responsive Adjustments */
 @media (max-width: 767px) {
   .toolbar {
@@ -218,6 +223,34 @@ html, body {
   .close-toolbar {
     display: block;
   }
+  .toolbar{
+      display: none;
+  }
+  .hamburger-button{
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+  .close-toolbar{
+      border: none;
+      outline: none;
+      box-shadow: none;
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      height: fit-content;
+      padding: 5px;
+     
+  }
+  .close-toolbar:focus{
+      outline: none;
+  }
+  .close-toolbar i {
+      font-size: 24px;
+  }
+  
 
   .main-content {
     margin-left: 0;
