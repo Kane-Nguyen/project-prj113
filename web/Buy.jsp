@@ -100,7 +100,7 @@
                                          String formattedPrice = formatter.format(totalPriceAsInt);
                                         %>
                                         <span id="itemTotal_<%=a%>">
-                                            <%=formattedPrice %>VNĐ</span
+                                            <%=formattedPrice %>VND</span
                                         >
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                          int totalPriceAsInt = (int) Math.round(totalPrice);
                                          NumberFormat formatter = NumberFormat.getIntegerInstance();
                                          String formattedPrice1 = formatter.format(totalPriceAsInt);
-                                        %>
+                            %>
                             <span id="totalPrice"
                                   ><%= formattedPrice1%></span
                             >VNĐ
@@ -193,30 +193,37 @@
                 var quantity = parseInt($("#quantity_" + a).val());
 
                 if (quantity > stock) {
-                    $("#stock_error_" + a).text(
-                            "Cannot purchase more than the available stock!"
-                            );
+                    $("#stock_error_" + a).text("Cannot purchase more than the available stock!");
                     return;
                 }
 
                 var itemTotal = unitPrice * quantity;
-                $("#itemTotal_" + a).text(itemTotal.toFixed(3) + "VNĐ");
+                // Format the item total as a string with commas
+                $("#itemTotal_" + a).text(itemTotal.toLocaleString('en-US') + " VNĐ");
 
                 var productIds = '<%= String.join(",", productIds) %>'.split(",");
                 var totalPrice = 0;
 
                 for (var i = 0; i < productIds.length; i++) {
                     var itemTotalText = $("#itemTotal_" + i).text();
-                    var itemTotal = parseFloat(itemTotalText.replace("VNĐ", ""));
-                    totalPrice += itemTotal;
+                    // Remove 'VNĐ' and commas before parsing
+                    var cleanItemTotal = itemTotalText.replace(/VNĐ/g, '').replace(/,/g, '');
+                    var parsedItemTotal = parseFloat(cleanItemTotal);
+                    if (!isNaN(parsedItemTotal)) {
+                        totalPrice += parsedItemTotal;
+                    }
                 }
 
-                $("#totalPrice").text(totalPrice.toFixed(3));
-                $("#total2").val(totalPrice.toFixed(3));
+                // Format the total price as a string with commas and no decimal places
+                var formattedTotalPrice = totalPrice.toLocaleString('en-US', {maximumFractionDigits: 0});
+                $("#totalPrice").text(formattedTotalPrice);
+                $("#total2").val(totalPrice); // Keep the numeric value for form submission
+
                 if (quantity <= stock) {
                     $("#stock_error_" + a).text("");
                 }
             }
+
 
             function validateForm() {
                 var productIds = '<%= String.join(",", productIds) %>'.split(",");

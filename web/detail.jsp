@@ -55,6 +55,18 @@
                             <i class="bi bi-cart h5"></i> Your Cart
                         </button>
                     </a>
+                    <a href="paid.jsp" class="prevent-a-tag">
+                        <button class="btn-primary rounded btn-cart">
+                            <i class="bi bi-wallet2 h5"></i> Your Paid
+                        </button>
+                    </a>
+                    <%if(session.getAttribute("role").equals("Admin")){%>
+                    <a href="admin.jsp" class="prevent-a-tag">
+                        <button class="btn-primary rounded btn-cart btn-danger">
+                            <i class="bi bi-shop h5"></i> Admin
+                        </button>
+                    </a>
+                    <%}%>
                     <% if (isUserLoggedIn) { %>
                     <a href="Logout" class="prevent-a-tag">
                         <i class="bi bi-box-arrow-in-left h4"></i>
@@ -89,22 +101,26 @@
                             <h5 class="author-detail-book"><%= product.getAuthor() %></h5>
                             <div>
                                 <% if (product.getDiscountPercentage() == 0) { %>
-                                <span class="discount-price-detail"><%= numberFormat.format(product.getPrice()) %>đ</span>
+                                 <%
+                                
+                                      int totalPriceAsInt = (int) Math.round(product.getPrice());
+                                      NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                      String formattedPrice111 = formatter.format(totalPriceAsInt);
+                                    %>
+                                <span class="discount-price-detail"><%= formattedPrice111 %>đ</span>
                                 <% } else { %>
                                 <div>
-                                      <%
+                                    <%
                                 
-                                        int totalPriceAsInt = (int) Math.round(product.getPrice());
-                                        NumberFormat formatter = NumberFormat.getIntegerInstance();
-                                        String formattedPrice11 = formatter.format(totalPriceAsInt);
+                                      int totalPriceAsInt = (int) Math.round(product.getPrice());
+                                      NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                      String formattedPrice11 = formatter.format(totalPriceAsInt);
                                     %>
                                     <span class="original-price not-sale"> <%= formattedPrice11%>đ</span>
                                 </div>
                                 <div>
                                     <%
-                                
                                         int totalPriceAsInt1 = (int) Math.round(product.getPrice() * (1 - product.getDiscountPercentage() / 100));
-                                       
                                         String formattedPrice1 = formatter.format(totalPriceAsInt1);
                                     %>
                                     <span class="discount-price-detail"> <%=formattedPrice1%>đ</span>
@@ -118,7 +134,7 @@
                                 <input type="hidden" name="productId" value="<%= product.getProductId()%>">
                                 <input type="hidden" name="productName" value="<%= product.getProductName()%>">
                                 <input type="hidden" name="quantity" value="1">
-                                
+
                                 <input type="hidden" name="originalPrice" value="<%= numberFormat.format(product.getPrice())%>">
                                 <input type="hidden" name="discountedPrice" value="<%= product.getDiscountPercentage()%>">
                                 <button type="submit" class="btn btn-primary mt-auto w-100">Buy now</button>

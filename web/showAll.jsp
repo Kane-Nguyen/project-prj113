@@ -61,9 +61,7 @@
                         ProductDAO productDAO = new ProductDAO();
                         List<Product> productList = productDAO.getAll();
                         List<Product> requestProductList = (List<Product>) request.getAttribute("products");
-                        NumberFormat numberFormat = NumberFormat.getNumberInstance();
-                        numberFormat.setMinimumFractionDigits(3);
-                        numberFormat.setMaximumFractionDigits(3);
+                      
                         if (requestProductList != null) {
                             productList = requestProductList;
                         }
@@ -77,7 +75,12 @@
                                 <img src="<%= product.getImageURL() %>" class="card-img-top" alt="<%= product.getProductName() %>">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><%= product.getProductName() %></h5>
-                                    <p class="card-text">Price: <%= numberFormat.format(product.getPrice()) %> VNĐ</p>
+                                    <%
+                                     int totalPriceAsInt = (int) Math.round(product.getPrice());
+                                        NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                        String formattedPrice11 = formatter.format(totalPriceAsInt);
+                                    %>
+                                    <p class="card-text">Price: <%=  formattedPrice11%> VNĐ</p>
                                     <p>genre: <span class="category-detail"><%= cbDAO.getCategoryByProductId(product.getCategoryId()) %></span></p>
                                     <a href="<%= "detail.jsp?productId=" + product.getProductId() %>" class="btn btn-primary mt-auto">View Details</a>
                                 </div>
