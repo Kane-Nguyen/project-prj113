@@ -102,32 +102,38 @@ if (error != null && error.equals("missing_id")) {
                                             <td><input type="text" style="border:1px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
                                             <td><input type="text" style="border:1px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
                                             <td><input type="number" style="border:1px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
-                                                <%if(order.getOrderStatus().equals("Canceled")){
+                                                <%if(order.getOrderStatus().equals("Cancel")){
                                                 %>
-                                            <td><P>Canceled</P></td>
-                                                    <%
+                                            <td><P>Canceled</P>
+                                            <form action="SaveOrderServlet" method="post">
+                                        <input type="hidden" style="border:1px;" name="iddelete" value="<%= order.getOrderID() %>">
+                                        <input type="hidden" style="border:1px;" name="method" value="delete">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>  </td>
+                                       
+                                    <%
                             } else{ %>
-                        <td>
-                            <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
-                                <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
-                                <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
-                                <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
-                                <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
-                            </select>
-                        </td> <%}%>
-                        <td>
-                             <%
-                    BooksInOrderDAO b = new BooksInOrderDAO();
-                    ProductDAO p = new ProductDAO();
-                   List<BooksInOrder> lp = b.getBookById(order.getOrderID());
-                    for(BooksInOrder bp: lp){
+                                    <td>
+                                        <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
+                                            <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
+                                            <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
+                                            <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
+                                            <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
+                                        </select>
+                                    </td> <%}%>
+                                    <td>
+                                        <%
+                               BooksInOrderDAO b = new BooksInOrderDAO();
+                               ProductDAO p = new ProductDAO();
+                              List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                               for(BooksInOrder bp: lp){
                     
-                                                %>
-                                                <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
-                                                <% }%>
-                                            </td>
-                                        </tr>
-                                        <% } %>
+                                        %>
+                                        <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
+                                        <% }%>
+                                    </td>
+                                    </tr>
+                                    <% } %>
                                     </tbody>
 
                             </table>
