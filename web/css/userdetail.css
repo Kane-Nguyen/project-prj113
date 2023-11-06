@@ -48,8 +48,8 @@ div.userDetail-left {
     margin-bottom: 28px;
 }
 div.user-id{
-        font-weight: bold;
-margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 button{
     background-color: rgb(104, 179, 249);
@@ -60,69 +60,75 @@ button{
     cursor: pointer;
 }
 
-    /* Modal styles */
-    #passwordModal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
+/* Modal styles */
+#passwordModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
-    .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #f9f9f9;
-        padding: 20px;
-        padding-left: 30px;
-        padding-right: 30px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    padding: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-    .close {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 10px;
-        cursor: pointer;
-    }
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
 
-    label {
-        display: block;
-        margin-bottom: 10px;
-    }
+label {
+    display: block;
+    margin-bottom: 10px;
+}
 
-    input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-top: 13px;
-        margin-left: 1px;
-    }
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 13px;
+    margin-left: 1px;
+}
 
-    button#submitPassword {
-        background-color: rgb(104, 179, 249);
-        color: white;
-        border: none;
-        margin-top: 10px;
-        padding: 10px 20px;
-        cursor: pointer;
-    }
+button#submitPassword {
+    background-color: rgb(104, 179, 249);
+    color: white;
+    border: none;
+    margin-top: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
 .modal2-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #f9f9f9;
-        padding: 30px;
-        padding-left: 50px;
-        padding-right: 50px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    padding: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
     }
+}

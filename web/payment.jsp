@@ -47,48 +47,65 @@ if (error != null && error.equals("missing_id")) {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Payment</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="./css/payment.css">
     </head>
     <body>
-        <h1>Payment</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>UserID</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
-                    <th>Name</th>
-                    <th>Payment Method</th>
-                    <th>total price</th>
-                    <th>Order Status</th>
-                    <th>Products</th>
-                </tr>
-            </thead>
-            <form action="SaveOrdersServlet" method="POST">
-                <button type="submit">Save</button>
-                <tbody>
-                    <% for (Order order : lo) { %>
-                    <tr>
-                        <td style="display: none"><input type="hidden" style="border:0px;" name="orderID" value="<%= order.getOrderID() %>"></td>
-                        <td><input type="number" style="border:0px;" name="userID" value="<%= order.getUserID() %>"></td>
-                        <td><input type="text" style="border:0px;" name="deliveryAddress" value="<%= order.getDeliveryAddress() %>"></td>
-                        <td><input  type="text" style="border:0px;" name="phoneNumber" value="<%= order.getPhoneNumber() %>"></td>
-                        <td><input type="text" style="border:0px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
-                        <td><input type="text" style="border:0px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
-                        <td><input type="number" style="border:0px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
-                            <%if(order.getOrderStatus().equals("Cancel")){
-                            %>
-                        <td><P class="text-danger">Canceled</P>
-                            <form action="SaveOrdersServlet" method="POST">
-                         <input type="hidden" name="iddelete" value="<%= order.getOrderID() %>">
-                                <input type="hidden" name="method" value="delete">
-                                <button type="submit" class="btn-danger">Delete</button>
-                            </form>
-                        </td>
-                                <%
+
+        <div class="wrap-admin-page">
+            <div class="toolbar">
+                <button class="close-toolbar mobile-menu-button" onclick="toggleToolbar()"><i class="bi bi-x"></i></button>
+                <div class="logo">
+                    <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
+                </div>
+                <ul class="list-toolbar">
+                    <a href="admin.jsp" class="item-admin"><i class="bi bi-book-half"></i>Book Management</a>
+                    <a href="payment.jsp" class="item-admin active"><i class="bi bi-wallet2"></i>Payment</a>
+                    <a href="" class="item-admin"><i class="bi bi-bar-chart-fill"></i>Dashboard</a>
+                    <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
+                    <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i>Log Out</a>
+                </ul>
+            </div>
+            <div class="main-content">
+                <div class="container-wrap">
+                    <button class="hamburger-button" onclick="toggleToolbar()"><i class="bi bi-list"></i></button>
+                    <div class="title-and-button">
+                        <h1>Payment</h1>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>UserID</th>
+                                        <th>Address</th>
+                                        <th>Phone Number</th>
+                                        <th>Name</th>
+                                        <th>Payment Method</th>
+                                        <th>total price</th>
+                                        <th>Order Status</th>
+                                        <th>Products</th>
+                                    </tr>
+                                </thead>
+                                <form action="SaveOrdersServlet" method="POST">
+                                    <button type="submit" class="btn btn-primary mt-2 ml-1"">Save</button>
+                                    <tbody>
+                                        <% for (Order order : lo) { %>
+                                        <tr>
+                                            <td style="display: none"><input type="hidden" style="border:1px;" name="orderID" value="<%= order.getOrderID() %>"></td>
+                                            <td><input type="number" style="border:1px;" name="userID" value="<%= order.getUserID() %>"></td>
+                                            <td><input type="text" style="border:1px;" name="deliveryAddress" value="<%= order.getDeliveryAddress() %>"></td>
+                                            <td><input  type="text" style="border:1px;" name="phoneNumber" value="<%= order.getPhoneNumber() %>"></td>
+                                            <td><input type="text" style="border:1px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
+                                            <td><input type="text" style="border:1px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
+                                            <td><input type="number" style="border:1px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
+                                                <%if(order.getOrderStatus().equals("Canceled")){
+                                                %>
+                                            <td><P>Canceled</P></td>
+                                                    <%
                             } else{ %>
                         <td>
                             <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
@@ -105,17 +122,37 @@ if (error != null && error.equals("missing_id")) {
                    List<BooksInOrder> lp = b.getBookById(order.getOrderID());
                     for(BooksInOrder bp: lp){
                     
-                     %>
-                     <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
-                       <% }%>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
+                                                %>
+                                                <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
+                                                <% }%>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
 
-        </table>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <input type="hidden" name="method" value="payment">
-    </form>
-</body>
+                            </table>
+
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <input type="hidden" name="method" value="payment">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+                        function toggleToolbar() {
+                            var toolbar = document.querySelector('.toolbar');
+                            // Nếu toolbar đang hiển thị, ẩn nó đi
+                            if (toolbar.style.display === 'block') {
+                                toolbar.style.display = 'none';
+                            } else {
+                                // Nếu không, hiển thị nó
+                                toolbar.style.display = 'block';
+                                toolbar.classList.add('toggle'); // Thêm class để hiệu ứng chuyển đổi có thể hoạt động
+                            }
+                        }
+        </script>
+    </body>
 </html>

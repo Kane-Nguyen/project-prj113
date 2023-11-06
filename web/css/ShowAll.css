@@ -10,8 +10,21 @@
     display: none; /* Hide by default */
 }
 
+
 /* Styles for mobile */
 @media (max-width: 767px) {
+    .filter-form{
+            margin-left: 60px;
+            margin-bottom: 20px;
+    }
+    .form-check input {
+        height: 15px;
+    width: 15px;
+    }
+    .scroll-up{
+        cursor: pointer;
+    }
+        
     .mobile-menu-button {
         display: block; /* Show menu button on mobile devices */
     }

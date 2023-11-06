@@ -1,0 +1,305 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F8F8F8;
+    line-height: 1.6;
+}
+
+/* Toolbar and Navigation */
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    border-right: 1px solid #dee2e6;
+    height: 100vh;
+    width: 230px; /* Adjust if necessary */
+    z-index: 1000;
+}
+
+.logo-img {
+    padding: 20px;
+    background-size: cover;
+    height: 65px;
+}
+
+.list-toolbar {
+    list-style: none;
+    padding: 0;
+}
+
+.item-admin {
+    color: #555;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.item-admin:hover, .item-admin.active {
+    color: #0B63F8; /* Active and hover color */
+    background-color: #f0f0f0; /* Light background on hover */
+}
+
+/* Active class specifically for current page indication */
+.active {
+    font-weight: bold;
+    color: #0B63F8; /* Highlight color for the active page */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .toolbar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .item-admin {
+        justify-content: center; /* Center items on smaller screens */
+    }
+
+    body {
+        padding-left: 0;
+    }
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 270px; /* This should match the width of your fixed toolbar plus any desired margin */
+    padding: 20px;
+    width: calc(100% - 270px); /* Full width minus the toolbar and any additional margins */
+    background-color: #fff; /* Consistent with the toolbar background for a cohesive look */
+}
+
+/* Table Styles */
+.table {
+    border-collapse: collapse;
+    margin-top: 20px; /* Space from top content */
+    width: 100%; /* Use available width */
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1); /* Optional: Adds shadow for depth */
+}
+
+.table th,
+.table td {
+    border: 1px solid #dee2e6; /* Table borders */
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.table thead th {
+    background-color: #007bff; /* Header background */
+    color: #fff;
+    border: none;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa; /* Zebra striping for rows */
+}
+
+/* Button Styles inside Table */
+.btn {
+    margin-top: 10px; /* Space above the button */
+    margin-left: 10px; /* Space to the left of the button */
+    /* Other button styles should already be defined globally */
+}
+
+/* Input Styles inside Table */
+.table input[type="number"],
+.table input[type="text"],
+.table .order-status {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    width: 100%; /* Full width inputs */
+}
+
+/* Form Styles */
+form {
+    margin-top: 20px; /* Space between table and form */
+}
+
+/* Status Column Styling */
+.order-status {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ced4da;
+}
+
+/* Status Paragraph Styling for Cancelled Orders */
+.status-cancelled {
+    color: #dc3545; /* Bootstrap's danger color for example */
+}
+
+/* Responsive Adjustments for Table */
+@media (max-width: 992px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .table {
+        margin-top: 10px;
+    }
+
+    .table-responsive {
+        overflow-x: auto; /* Horizontal scrolling for tables on small screens */
+    }
+}
+
+/* Error Message Styling */
+.error-message {
+    background-color: #ffe5e7;
+    border-left: 3px solid #ff3860;
+    color: #ff3860;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+/* Header Styles */
+h1 {
+    text-align: center;
+    margin-top: 1rem; /* Space above the header */
+}
+
+/* Ensure that this CSS file is included after all other conflicting CSS files to override other styles */
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F8F8F8;
+  line-height: 1.6;
+}
+
+/* Toolbar and Navigation */
+.toolbar {
+  background-color: #fff;
+  border-right: 1px solid #dee2e6;
+  height: 100vh;
+  width: 230px; /* Adjust if necessary */
+  z-index: 1000;
+}
+.mobile-menu-button {
+    display: none; /* Hide by default */
+}
+/* Other styles... */
+.close-toolbar {
+    display: none;
+}
+.hamburger-button{
+    display: none;
+}
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .toolbar {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 60px;
+  }
+
+  .hamburger-button,
+  .close-toolbar {
+    display: block;
+  }
+  .toolbar{
+      display: none;
+  }
+  .hamburger-button{
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+  .close-toolbar{
+      border: none;
+      outline: none;
+      box-shadow: none;
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      height: fit-content;
+      padding: 5px;
+     
+  }
+  .close-toolbar:focus{
+      outline: none;
+  }
+  .close-toolbar i {
+      font-size: 24px;
+  }
+  
+
+  .main-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .table,
+  .table-responsive {
+    margin-top: 10px;
+  }
+
+  .item-admin {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
+  .list-toolbar li {
+    margin-bottom: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .toolbar {
+    min-width: 230px;
+  }
+
+  .main-content {
+    margin-left: 270px;
+    padding: 20px;
+  }
+
+  .title-and-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .btn-add-product,
+  .btn-delete {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
