@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Workspace/PRJ/project-prj113/web/payment.jsp</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/OrderDAO.java</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/web/css/userdetail.css</file>
@@ -46,6 +47,17 @@
             <file>file:/D:/Workspace/PRJ/project-prj113/web/Order.jsp</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/AnalysisServlet.java</file>
             <file>file:/D:/Workspace/PRJ/project-prj113/web/cart.jsp</file>
+=======
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/buy.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/payment.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/admin.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/index.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/ShowAll.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/loginPage.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/index.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/userdetail.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/showAll.jsp</file>
+>>>>>>> b68b86f137ad98a032337033d9ae5f3fb1c5cfca
         </group>
     </open-files>
 </project-private>

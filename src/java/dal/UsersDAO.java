@@ -37,24 +37,26 @@ public class UsersDAO extends DBContext {
             return null;
         }
     }
-public boolean updateUsers(String name, Date date, String phone, String email, String address,int id) {
-    String sql = "UPDATE Users SET FullName = ?, BirthDate = ?, PhoneNumber = ?, Email = ?, Address = ? where UserID = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        
-        st.setString(1, name);
-        st.setDate(2, date);
-        st.setString(3, phone);
-        st.setString(4, email);
-        st.setString(5, address);
-        st.setInt(6, id);
-    
-        return st.executeUpdate() > 0;
-    } catch (SQLException e) {
-        System.out.println(e);
-        return false;
+
+    public boolean updateUsers(String name, Date date, String phone, String email, String address, int id) {
+        String sql = "UPDATE Users SET FullName = ?, BirthDate = ?, PhoneNumber = ?, Email = ?, Address = ? where UserID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setString(1, name);
+            st.setDate(2, date);
+            st.setString(3, phone);
+            st.setString(4, email);
+            st.setString(5, address);
+            st.setInt(6, id);
+
+            return st.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
     }
-}
+
     public boolean insertUser(String fullName, Date birthDate, String phoneNumber, String email, String passWord, String address, String userRole) {
 
         String sql = "INSERT INTO Users (FullName, BirthDate, PhoneNumber, Email, PassWord, Address, UserRole) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -111,13 +113,14 @@ public boolean updateUsers(String name, Date date, String phone, String email, S
 
         return list;
     }
+
     public List<Users> getAllById(int id) {
         List<Users> list = new ArrayList<>();
         String sql = "SELECT * FROM Users where UserID=?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1,id);
+            st.setInt(1, id);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -141,7 +144,8 @@ public boolean updateUsers(String name, Date date, String phone, String email, S
 
         return list;
     }
-      public boolean delete(int id) {
+
+    public boolean delete(int id) {
 
         String sql = "delete from Users where UserID=?";
         String sql1 = "delete from ReviewsAndRatings where UserID=?";
@@ -164,6 +168,26 @@ public boolean updateUsers(String name, Date date, String phone, String email, S
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, newPassword);
+            st.setString(2, email);
+
+            // Execute the update
+            int updatedRows = st.executeUpdate();
+            // Check if any rows were updated
+            if (updatedRows > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            // Log the exception for debugging
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateSecret(String email, String newSecret) {
+        String sql = "UPDATE Users SET SecretString = ? WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newSecret);
             st.setString(2, email);
 
             // Execute the update
