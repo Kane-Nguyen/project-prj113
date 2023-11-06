@@ -14,7 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.DatatypeConverter;
 import model.Users;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
@@ -51,6 +56,16 @@ public class loginServlet extends HttpServlet {
             throws ServletException, IOException {
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
+     public static boolean verify(String inputPassword, String hashPassWord)
+            throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(inputPassword.getBytes());
+        byte[] digest = md.digest();
+        String myChecksum = DatatypeConverter
+                .printHexBinary(digest).toUpperCase();
+        System.out.println(myChecksum);
+        return hashPassWord.equals(myChecksum);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -82,31 +97,35 @@ public class loginServlet extends HttpServlet {
         List<Users> users = usersDAO.getAll(); // Retrieve the complete list of users
 
         for (Users user : users) {
-            if (user.getEmail().equals(email) && user.getPassWord().equals(password)) {
-                session.setAttribute("isLoggedIn", true);
-                session.setAttribute("role", user.getUserRole());
-                session.setAttribute("userID", user.getUserId());
-                session.setAttribute("email", user.getEmail());
-                session.setAttribute("fullName", user.getFullName());
-                session.setAttribute("birthDay", user.getBirthDate());
-                session.setAttribute("phoneNumber", user.getPhoneNumber());
-                session.setAttribute("address", user.getAddress());
-                session.setAttribute("SecretString", user.getSecretString());
-                if (rememberMe != null) {
-                    Ce.setMaxAge(60 * 60 * 365);
-                    Cp.setMaxAge(60 * 60 * 365);
-                    Cr.setMaxAge(60 * 60 * 365);
-                } else {
-                    Ce.setMaxAge(0);
-                    Cp.setMaxAge(0);
-                    Cr.setMaxAge(0);
+            try {
+                if (verify(password, user.getPassWord()) && user.getEmail().equals(email)) {
+                    session.setAttribute("isLoggedIn", true);
+                    session.setAttribute("role", user.getUserRole());
+                    session.setAttribute("userID", user.getUserId());
+                    session.setAttribute("email", user.getEmail());
+                    session.setAttribute("fullName", user.getFullName());
+                    session.setAttribute("birthDay", user.getBirthDate());
+                    session.setAttribute("phoneNumber", user.getPhoneNumber());
+                    session.setAttribute("address", user.getAddress());
+                    session.setAttribute("SecretString", user.getSecretString());
+                    if (rememberMe != null) {
+                        Ce.setMaxAge(60 * 60 * 365);
+                        Cp.setMaxAge(60 * 60 * 365);
+                        Cr.setMaxAge(60 * 60 * 365);
+                    } else {
+                        Ce.setMaxAge(0);
+                        Cp.setMaxAge(0);
+                        Cr.setMaxAge(0);
+                    }
+                    
+                    response.addCookie(Ce);
+                    response.addCookie(Cp);
+                    response.addCookie(Cr);
+                    isLogin = true;
+                    break;
                 }
-
-                response.addCookie(Ce);
-                response.addCookie(Cp);
-                response.addCookie(Cr);
-                isLogin = true;
-                break;
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
