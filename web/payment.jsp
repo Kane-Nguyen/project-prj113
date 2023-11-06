@@ -59,7 +59,7 @@ if (error != null && error.equals("missing_id")) {
 
         <div class="wrap-admin-page">
             <div class="toolbar">
-                <button class="close-toolbar btn-primary  mobile-menu-button ml-5" onclick="toggleToolbar()">☰</button>
+                <button class="close-toolbar btn-primary  mobile-menu-button ml-5" onclick="toggleToolbar()">X</button>
                 <div class="logo">
                     <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                 </div>
