@@ -82,17 +82,18 @@ List<Users> l = u.getAllById(id);
                           </div>
                           <input name="method" type="hidden" value="edit">
                           <input name="method1" type="hidden" value="edit1">
-                    
+                    <button type="submit" id="showSecretButton1">Save</button>
+                      </form>
                         <div class="form-group">
                             <div class="user-id"<label for="fullName"></label><a href="changePassword.jsp">Change Password</a></div> 
                         </div>
                         <div class="form-group d-flex">
                             <div class="user-id">
-                                <button id="showSecretButton">Show Secret String</button> <span id="secretStringDiv" style="display: none;">Secret String: ${sessionScope.SecretString}</span>
-                                <button type="submit" id="showSecretButton">Save</button>
+                                <button id="showSecretButton">Show Secret String</button> <span id="secretStringDiv" style="display: none;">Secret String: ${sessionScope.SecretString}</span>                          
                             </div>
+                               
                         </div>
-                                </form>
+                              
                     </c:if>
 
                     <c:if test="${empty sessionScope.isLoggedIn}">
