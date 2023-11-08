@@ -60,12 +60,14 @@
                             <i class="bi bi-wallet2 h5"></i> Your Paid
                         </button>
                     </a>
+                    <% if (isUserLoggedIn) { %>
                     <%if(session.getAttribute("role").equals("Admin")){%>
                     <a href="admin.jsp" class="prevent-a-tag">
                         <button class="btn-primary rounded btn-cart btn-danger">
                             <i class="bi bi-shop h5"></i> Admin
                         </button>
                     </a>
+                    <%}%>
                     <%}%>
                     <% if (isUserLoggedIn) { %>
                     <a href="Logout" class="prevent-a-tag">
@@ -101,12 +103,12 @@
                             <h5 class="author-detail-book"><%= product.getAuthor() %></h5>
                             <div>
                                 <% if (product.getDiscountPercentage() == 0) { %>
-                                 <%
+                                <%
                                 
-                                      int totalPriceAsInt = (int) Math.round(product.getPrice());
-                                      NumberFormat formatter = NumberFormat.getIntegerInstance();
-                                      String formattedPrice111 = formatter.format(totalPriceAsInt);
-                                    %>
+                                     int totalPriceAsInt = (int) Math.round(product.getPrice());
+                                     NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                     String formattedPrice111 = formatter.format(totalPriceAsInt);
+                                %>
                                 <span class="discount-price-detail"><%= formattedPrice111 %>đ</span>
                                 <% } else { %>
                                 <div>

@@ -21,12 +21,12 @@ public class Order {
     private String PaymentMethod;
     private double TotalPrice;
     private String OrderStatus;
-
+    private String TimeBuy;
 
     public Order() {
     }
 
-    public Order(int OrderID, int UserID, String DeliveryAddress, String PhoneNumber, String RecipientName, String PaymentMethod, double TotalPrice, String OrderStatus) {
+    public Order(int OrderID, int UserID, String DeliveryAddress, String PhoneNumber, String RecipientName, String PaymentMethod, double TotalPrice, String OrderStatus, String TimeBuy) {
         this.OrderID = OrderID;
         this.UserID = UserID;
         this.DeliveryAddress = DeliveryAddress;
@@ -35,6 +35,7 @@ public class Order {
         this.PaymentMethod = PaymentMethod;
         this.TotalPrice = TotalPrice;
         this.OrderStatus = OrderStatus;
+        this.TimeBuy = TimeBuy;
     }
 
     public int getOrderID() {
@@ -101,6 +102,12 @@ public class Order {
         this.OrderStatus = OrderStatus;
     }
 
+    public String getTimeBuy() {
+        return TimeBuy;
+    }
 
+    public void setTimeBuy(String TimeBuy) {
+        this.TimeBuy = TimeBuy;
+    }
     
 }
