@@ -90,6 +90,8 @@
 
             <%-- Retrieving the list of orders from the request --%>
             <%
+                double totalValue = 0;
+                int totalBooks = 0;
                 List<Order> orders = (List<Order>)request.getAttribute("orders");
                 if(orders != null && !orders.isEmpty()) {
             %>
@@ -109,7 +111,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for(Order order : orders) { %>
+                        <%
+                                for(Order order : orders) { 
+                                        double orderTotalPrice = order.getTotalPrice(); 
+                                        totalValue += orderTotalPrice;
+                                        totalBooks += 1;
+                                        
+                        %>
                         <tr>
                             <td><%= order.getOrderID() %></td>
                             <td><%= order.getUserID() %></td>
@@ -128,67 +136,80 @@
                     </div>
                     <%  }
                     %>
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="total-section text-center">
+                            <h4>Number of Books:</h4>
+                            <p class="total-books"><%= totalBooks %></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="total-section text-center">
+                            <h4>Total Value:</h4>
+                            <p class="total-value"><%= totalValue %></p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </tbody>
-        <tfoot>
-        </tfoot>
-    </table>
+            <!-- Bootstrap JS and other scripts -->
+            <!-- ... existing script links ... -->
+            <script>
+                $(document).ready(function () {
+                    $('#dateForm').submit(function (event) {
+                        // Define the flag for form validation
+                        var isValid = true;
 
-</div>
-<!-- Bootstrap JS and other scripts -->
-<!-- ... existing script links ... -->
-<script>
-    $(document).ready(function () {
-        $('#dateForm').submit(function (event) {
-            // Define the flag for form validation
-            var isValid = true;
+                        // Clear any previous error messages
+                        $('#errorContainer').empty();
 
-            // Clear any previous error messages
-            $('#errorContainer').empty();
+                        // Get the values from the form
+                        var day = $('#day').val();
+                        var month = $('#month').val();
+                        var year = $('#year').val();
 
-            // Get the values from the form
-            var day = $('#day').val();
-            var month = $('#month').val();
-            var year = $('#year').val();
+                        // Only perform validation if one of the fields is selected
+                        if (day || month || year) {
+                            // Validate the day, month, and year selections
+                            if (day && (!month || !year)) {
+                                $('#errorContainer').append('<div class="error-message" style="color: red;">Day is selected without month or year.</div>');
+                                isValid = false;
+                            }
+                            if (month && !year) {
+                                $('#errorContainer').append('<div class="error-message" style="color: red;">Month is selected without year.</div>');
+                                isValid = false;
+                            }
+                        }
 
-            // Only perform validation if one of the fields is selected
-            if (day || month || year) {
-                // Validate the day, month, and year selections
-                if (day && (!month || !year)) {
-                    $('#errorContainer').append('<div class="error-message" style="color: red;">Day is selected without month or year.</div>');
-                    isValid = false;
-                }
-                if (month && !year) {
-                    $('#errorContainer').append('<div class="error-message" style="color: red;">Month is selected without year.</div>');
-                    isValid = false;
-                }
-            }
+                        // If there are any validation errors, prevent the form from submitting
+                        if (!isValid) {
+                            event.preventDefault();
+                        } else {
+                            // If no validation errors and no date selected, allow the form to submit to show all orders
+                            if (!day && !month && !year) {
+                                // No date selected, so the form submits and the servlet will handle showing all orders
+                            } else {
+                                // Code to format and display the selected date adjacent to the submit button
+                                var selectedDate = 'Selected Date: ' + (day ? day : 'DD') + '/' + (month ? month : 'MM') + '/' + (year ? year : 'YYYY');
+                                $('#selectedDateDisplay').text(selectedDate);
+                            }
+                        }
+                    });
+                });
 
-            // If there are any validation errors, prevent the form from submitting
-            if (!isValid) {
-                event.preventDefault();
-            } else {
-                // If no validation errors and no date selected, allow the form to submit to show all orders
-                if (!day && !month && !year) {
-                    // No date selected, so the form submits and the servlet will handle showing all orders
-                } else {
-                    // Code to format and display the selected date adjacent to the submit button
-                    var selectedDate = 'Selected Date: ' + (day ? day : 'DD') + '/' + (month ? month : 'MM') + '/' + (year ? year : 'YYYY');
-                    $('#selectedDateDisplay').text(selectedDate);
-                }
-            }
-        });
-    });
-
-    $(document).ready(function () {
-        $('#table1').DataTable();
-        responsive: true;
-    });
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-</body>
+                $(document).ready(function () {
+                    $('#table1').DataTable();
+                    responsive: true;
+                });
+            </script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    </body>
 
 
 </html>
