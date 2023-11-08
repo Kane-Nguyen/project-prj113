@@ -60,7 +60,7 @@ public class AnalysisServlet extends HttpServlet {
                 orders = orderDAO.getOrdersByYear(year);
             } else {
                 // If no date parameters are provided, retrieve all orders
-                orders = orderDAO.getAllProcessing(); // Assuming this method exists in your OrderDAO
+                orders = orderDAO.getAllShipped(); // Assuming this method exists in your OrderDAO
             }
         } catch (NumberFormatException e) {
             orders = new ArrayList<>();

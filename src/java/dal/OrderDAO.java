@@ -152,9 +152,9 @@ public class OrderDAO extends DBContext {
         return list;
     }
     
-    public List<Order> getAllProcessing() {
+    public List<Order> getAllShipped() {
         List<Order> list = new ArrayList<>();
-        String sql = "select * from Orders where OrderStatus = 'Processing'";
+        String sql = "select * from Orders where OrderStatus = 'Shipped'";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -205,7 +205,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getOrdersByDate(int day, int month, int year) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE DAY(TimeBuy) = ? AND MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Processing'";
+        String sql = "SELECT * FROM Orders WHERE DAY(TimeBuy) = ? AND MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Shipped'";
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, day);
             st.setInt(2, month);
@@ -227,7 +227,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getOrdersByMonthAndYear(int month, int year) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Processing'";
+        String sql = "SELECT * FROM Orders WHERE MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Shipped'";
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, month);
             st.setInt(2, year);
@@ -247,7 +247,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getOrdersByYear(int year) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE YEAR(TimeBuy) = ? and OrderStatus = 'Processing' ";
+        String sql = "SELECT * FROM Orders WHERE YEAR(TimeBuy) = ? and OrderStatus = 'Shipped' ";
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, year);
             try ( ResultSet rs = st.executeQuery()) {
