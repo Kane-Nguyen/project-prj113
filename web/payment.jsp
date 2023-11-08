@@ -69,13 +69,14 @@ if (error != null && error.equals("missing_id")) {
                     <a href="analysis.jsp" class="item-admin"><i class="bi bi-bar-chart-fill"></i>Dashboard</a>
                     <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i>Log Out</a>
+                    <a href="index.jsp" class="item-admin"><i class="bi bi-door-open"></i><li>Back to store</li></a>
                 </ul>
             </div>
             <div class="main-content">
-                <div class="container-wrap">
+                <div class="container-wrap ">
                     <button class="hamburger-button" onclick="toggleToolbar()"><i class="bi bi-list"></i></button>
                     <div class="title-and-button">
-                        <h1>Payment</h1>
+                        <h3 class="title-payment">Payment</h3>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -105,35 +106,35 @@ if (error != null && error.equals("missing_id")) {
                                                 <%if(order.getOrderStatus().equals("Cancel")){
                                                 %>
                                             <td><P>Canceled</P>
-                                            <form action="SaveOrderServlet" method="post">
-                                        <input type="hidden" style="border:1px;" name="iddelete" value="<%= order.getOrderID() %>">
-                                        <input type="hidden" style="border:1px;" name="method" value="delete">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>  </td>
-                                       
-                                    <%
+                                                <form action="SaveOrderServlet" method="post">
+                                                    <input type="hidden" style="border:1px;" name="iddelete" value="<%= order.getOrderID() %>">
+                                                    <input type="hidden" style="border:1px;" name="method" value="delete">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>  </td>
+
+                                            <%
                             } else{ %>
-                                    <td>
-                                        <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
-                                            <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
-                                            <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
-                                            <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
-                                            <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
-                                        </select>
-                                    </td> <%}%>
-                                    <td>
-                                        <%
-                               BooksInOrderDAO b = new BooksInOrderDAO();
-                               ProductDAO p = new ProductDAO();
-                              List<BooksInOrder> lp = b.getBookById(order.getOrderID());
-                               for(BooksInOrder bp: lp){
+                                            <td>
+                                                <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
+                                                    <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
+                                                    <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
+                                                    <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
+                                                    <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
+                                                </select>
+                                            </td> <%}%>
+                                            <td>
+                                                <%
+                                       BooksInOrderDAO b = new BooksInOrderDAO();
+                                       ProductDAO p = new ProductDAO();
+                                      List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                                       for(BooksInOrder bp: lp){
                     
-                                        %>
-                                        <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
-                                        <% }%>
-                                    </td>
-                                    </tr>
-                                    <% } %>
+                                                %>
+                                                <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
+                                                <% }%>
+                                            </td>
+                                        </tr>
+                                        <% } %>
                                     </tbody>
 
                             </table>

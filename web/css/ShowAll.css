@@ -14,17 +14,17 @@
 /* Styles for mobile */
 @media (max-width: 767px) {
     .filter-form{
-            margin-left: 60px;
-            margin-bottom: 20px;
+        margin-left: 60px;
+        margin-bottom: 20px;
     }
     .form-check input {
         height: 15px;
-    width: 15px;
+        width: 15px;
     }
     .scroll-up{
         cursor: pointer;
     }
-        
+
     .mobile-menu-button {
         display: block; /* Show menu button on mobile devices */
     }
@@ -32,7 +32,7 @@
         flex: 0 0 33.333333%; /* Set to display three products per row on mobile */
         max-width: 33.333333%;
     }
-    
+
     /* Optionally, adjust font sizes if needed */
     .card-title {
         font-size: 1em;

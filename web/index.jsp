@@ -38,7 +38,6 @@
 
         </script>
     </head> 
-
     <body>
         <%
                  Integer userID = (Integer) session.getAttribute("userID");
@@ -243,7 +242,7 @@
                     <div class="logo">
                         <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                     </div>
-                  
+
                 </div>
                 <div class="footer-right">
                     <h3>Social Media</h3>

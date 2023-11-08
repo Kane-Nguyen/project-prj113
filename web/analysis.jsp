@@ -51,12 +51,13 @@
                     <a href="analysis.jsp" class="item-admin active"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
                     <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
+                    <a href="index.jsp" class="item-admin"><i class="bi bi-door-open"></i><li>Back to store</li></a>
                 </ul>
 
             </div>
             <div class="wrap-content">
 
-                <h1 class="text-center" style="color: red;">Analysis Book</h1>
+                <h1 class="title-analysis">Analysis Book</h1>
                 <div class="row justify-content-center">
                     <form id="dateForm" action="AnalysisServlet" method="post" class="form-inline">
                         <div class="form-group mx-2">

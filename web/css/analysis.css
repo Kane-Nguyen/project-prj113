@@ -2,36 +2,60 @@
     display: flex;
     background-color: #f8f8f8;
 }
-.list-toolbar {
-    list-style: none;
-}
+/* Toolbar and Navigation */
 .toolbar {
     position: fixed;
-    top: 0px;
-    left: 0px;
-    margin-right: 40px;
+    top: 0;
+    left: 0;
     background-color: #fff;
+    border-right: 1px solid #dee2e6;
     height: 100vh;
-    min-width: 230px;
+    width: 230px; /* Adjust if necessary */
+    z-index: 1000;
 }
+
 .logo-img {
     padding: 20px;
     background-size: cover;
     height: 65px;
 }
+
+.list-toolbar {
+    list-style: none;
+    padding: 0;
+}
+
 .item-admin {
     color: #555;
     text-decoration: none;
+    padding: 10px 20px;
     display: flex;
+    align-items: center;
     gap: 10px;
     margin-top: 20px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
 }
+
+.item-admin:hover, .item-admin.active {
+    color: #0B63F8; /* Active and hover color */
+    background-color: #f0f0f0; /* Light background on hover */
+}
+
+/* Active class specifically for current page indication */
 .active {
-  font-size: 16px;
-  color: #0b63f8;
+    font-weight: bold;
+    color: #0B63F8; /* Highlight color for the active page */
+}
+.logo{
+    display: flex;
+    justify-content: center;
 }
 .close-toolbar{
     display: none;
+}
+.logo{
+    display: flex;
+    justify-content: center;
 }
 .wrap-content{
     display: flex;
@@ -39,6 +63,10 @@
     align-items: center;
     gap: 10px;
     width: 100%;
+}
+.title-analysis{
+    font-size: 26px;
+    text-align: left;
 }
 @media (max-width: 768px) {
 
@@ -49,6 +77,6 @@
     .form-group{
         width: 100%;
     }
-    
+
 
 }
