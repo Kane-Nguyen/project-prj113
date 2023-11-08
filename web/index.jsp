@@ -132,7 +132,7 @@
                     <div class="content-left w-50">
                         <h2 class="content-header">New Releases This Week</h2>
                         <p class="content-des">It's time to update your reading list with some of the latest and greatest releases in the literary world. From heart-pumping thrillers to captivating memoirs, this week's new releases offer something for everyone</p>
-                        <a href="mailto:khanhce171115@fpt.edu.vn" target="_blank" class="content-contact btn-primary rounded prevent-buttom-tag" style="color:white; text-align: center;">Contact</a>
+                        <a href="Support.jsp" class="content-contact btn-primary rounded prevent-buttom-tag" style="color:white; text-align: center;">Contact</a>
 
                     </div>
                     <div class="content-right w-50">
