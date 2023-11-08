@@ -80,7 +80,38 @@ input[type="email"]:focus {
     font-size: 16px;
     transition: background-color 0.3s;
 }
-
+.toolbar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin-right: 40px;
+    background-color: #fff;
+    height: 100vh;
+    min-width: 230px;
+}
+.logo-img {
+    padding: 20px;
+    background-size: cover;
+    height: 65px;
+}
+.item-admin {
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.active {
+    font-size: 16px;
+    color: #0b63f8;
+}
+.list-toolbar {
+    list-style: none;
+    margin-left: 20px;
+}
+.close-toolbar{
+    display: none;
+}
 .btn:hover {
     background-color: #0056b3;
 }

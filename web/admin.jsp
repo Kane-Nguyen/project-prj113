@@ -58,13 +58,13 @@ if (error != null && error.equals("missing_id")) {
                 <ul class="list-toolbar">
                     <a href="admin.jsp" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
                     <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
-                    <a href="" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
+                    <a href="analysis.jsp" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
                     <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
                 </ul>
             </div>
 
-            
+
             <div class="container-wrap">
                 <button class="hamburger-button btn-primary" onclick="toggleToolbar()">☰</button>
                 <div class="title-and-button">
@@ -106,11 +106,11 @@ if (error != null && error.equals("missing_id")) {
                                 </td>
                                 <td><%= product.getCategoryId() != -1 ? ctDAO.getCategoryByProductId(product.getCategoryId()) : "N/A" %></td>
                                 <td class="admin-product-description"><%= product.getDescription() != null ? product.getDescription() : "N/A" %></td>
-                                  <%
-                                         int totalPriceAsInt = (int) Math.round(product.getPrice());
-                                         NumberFormat formatter = NumberFormat.getIntegerInstance();
-                                         String formattedPrice1 = formatter.format(totalPriceAsInt);
-                                        %>
+                                <%
+                                       int totalPriceAsInt = (int) Math.round(product.getPrice());
+                                       NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                       String formattedPrice1 = formatter.format(totalPriceAsInt);
+                                %>
                                 <td><%= formattedPrice1 %>đ</td>
                                 <td><%= product.getDiscountPercentage() %> %</td>
                                 <td><%= product.getAuthor() != null ? product.getAuthor() : "N/A" %></td>
@@ -157,8 +157,6 @@ if (error != null && error.equals("missing_id")) {
                             xhr.send();
                         }
                     }
-                </script>
-                <script type="text/javascript">
                     document.addEventListener('DOMContentLoaded', function () {
                         var searchInput = document.getElementById('searchInput');
 

@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/cart.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/showAll.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/analysis.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/model/Order.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/admin.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/css/userdetail.css</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/controller/AnalysisServlet.java</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/detail.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/web/index.jsp</file>
-            <file>file:/D:/Chuyennganhki4/PRJ/code/project-prj113/src/java/dal/OrderDAO.java</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/analysis.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/css/admin.css</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/index.jsp</file>
+            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/admin.jsp</file>
         </group>
     </open-files>
 </project-private>

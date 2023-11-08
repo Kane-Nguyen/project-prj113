@@ -66,7 +66,7 @@ if (error != null && error.equals("missing_id")) {
                 <ul class="list-toolbar">
                     <a href="admin.jsp" class="item-admin"><i class="bi bi-book-half"></i>Book Management</a>
                     <a href="payment.jsp" class="item-admin active"><i class="bi bi-wallet2"></i>Payment</a>
-                    <a href="" class="item-admin"><i class="bi bi-bar-chart-fill"></i>Dashboard</a>
+                    <a href="analysis.jsp" class="item-admin"><i class="bi bi-bar-chart-fill"></i>Dashboard</a>
                     <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i>Log Out</a>
                 </ul>
