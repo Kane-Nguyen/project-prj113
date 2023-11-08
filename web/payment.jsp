@@ -13,6 +13,7 @@
 <%@page import="dal.BooksInOrderDAO"%>
 <%@page import="model.BooksInOrder" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@page import="java.text.NumberFormat"%>
 <%
 OrderDAO o = new OrderDAO();
 List<Order> lo = o.getAll();
@@ -86,11 +87,12 @@ if (error != null && error.equals("missing_id")) {
                                         <th>Name</th>
                                         <th>Payment Method</th>
                                         <th>total price</th>
-                                        <th>Order Status</th>
                                         <th>Products</th>
+                                        <th>Order Status</th>
                                     </tr>
                                 </thead>
                                 <form action="SaveOrdersServlet" method="POST">
+
                                     <button type="submit" class="btn btn-primary mt-2 ml-1"">Save</button>
                                     <tbody>
                                         <% for (Order order : lo) { %>
@@ -101,26 +103,12 @@ if (error != null && error.equals("missing_id")) {
                                             <td><input  type="text" style="border:1px;" name="phoneNumber" value="<%= order.getPhoneNumber() %>"></td>
                                             <td><input type="text" style="border:1px;" name="recipientName" value="<%= order.getRecipientName() %>"></td>
                                             <td><input type="text" style="border:1px;" name="paymentMethod" value="<%= order.getPaymentMethod() %>"></td>
-                                            <td><input type="number" style="border:1px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>"></td>
-                                                <%if(order.getOrderStatus().equals("Cancel")){
-                                                %>
-                                            <td><P>Canceled</P>
-                                            <form action="SaveOrderServlet" method="post">
-                                        <input type="hidden" style="border:1px;" name="iddelete" value="<%= order.getOrderID() %>">
-                                        <input type="hidden" style="border:1px;" name="method" value="delete">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>  </td>
-                                       
-                                    <%
-                            } else{ %>
-                                    <td>
-                                        <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>">
-                                            <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
-                                            <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
-                                            <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
-                                            <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
-                                        </select>
-                                    </td> <%}%>
+                                                <%  int totalPriceAsInt = (int) Math.round(order.getTotalPrice());
+                                          NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                          String formattedPrice11 = formatter.format(totalPriceAsInt);%>
+                                            <td><%=formattedPrice11%>VND</td>
+                                    <input type="hidden" style="border:1px;" name="totalPrices" value="<%= String.format("%.3f", order.getTotalPrice()) %>">
+                                    <input type="hidden" style="border:1px;" name="method" value="abc">
                                     <td>
                                         <%
                                BooksInOrderDAO b = new BooksInOrderDAO();
@@ -131,16 +119,35 @@ if (error != null && error.equals("missing_id")) {
                                         %>
                                         <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
                                         <% }%>
-                                    </td>
-                                    </tr>
-                                    <% } %>
-                                    </tbody>
+                                    </td> 
 
+                                    <td>
+                                        <select name="orderStatus" class="order-status" data-order-id="<%= order.getOrderID() %>" <%= order.getOrderStatus().equals("Cancel") ? "disabled" : "" %>>
+                                            <option value="Pending" <%= order.getOrderStatus().equals("Pending") ? "selected" : "" %>>Pending</option>
+                                            <option value="Preparing" <%= order.getOrderStatus().equals("Preparing") ? "selected" : "" %>>Preparing</option>
+                                            <option value="Shipping" <%= order.getOrderStatus().equals("Shipping") ? "selected" : "" %>>Shipping</option>
+                                            <option value="Delivered" <%= order.getOrderStatus().equals("Delivered") ? "selected" : "" %>>Delivered</option>
+                                            <option value="Cancel" <%= order.getOrderStatus().equals("Cancel") ? "selected" : "" %>>Cancel</option>
+                                        </select>
+
+                                        <%if(order.getOrderStatus().equals("Cancel")
+                                    ){
+                                        %>
+                                        
+                                        <input type="hidden" name="orderStatus" value="Cancel">
+                                       
+                                        <button type="button" class="btn btn-danger" onclick="confirmDelete('<%= order.getOrderID() %>')">Delete</button>
+
+                                    </td>                                                                                                                                                                             
+                                    </tr>
+                                    <% }} %>
+                                    </tbody>
+                                </form>
                             </table>
 
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                             <input type="hidden" name="method" value="payment">
-                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -148,17 +155,45 @@ if (error != null && error.equals("missing_id")) {
         </div>
 
         <script>
-                        function toggleToolbar() {
-                            var toolbar = document.querySelector('.toolbar');
-                            // Nếu toolbar đang hiển thị, ẩn nó đi
-                            if (toolbar.style.display === 'block') {
-                                toolbar.style.display = 'none';
-                            } else {
-                                // Nếu không, hiển thị nó
-                                toolbar.style.display = 'block';
-                                toolbar.classList.add('toggle'); // Thêm class để hiệu ứng chuyển đổi có thể hoạt động
-                            }
-                        }
+                                            function toggleToolbar() {
+                                                var toolbar = document.querySelector('.toolbar');
+                                                // Nếu toolbar đang hiển thị, ẩn nó đi
+                                                if (toolbar.style.display === 'block') {
+                                                    toolbar.style.display = 'none';
+                                                } else {
+                                                    // Nếu không, hiển thị nó
+                                                    toolbar.style.display = 'block';
+                                                    toolbar.classList.add('toggle'); // Thêm class để hiệu ứng chuyển đổi có thể hoạt động
+                                                }
+                                            }
+        </script>
+        <script>
+            function confirmDelete(orderId) {
+                var confirmDelete = confirm("Are you sure you want to delete this order?");
+                if (confirmDelete) {
+                    // If confirmed, send a POST request to your server to delete the order
+                    var form = document.createElement("form");
+                    form.method = "post";
+                    form.action = "SaveOrdersServlet"; // Your servlet that handles deletion
+
+                    // Add the order ID to your form as a hidden field
+                    var hiddenField = document.createElement("input");
+                    hiddenField.type = "hidden";
+                    hiddenField.name = "iddelete";
+                    hiddenField.value = orderId;
+                    form.appendChild(hiddenField);
+
+                    // Add the method type to your form as a hidden field
+                    var methodField = document.createElement("input");
+                    methodField.type = "hidden";
+                    methodField.name = "method";
+                    methodField.value = "delete";
+                    form.appendChild(methodField);
+
+                    document.body.appendChild(form); // Must add the form to the body before submitting
+                    form.submit(); // Submit the form to the server
+                }
+            }
         </script>
     </body>
 </html>

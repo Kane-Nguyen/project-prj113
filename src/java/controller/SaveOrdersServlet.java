@@ -97,9 +97,11 @@ public class SaveOrdersServlet extends HttpServlet {
        
         boolean allUpdatesSuccessful = true;
         for (int i = 0; i < orderIDs.length; i++) {
+            System.out.println(orderIDs.length);
             int orderIdInt = Integer.parseInt(orderIDs[i]);
             int userIdInt = Integer.parseInt(userIDs[i]);
             double totalPriceDouble = Double.parseDouble(totalPrices[i]);
+            System.out.println(orderIdInt+" "+userIdInt+" "+deliveryAddresses[i]+" "+phoneNumbers[i]+" "+recipientNames[i]+" "+paymentMethods[i]+" "+orderStatuses[i]+" "+totalPriceDouble);
             boolean isSuccessful = o.updateOrder(orderIdInt, userIdInt, deliveryAddresses[i], phoneNumbers[i], recipientNames[i], paymentMethods[i], orderStatuses[i], totalPriceDouble);
             if (!isSuccessful) {
                 allUpdatesSuccessful = false;
