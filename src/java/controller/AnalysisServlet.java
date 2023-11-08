@@ -1,14 +1,15 @@
 package controller;
 
-import dal.HistoryDAO;
+import dal.OrderDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
-import model.History;
+import model.Order;
 
 public class AnalysisServlet extends HttpServlet {
 
@@ -37,36 +38,46 @@ public class AnalysisServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String month_raw = request.getParameter("month");
-        int year = Integer.parseInt(request.getParameter("year"));
-        String day_raw = request.getParameter("day");
-        
-        HistoryDAO historyDAO = new HistoryDAO();
-        List<History> histories;
-        
-        if (day_raw != null && !day_raw.isEmpty() && month_raw != null && !month_raw.isEmpty()) {
-            int day = Integer.parseInt(day_raw);
-            int month = Integer.parseInt(month_raw);
-            histories = historyDAO.getHistoryByDayMonthAndYear(day, month, year);
-            request.setAttribute("selectedDay", day);
-            request.setAttribute("selectedMonth", month);
-        } else if (month_raw != null && !month_raw.isEmpty()) {
-            int month = Integer.parseInt(month_raw);
-            histories = historyDAO.getHistoryByMonthAndYear(month, year);
-            request.setAttribute("selectedMonth", month);
-        } else {
-            histories = historyDAO.getHistoryByYear(year);
-        }
-        
-        request.setAttribute("selectedYear", year);
-        request.setAttribute("histories", histories);
+        String dayString = request.getParameter("day");
+        String monthString = request.getParameter("month");
+        String yearString = request.getParameter("year");
 
-        request.getRequestDispatcher("analysis.jsp").forward(request, response);
+
+        OrderDAO orderDAO = new OrderDAO();
+        List<Order> orders = new ArrayList<>();
+
+        try {
+            // Default to null if the parameter is not set or is empty
+            Integer day = (dayString != null && !dayString.isEmpty()) ? Integer.parseInt(dayString) : null;
+            Integer month = (monthString != null && !monthString.isEmpty()) ? Integer.parseInt(monthString) : null;
+            Integer year = (yearString != null && !yearString.isEmpty()) ? Integer.parseInt(yearString) : null;
+
+            if (day != null && month != null && year != null) {
+                orders = orderDAO.getOrdersByDate(day, month, year);
+            } else if (month != null && year != null) {
+                orders = orderDAO.getOrdersByMonthAndYear(month, year);
+            } else if (year != null) {
+                orders = orderDAO.getOrdersByYear(year);
+            } else {
+                // If no date parameters are provided, retrieve all orders
+                orders = orderDAO.getAllProcessing(); // Assuming this method exists in your OrderDAO
+            }
+        } catch (NumberFormatException e) {
+            orders = new ArrayList<>();
+        }
+
+        // Set the orders and other attributes for the request
+        request.setAttribute("selectedDay", dayString);
+        request.setAttribute("selectedMonth", monthString);
+        request.setAttribute("selectedYear", yearString);
+        request.setAttribute("orders", orders);
+
+        // Forward the request to the JSP page
+        request.getRequestDispatcher("/analysis.jsp").forward(request, response);
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-
 }

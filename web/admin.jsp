@@ -56,7 +56,7 @@ if (error != null && error.equals("missing_id")) {
                     <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                 </div>
                 <ul class="list-toolbar">
-                    <a href="/" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
+                    <a href="admin.jsp" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
                     <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
                     <a href="" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
                     <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
