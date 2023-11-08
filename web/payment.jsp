@@ -70,13 +70,14 @@ if (error != null && error.equals("missing_id")) {
                     <a href="analysis.jsp" class="item-admin"><i class="bi bi-bar-chart-fill"></i>Dashboard</a>
                     <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i>Log Out</a>
+                    <a href="index.jsp" class="item-admin"><i class="bi bi-door-open"></i><li>Back to store</li></a>
                 </ul>
             </div>
             <div class="main-content">
-                <div class="container-wrap">
+                <div class="container-wrap ">
                     <button class="hamburger-button" onclick="toggleToolbar()"><i class="bi bi-list"></i></button>
                     <div class="title-and-button">
-                        <h1>Payment</h1>
+                        <h3 class="title-payment">Payment</h3>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>

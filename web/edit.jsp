@@ -86,107 +86,95 @@
     </head>
     <body>
         <div class="wrap-admin-page">
-            <div class="toolbar">
-                <div class="logo">
-                    <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
-                </div>
-                <ul class="list-toolbar">
-                    <a href="admin.jsp" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
-                    <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
-                    <a href="" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
-                    <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
-                </ul>
-            </div>
-               <div>
+            <div>
                 <h2 class="h2">Products Information</h2>
-            <div class="product-info-container">
-                <form action="CRUD" method="post">
-                    <div class="left-section">
+                <div class="product-info-container">
+                    <form action="CRUD" method="post">
+                        <div class="left-section">
 
-                        <label for="productName">Product Name</label>
+                            <label for="productName">Product Name</label>
+                            <input
+                                type="text"
+                                id="productName"
+                                name="productName"
+                                value="<%= list.get(index).getProductName() %>" />
+
+                            <label for="description">Description</label>
+
+                            <textarea id="description" name="description">
+                                <%= list.get(index).getDescription() %></textarea
+                            >
+
+                            <label for="price">Price</label>
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                value="<%= (int)Math.floor(list.get(index).getPrice()) %>" />
+
+                            <label for="discountPercentage">Discount Percentage</label>
+
+                            <input
+                                type="number"
+                                id="discountPercentage"
+                                name="discountPercentage"
+                                value="<%= list.get(index).getDiscountPercentage() %>" />
+                        </div>
+                        <div class="right-section">
+                            <label for="imageURL">Image URL</label>
+                            <input
+                                type="text"
+                                id="imageURL"
+                                name="imageURL"
+                                value="<%= list.get(index).getImageURL() %>" />
+                            <label for="stockQuantity">Stock Quantity</label>
+                            <input
+                                type="number"
+                                id="stockQuantity"
+                                name="stockQuantity"
+                                value="<%= list.get(index).getStockQuantity() %>" />
+                            <label for="category">Category</label>
+                            <select id="category" name="category">
+                                <% for (CategoryBook category : allCategories) { 
+                                   String selected = category.getCategoryName().equals(currentCategoryName) ? "selected" : "";
+                                %>
+                                <option value="<%= category.getCategoryID() %>" <%= selected %>><%= category.getCategoryName() %></option>
+                                <% } %>
+                            </select>
+                            <label for="Author">Author</label>
+
+                            <input
+                                type="text"
+                                id="Author"
+                                name="Author"
+                                value="<%= list.get(index).getAuthor() %>" />
+                        </div>
                         <input
                             type="text"
-                            id="productName"
-                            name="productName"
-                            value="<%= list.get(index).getProductName() %>" />
-
-                        <label for="description">Description</label>
-
-                        <textarea id="description" name="description">
-                            <%= list.get(index).getDescription() %></textarea
-                        >
-
-                        <label for="price">Price</label>
-                        <input
-                            type="number"
-                            id="price"
-                            name="price"
-                            value="<%= (int)Math.floor(list.get(index).getPrice()) %>" />
-
-                        <label for="discountPercentage">Discount Percentage</label>
-
-                        <input
-                            type="number"
-                            id="discountPercentage"
-                            name="discountPercentage"
-                            value="<%= list.get(index).getDiscountPercentage() %>" />
-                    </div>
-                    <div class="right-section">
-                        <label for="imageURL">Image URL</label>
-                        <input
-                            type="text"
-                            id="imageURL"
-                            name="imageURL"
-                            value="<%= list.get(index).getImageURL() %>" />
-                        <label for="stockQuantity">Stock Quantity</label>
-                        <input
-                            type="number"
-                            id="stockQuantity"
-                            name="stockQuantity"
-                            value="<%= list.get(index).getStockQuantity() %>" />
-                        <label for="category">Category</label>
-                        <select id="category" name="category">
-                            <% for (CategoryBook category : allCategories) { 
-                               String selected = category.getCategoryName().equals(currentCategoryName) ? "selected" : "";
-                            %>
-                            <option value="<%= category.getCategoryID() %>" <%= selected %>><%= category.getCategoryName() %></option>
-                            <% } %>
-                        </select>
-                        <label for="Author">Author</label>
-
-                        <input
-                            type="text"
-                            id="Author"
-                            name="Author"
-                            value="<%= list.get(index).getAuthor() %>" />
-                    </div>
-                    <input
-                        type="text"
-                        id="method"
-                        name="method"
-                        value="edit"
-                        style="display: none" />
-                    </td>
-                    <td>
-                        <input
-                            type="text"
-                            id="id1"
-                            name="id1"
-                            value="<%= list.get(index).getProductId() %>"
+                            id="method"
+                            name="method"
+                            value="edit"
                             style="display: none" />
-                    </td>
-                    <div class="button-section">
-                        <a href="admin.jsp">
-                            <button type="button">Cancel</button>
-                        </a>
-                        <button type="submit">Edit</button>
-                    </div>            
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                id="id1"
+                                name="id1"
+                                value="<%= list.get(index).getProductId() %>"
+                                style="display: none" />
+                        </td>
+                        <div class="button-section">
+                            <a href="admin.jsp">
+                                <button type="button">Cancel</button>
+                            </a>
+                            <button type="submit">Edit</button>
+                        </div>            
+                </div>
+                </table>
+                </form>
             </div>
-        </table>
-
-    </form>
-
-</div>
-</body>
+        </div>
+    </body>
 
 </html>

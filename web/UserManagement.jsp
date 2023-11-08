@@ -55,6 +55,7 @@ List<Users> lo = o.getAll();
                     <a href="analysis.jsp" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
                     <a href="" class="item-admin active"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
+                    <a href="index.jsp" class="item-admin"><i class="bi bi-door-open"></i><li>Back to store</li></a>
                 </ul>
             </div>
             <div>

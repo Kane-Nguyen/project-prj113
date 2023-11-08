@@ -50,17 +50,6 @@ response.sendRedirect("admin.jsp");
     </head>
     <body>
         <div class="wrap-admin-page">
-            <div class="toolbar">
-                <div class="logo">
-                    <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
-                </div>
-                <ul class="list-toolbar">
-                    <a href="admin.jsp" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
-                    <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
-                    <a href="" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
-                    <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
-                </ul>
-            </div>
             <div>
                 <h2 class="h2">Products Information</h2>
                 <div class="product-info-container">
@@ -106,5 +95,6 @@ response.sendRedirect("admin.jsp");
                 </div>
             </div>
         </form>
+    </div>
 </body>
 </html>

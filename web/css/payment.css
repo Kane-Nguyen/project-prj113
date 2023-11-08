@@ -77,8 +77,8 @@ html, body {
 
 /* Main Content Styles */
 .main-content {
+    margin-top: 50px;
     margin-left: 270px; /* This should match the width of your fixed toolbar plus any desired margin */
-    padding: 20px;
     width: calc(100% - 270px); /* Full width minus the toolbar and any additional margins */
     background-color: #fff; /* Consistent with the toolbar background for a cohesive look */
 }
@@ -103,7 +103,10 @@ html, body {
     color: #fff;
     border: none;
 }
-
+.logo{
+    display: flex;
+    justify-content: center;
+}
 .table tbody tr:nth-child(odd) {
     background-color: #f8f9fa; /* Zebra striping for rows */
 }
