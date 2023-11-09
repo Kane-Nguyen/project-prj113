@@ -54,7 +54,7 @@ List<Users> lo = o.getAll();
                     <a href="admin.jsp" class="item-admin "><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
                     <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
                     <a href="analysis.jsp" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
-                    <a href="" class="item-admin active"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
+                    <a href="UserManagement.jsp" class="item-admin active"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
                     <a href="index.jsp" class="item-admin"><i class="bi bi-door-open"></i><li>Back to store</li></a>
                 </ul>
@@ -73,7 +73,7 @@ List<Users> lo = o.getAll();
                     </tr>
 
                     <a href="addUsers.jsp">
-                        <button class="btn btn-primary mr-2" type="submit">add</button></a>
+                        <button class="btn btn-primary mr-2" type="submit">Add User</button></a>
                     <form id="FormId" action="SaveUserServlet" method="POST">
                         <button class="btn btn-primary" type="submit">Save</button>
 
