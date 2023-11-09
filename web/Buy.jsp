@@ -88,7 +88,7 @@
                                             name="quantity"
                                             id="quantity_<%=a%>"
                                             value="<%= quantity %>"
-                                            onchange="updateQuantityAndTotal('<%=a%>', <%= discountedPrice %>);largeThan0('<%=a%>',<%= discountedPrice %>)" />
+                                            onchange="updateQuantityAndTotal('<%=a%>', <%= discountedPrice %>)" />
 
                                         <input
                                             type="hidden"
@@ -196,8 +196,15 @@
                     $("#stock_error_" + a).text("Cannot purchase more than the available stock!");
                     return;
                 }
+             
 
                 var itemTotal = unitPrice * quantity;
+                   if (quantity <= 0) {
+                    $("#itemTotal_" + a).text(unitPrice.toLocaleString('en-US') + " VNĐ");
+                     $("#stock_error_" + a).text("Please enter Quantity more than 0");
+                     $("#quantity_" + a).val(1);
+                    return;
+                }
                 // Format the item total as a string with commas
                 $("#itemTotal_" + a).text(itemTotal.toLocaleString('en-US') + " VNĐ");
 
@@ -250,7 +257,7 @@
                 if (quantity <= 0) {
                     alert("Please enter Quantity more than 0");
                     $("#quantity_" + a).val(1);
-                    $("#itemTotal_" + a).text(unitPrice.toFixed(3) + "VNĐ");
+                    $("#itemTotal_" + a).text(itemTotal.toLocaleString('en-US') + " VNĐ");
                 }
             }
         </script>

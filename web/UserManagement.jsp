@@ -40,25 +40,26 @@ List<Users> lo = o.getAll();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" href="./css/Usermanagement.css">
+        <link rel="stylesheet" href="./css/admin.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     </head>
     <body>
-        <div class="container wrap-admin-page">
+        <div class="wrap-admin-page">
             <div class="toolbar">
                 <div class="logo">
                     <img class="logo-img" src="./asset/images/home-images/logo.png" alt="logo"/>
                 </div>
                 <ul class="list-toolbar">
-                    <a href="admin.jsp" class="item-admin "><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
+                    <a href="admin.jsp" class="item-admin active"><i class="bi bi-book-half h5"></i><li>Book Management</li></a>
                     <a href="payment.jsp" class="item-admin"><i class="bi bi-wallet2 h5"></i><li>Payment</li></a>
                     <a href="analysis.jsp" class="item-admin"><i class="bi bi-bar-chart-fill h5"></i><li>Dashboard</li></a>
-                    <a href="" class="item-admin active"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
+                    <a href="UserManagement.jsp" class="item-admin"><i class="bi bi-people-fill h5"></i><li>User Management</li></a>
                     <a href="Logout" class="item-admin"><i class="bi bi-box-arrow-left"></i></i><li>Log Out</li></a>
                     <a href="index.jsp" class="item-admin"><i class="bi bi-door-open"></i><li>Back to store</li></a>
                 </ul>
             </div>
-            <div>
+            <div class="container-wrap">
                 <h1>User Management</h1>
                 <table class="table table-bordered">
 

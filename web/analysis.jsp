@@ -2,9 +2,14 @@
 <%@page import="java.util.List"%>
 <%@ page import="model.Order" %>
 <%@ page import="dal.OrderDAO" %>
+<%@page import="dal.BooksInOrderDAO"%>
+<%@page import="model.BooksInOrder" %>
+<%@page import="dal.ProductDAO"%>
+<%@page import="model.Product" %>
 <%@page import="java.util.Calendar"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.text.NumberFormat"%>
 <%
  if (session == null || session.getAttribute("isLoggedIn") == null || 
  !(Boolean)session.getAttribute("isLoggedIn") || session.getAttribute("role") == null || 
@@ -21,7 +26,7 @@
         return;
 }
         OrderDAO o = new OrderDAO();
-        
+        double total=0;
 
 %>
 <!DOCTYPE html>
@@ -104,13 +109,12 @@
                             <tr>
                                 <th>Order ID</th>
                                 <th>User ID</th>
-                                <th>Delivery Address</th>
-                                <th>Phone Number</th>
-                                <th>Recipient Name</th>
+                              
                                 <th>Payment Method</th>
                                 <th>Total Price</th>
                                 <th>Order Status</th>
                                 <th>Time of Order</th>
+                                <th>Book</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,15 +122,33 @@
                             <tr>
                                 <td><%= order.getOrderID() %></td>
                                 <td><%= order.getUserID() %></td>
-                                <td><%= order.getDeliveryAddress() %></td>
-                                <td><%= order.getPhoneNumber() %></td>
-                                <td><%= order.getRecipientName() %></td>
+
                                 <td><%= order.getPaymentMethod() %></td>
-                                <td><%= order.getTotalPrice() %></td>
+                                <%
+                                  int totalPriceAsInt = (int) Math.round(order.getTotalPrice());
+                                      NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                      String formattedPrice11 = formatter.format(totalPriceAsInt);
+                                %>
+                                <td><%= formattedPrice11 %></td>
                                 <td><%= order.getOrderStatus() %></td>
                                 <td><%= order.getTimeBuy() %></td>
+                                 <td>
+                                        <%
+                               BooksInOrderDAO b = new BooksInOrderDAO();
+                               ProductDAO p = new ProductDAO();
+                              List<BooksInOrder> lp = b.getBookById(order.getOrderID());
+                               for(BooksInOrder bp: lp){
+                    
+                                        %>
+                                        <p><%=p.getProductNameById(bp.getProductID()) %>:<%=bp.getQuantity()%>,</p>
+                                        <% }%>
+                                    </td> 
                             </tr>
-                            <% } %>
+                            <%  
+                                   total= total + order.getTotalPrice();
+                                } %>
+                                
+                               
                             <%  } else { %>
                         <div class="alert alert-warning" role="alert">
                             No data available for the selected date.
@@ -138,6 +160,12 @@
                 <tfoot>
                 </tfoot>
                 </table>
+                <%
+                                  int totalPriceAsInt = (int) Math.round(total);
+                                      NumberFormat formatter = NumberFormat.getIntegerInstance();
+                                      String formattedPrice111 = formatter.format(totalPriceAsInt);
+                                %>
+                <h3 class="ml-5">Total: <%=formattedPrice111%>VND</h3> 
             </div>
         </div>
 

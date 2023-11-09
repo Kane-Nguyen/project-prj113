@@ -84,9 +84,9 @@ List<Users> l = u.getAllById(id);
                         <input name="method1" type="hidden" value="edit1">
                         <button type="submit" id="showSecretButton1">Save</button>
                     </form>
-                    <div class="form-group">
-                        <div class="user-id"<label for="fullName"></label><a href="changePassword.jsp">Change Password</a></div> 
-                    </div>
+                    <button class="form-group">
+                        <a class="btn btn-primary" style="text-decoration: none; color: #FFF" href="changePassword.jsp" role="button">Change Password</a>
+                    </button>
                     <div class="form-group d-flex">
                         <div class="user-id">
                             <button id="showSecretButton">Show Secret String</button> <span id="secretStringDiv" style="display: none;">Secret String: ${sessionScope.SecretString}<button id="showSecretButton3">Change Secret</button></span>                          

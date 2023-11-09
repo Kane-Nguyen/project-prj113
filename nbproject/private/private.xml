@@ -3,7 +3,53 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Workspace/PRJ113/projectPRJ113/web/index.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/ProcessOrderServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/payment.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/OrderDAO.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/css/userdetail.css</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/SaveOrdersServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/UpdateQuantityServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/admin.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/UserManagement.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/showAll.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/admin.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/css/index.css</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/HistoryDAO.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/paid.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/detail.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/model/ReviewsAndRatings.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/index.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/css/admin.css</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/signup.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/changePassword.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/css/signup.css</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/SaveUserServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/DBContext.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/css/analysis.css</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/analysis.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/Buy.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/signup.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/ProductDAO.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/model/Order.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/login.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/userDetailPW.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/AddToCartServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/search.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/loginServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/model/Users.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/ReviewsAndRatingsServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/UsersDAO.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/userDetail.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/addUsers.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/model/History.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/ChangePassword.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/BooksInOrderDAO.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/edit.jsp</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/ReviewsAndRatingsDAO.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/dal/CategoryDAO.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/src/java/controller/AnalysisServlet.java</file>
+            <file>file:/D:/Workspace/PRJ/project-prj113/web/cart.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -54,12 +54,11 @@ public class OrderDAO extends DBContext {
     }
 
     public boolean deleteProductAndRelatedData(int OrderID) {
-        PreparedStatement stTransactionHistory = null;
+
         PreparedStatement stOrders = null;
         PreparedStatement stBookInOrder = null;
 
         String deleteBookInOrderSQL = "DELETE FROM BooksInOrder WHERE OrderID=?";
-        String deleteHistoryBuyBookSQL = "DELETE FROM TransactionHistory WHERE OrderID=?";
         String deleteOrderSQL = "DELETE FROM Orders WHERE OrderID=?";
 
         try {
@@ -70,9 +69,7 @@ public class OrderDAO extends DBContext {
             stBookInOrder.setInt(1, OrderID);
             stBookInOrder.executeUpdate();
 
-            stTransactionHistory = connection.prepareStatement(deleteHistoryBuyBookSQL);
-            stTransactionHistory.setInt(1, OrderID);
-            stTransactionHistory.executeUpdate();
+           
 
             // 2. Delete from Orders
             stOrders = connection.prepareStatement(deleteOrderSQL);
@@ -96,9 +93,7 @@ public class OrderDAO extends DBContext {
             return false; // Return false if there was an exception and a rollback occurred
         } finally {
             try {
-                if (stTransactionHistory != null) {
-                    stTransactionHistory.close();
-                }
+              
                 if (stOrders != null) {
                     stOrders.close();
                 }
@@ -205,7 +200,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getOrdersByDate(int day, int month, int year) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE DAY(TimeBuy) = ? AND MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Shipped'";
+        String sql = "SELECT * FROM Orders WHERE DAY(TimeBuy) = ? AND MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Delivered'";
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, day);
             st.setInt(2, month);
@@ -227,7 +222,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getOrdersByMonthAndYear(int month, int year) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Shipped'";
+        String sql = "SELECT * FROM Orders WHERE MONTH(TimeBuy) = ? AND YEAR(TimeBuy) = ? and OrderStatus = 'Delivered'";
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, month);
             st.setInt(2, year);
@@ -247,7 +242,7 @@ public class OrderDAO extends DBContext {
 
     public List<Order> getOrdersByYear(int year) {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders WHERE YEAR(TimeBuy) = ? and OrderStatus = 'Shipped' ";
+        String sql = "SELECT * FROM Orders WHERE YEAR(TimeBuy) = ? and OrderStatus = 'Delivered' ";
         try ( PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, year);
             try ( ResultSet rs = st.executeQuery()) {
