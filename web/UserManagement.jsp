@@ -40,6 +40,7 @@ List<Users> lo = o.getAll();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" href="./css/Usermanagement.css">
+        <link rel="stylesheet" href="./css/admin.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     </head>
@@ -58,7 +59,7 @@ List<Users> lo = o.getAll();
                     <a href="index.jsp" class="item-admin"><i class="bi bi-door-open"></i><li>Back to store</li></a>
                 </ul>
             </div>
-            <div>
+            <div class="container-wrap">
                 <h1>User Management</h1>
                 <table class="table table-bordered">
 
