@@ -1,6 +1,7 @@
 .wrap-admin-page {
     display: flex;
     background-color: #f8f8f8;
+    margin-left: 230px;
 }
 /* Toolbar and Navigation */
 .toolbar {

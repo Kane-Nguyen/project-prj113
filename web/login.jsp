@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>LogIn Store</title>
+        <title>Login To Store</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

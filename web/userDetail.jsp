@@ -42,7 +42,7 @@ List<Users> l = u.getAllById(id);
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>User Detail</title>
+        <title>Your Profile</title>
     </head>
     <body>
         <div class="container">
